@@ -1,0 +1,9 @@
+.singlecard {
+    width:80%;
+}
+.image {
+  width: 200px;
+  vertical-align: middle;
+
+  padding-bottom: 10px;
+}
