@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProviderSelectionComponent } from './provider-selection/provider-selection.component';
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+
 
 const routes: Routes = [
 
@@ -11,6 +14,8 @@ const routes: Routes = [
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'provider-selection', component: ProviderSelectionComponent },
   { path: 'appointment-details', component: AppointmentDetailsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 
 
   // otherwise redirect to home
