@@ -84,7 +84,6 @@ stages:
       displayName: sonarcloud results build publish
 
 - stage: deploy
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   dependsOn: build
 
   jobs:
