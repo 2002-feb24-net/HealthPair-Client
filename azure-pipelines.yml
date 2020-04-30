@@ -10,7 +10,7 @@ stages:
 
   variables:
     nodeVersion: 12.x
-    appDir: HealthPair
+    appDir: ./HealthPair
 
   jobs:
 
