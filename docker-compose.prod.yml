@@ -4,7 +4,7 @@ version: '3.7'
 services:
 
   web:
-    build: healthpair
+    build: HealthPair
     image: kyranbryant/healthpairclientapp:1.0
     ports:
       - 80:80
