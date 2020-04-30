@@ -1,9 +1,25 @@
-FROM node:10.13-alpine
-ENV NODE_ENV production
-WORKDIR /usr/src/app
-COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
-RUN npm install --production --silent && mv node_modules ../
-COPY . .
-EXPOSE 3000
-EXPOSE 80
-CMD npm start
+# newest lts
+FROM node:12 as build
+
+WORKDIR /app
+
+# restore dependencies as separate layer
+COPY package.json package-lock.json ./
+# deterministic restore using package-lock
+RUN npm ci
+
+COPY . ./
+
+RUN npx ng build --prod
+
+# stable
+FROM nginx:1.18
+
+WORKDIR /usr/share/nginx/html
+
+# remove default nginx page
+RUN rm -rf *
+# config server for deep linking
+COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=build /app/dist/* ./
