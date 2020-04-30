@@ -8,6 +8,10 @@ stages:
 
 - stage: build
 
+  variables:
+    nodeVersion: 12.x
+    appDir: HealthPair
+
   jobs:
 
   - job: build
@@ -20,6 +24,7 @@ stages:
     - task: DockerCompose@0
       inputs:
         containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'HealthPairDocker'
         dockerComposeFile: 'docker-compose.prod.yml'
         action: 'Build services'
       displayName: docker-compose build
@@ -29,68 +34,43 @@ stages:
     pool:
       vmImage: ubuntu-latest
 
-    variables:
-      sdkVersion: 3.1.x
-      solutionPath: NotesService
-      buildConfiguration: Release
-
     steps:
 
-    - task: UseDotNet@2
+    - task: NodeTool@0
       inputs:
-        packageType: 'sdk'
-        version: '2.1.x'
-      displayName: dotnet 2.1.x
+        versionSpec: '$(nodeVersion)'
+      displayName: node $(nodeVersion)
+
+    - script: npm ci
+      workingDirectory: $(appDir)
+      displayName: npm install
 
     - task: SonarCloudPrepare@1
       inputs:
-        SonarCloud: 'HealthPair-Client'
+        SonarCloud: 'HealthPairSC'
         organization: '2002-feb24-net'
-        scannerMode: 'MSBuild'
-        projectKey: '2002-feb24-net_HealthPair-Client'
-        projectName: 'HealthPair-Client'
-        extraProperties: 'sonar.cs.opencover.reportsPaths=$(Common.TestResultsDirectory)/*/coverage.opencover.xml'
+        scannerMode: 'CLI'
+        configMode: 'manual'
+        cliProjectKey: '2002-feb24-net_HealthPair-Client'
+        cliProjectName: 'HealthPairClient'
+        cliSources: '$(appDir)/src'
+        extraProperties: |
+          sonar.coverage.exclusions=**/*.spec.ts
+          sonar.typescript.lcov.reportPaths=$(appDir)/coverage/$(appDir)/lcov.info
       displayName: sonarcloud analysis prepare
 
-    - task: UseDotNet@2
-      inputs:
-        packageType: 'sdk'
-        version: '$(sdkVersion)'
-      displayName: dotnet $(sdkVersion)
+    - script: npx ng test --browsers ChromeHeadless --no-watch --code-coverage
+      workingDirectory: $(appDir)
+      displayName: ng test
 
-    - script: dotnet build
-        --configuration $(buildConfiguration)
-      workingDirectory: $(solutionPath)
-      displayName: dotnet build
-
-    - script: dotnet test
-        --configuration $(buildConfiguration)
-        --logger trx
-        --no-build
-        --results-directory $(Common.TestResultsDirectory)
-        --settings coverlet.runsettings
-      workingDirectory: $(solutionPath)
-      displayName: dotnet test
+    - script: npm run lint
+      workingDirectory: $(appDir)
+      displayName: ng lint
 
     - task: SonarCloudAnalyze@1
       displayName: sonarcloud analysis run
 
-    - task: PublishTestResults@2
-      condition: succeededOrFailed()
-      inputs:
-        testResultsFormat: 'VSTest'
-        testResultsFiles: '$(Common.TestResultsDirectory)/*.trx'
-      displayName: test results build publish
-
-    - task: PublishCodeCoverageResults@1
-      condition: succeededOrFailed()
-      inputs:
-        codeCoverageTool: Cobertura
-        summaryFileLocation: $(Common.TestResultsDirectory)/*/coverage.cobertura.xml
-      displayName: code coverage build publish
-
     - task: SonarCloudPublish@1
-      condition: succeededOrFailed()
       inputs:
         pollingTimeoutSec: '300'
       displayName: sonarcloud results build publish
@@ -120,6 +100,7 @@ stages:
           - task: DockerCompose@0
             inputs:
               containerregistrytype: 'Container Registry'
+              dockerRegistryEndpoint: 'HealthPairDocker'
               dockerComposeFile: 'docker-compose.prod.yml'
               action: 'Build services'
             displayName: docker-compose build
@@ -127,7 +108,7 @@ stages:
           - task: DockerCompose@0
             inputs:
               containerregistrytype: 'Container Registry'
-              dockerRegistryEndpoint: 'dockerhub-kyranbryant'
+              dockerRegistryEndpoint: 'HealthPairDocker'
               dockerComposeFile: 'docker-compose.prod.yml'
               action: 'Push services'
             displayName: docker-compose push
