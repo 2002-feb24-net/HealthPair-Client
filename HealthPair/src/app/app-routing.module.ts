@@ -10,8 +10,11 @@ const routes: Routes = [
   { path: '', redirectTo: '/landing-page', pathMatch: 'full' },
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'provider-selection', component: ProviderSelectionComponent },
-  { path: 'appointment-details', component: AppointmentDetailsComponent }
+  { path: 'appointment-details', component: AppointmentDetailsComponent },
 
+
+  // otherwise redirect to home
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
