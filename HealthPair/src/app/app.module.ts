@@ -10,13 +10,33 @@ import { ProviderSelectionComponent } from './provider-selection/provider-select
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ProviderComponent } from './provider/provider.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { FacilityComponent } from './facility/facility.component';
+import { FacilityDetailsComponent } from './facility-details/facility-details.component';
+import { InsuranceComponent } from './insurance/insurance.component';
+import { InsuranceDetailsComponent } from './insurance-details/insurance-details.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProviderSelectionComponent,
     AppointmentDetailsComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    ProviderComponent,
+    NavbarComponent,
+    RegisterComponent,
+    LoginComponent,
+    AppointmentComponent,
+    FacilityComponent,
+    FacilityDetailsComponent,
+    InsuranceComponent,
+    InsuranceDetailsComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
