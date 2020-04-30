@@ -1,4 +1,4 @@
-import { Provider } from '../models';
+import { Provider } from '.';
 
 export class Facility
 {

@@ -1,4 +1,4 @@
-import { Patient,Provider } from '../models';
+import { Patient,Provider } from '.';
 
 export class Insurance
 {

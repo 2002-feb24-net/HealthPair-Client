@@ -1,4 +1,4 @@
-import { Insurance,Appointment } from '../models';
+import { Insurance,Appointment } from '.';
 
 export class Patient
 {

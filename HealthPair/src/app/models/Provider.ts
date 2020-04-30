@@ -1,4 +1,4 @@
-import { Facility,Specialty,Appointment,Insurance } from '../models';
+import { Facility,Specialty,Appointment,Insurance } from '.';
 
 export class Provider
 {
