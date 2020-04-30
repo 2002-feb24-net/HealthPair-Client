@@ -1,4 +1,20 @@
+import { Insurance,Appointment } from '../models';
+
 export class Patient
 {
-    token : string;
+    PatientId : number;
+    InsuranceId : number;
+    PatientFirstName : string;
+    PatientLastName : string;
+    PatientAddress1 : string;
+    PatientCity : string;
+    PatientState : string;
+    PatientZipcode : number;
+    PatientBirthDay : Date;
+    PatientPhoneNumber : number;
+    Token : string;
+    Admin : boolean;
+
+    Insurance : Insurance;
+    Appointments : Appointment[];
 }
