@@ -76,11 +76,11 @@ stages:
     #   workingDirectory: $(appDir)
     #   displayName: ng lint
 
-    - task: SonarCloudAnalyze@1
-      displayName: sonarcloud analysis run
+    # - task: SonarCloudAnalyze@1
+    #   displayName: sonarcloud analysis run
 
-    - task: SonarCloudPublish@1
-      displayName: sonarcloud results build publish
+    # - task: SonarCloudPublish@1
+    #   displayName: sonarcloud results build publish
 
 - stage: deploy
   dependsOn: build
