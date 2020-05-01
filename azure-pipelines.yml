@@ -10,7 +10,7 @@ stages:
 
   variables:
     nodeVersion: 12.x
-    appDir: ng-notes-client
+    appDir: healthpair
 
   jobs:
 
@@ -51,8 +51,8 @@ stages:
         organization: '2002-feb24-net'
         scannerMode: 'CLI'
         configMode: 'manual'
-        cliProjectKey: '2002-feb24-net_HealthPair-Client'
-        cliProjectName: 'healthpairclientapp'
+        cliProjectKey: '2002-feb24-net_nick-project2-ng-notes-client'
+        cliProjectName: 'nick-project2-ng-notes-client'
         cliSources: '$(appDir)/src'
         extraProperties: |
           sonar.coverage.exclusions=**/*.spec.ts
