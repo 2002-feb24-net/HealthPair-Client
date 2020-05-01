@@ -51,8 +51,8 @@ stages:
         organization: '2002-feb24-net'
         scannerMode: 'CLI'
         configMode: 'manual'
-        cliProjectKey: '2002-feb24-net_nick-project2-ng-notes-client'
-        cliProjectName: 'nick-project2-ng-notes-client'
+        cliProjectKey: '2002-feb24-net_HealthPair-Client'
+        cliProjectName: 'healthpairclientapp'
         cliSources: '$(appDir)/src'
         extraProperties: |
           sonar.coverage.exclusions=**/*.spec.ts
