@@ -26,10 +26,10 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
-            insurance: ['', Validators.required],
-            password: ['', [Validators.required, Validators.minLength(6)], Validators.pattern('[a-zA-Z ]*')]
+            PatientFirstName: ['', Validators.required],
+            PatientLastName: ['', Validators.required],
+            PatientInsurance: ['', Validators.required],
+            PatientPassword: ['', [Validators.required, Validators.minLength(6)], Validators.pattern('[a-zA-Z ]*')]
         });
     }
 
@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
         }
 
         this.loading = true;
-        this.HealthPairService.register(this.registerForm.value)
+        this.HealthPairService.createPatient(this.registerForm.value)
             .pipe(first())
             .subscribe(
                 data => {
