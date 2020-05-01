@@ -22,6 +22,7 @@ import { InsuranceDetailsComponent } from './insurance-details/insurance-details
 import { AlertComponent } from './alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -52,7 +53,8 @@ import { MaterialModule } from './material-module';
     MDBBootstrapModule.forRoot(),
     BrowserAnimationsModule,
     BrowserModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
