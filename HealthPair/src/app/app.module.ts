@@ -20,6 +20,10 @@ import { FacilityDetailsComponent } from './facility-details/facility-details.co
 import { InsuranceComponent } from './insurance/insurance.component';
 import { InsuranceDetailsComponent } from './insurance-details/insurance-details.component';
 import { AlertComponent } from './alert/alert.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material-module';
+
+
 
 @NgModule({
   declarations: [
@@ -45,7 +49,10 @@ import { AlertComponent } from './alert/alert.component';
     ReactiveFormsModule,
     FormsModule,
     FontAwesomeModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    BrowserAnimationsModule,
+    BrowserModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

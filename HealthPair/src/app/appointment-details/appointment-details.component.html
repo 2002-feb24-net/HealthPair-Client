@@ -1,1 +1,70 @@
-<p>appointment-details works!</p>
+<div>
+  <div class="text-center rounded">
+    <div class="container">
+      <h3>Enter your details...</h3>
+    </div>
+    <mdb-card>
+      <mdb-card-body>
+        Selected Dr: *goeshere*
+        <br />
+        <br />
+        Selected Location: *goeshere*
+        <br />
+        <br />
+        <mdb-card-text>
+          <div class="row">
+            <div class="col">
+              <h3>User Information:</h3>
+              <br />
+              Name: *goeshere*
+              <br />
+              M/F: *goeshere*
+              <br />
+              Phone: *goeshere*
+              <br />
+              Address: *goeshere*
+              <br />
+              City: *goeshere*
+              <br />
+              State: *goeshere*
+              <br />
+              Zip Code: *goeshere*
+              <br />
+            </div>
+            <div class="col">
+              <!-- DATE -->
+              <div class="d-flex justify-content-center" style="font-size: 1.5rem;">
+                <mat-form-field>
+                  <mat-label>Appointment Date</mat-label>
+                  <input matInput [matDatepicker]="picker1" [formControl]="date">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <!-- TIME -->
+              <div class="d-flex justify-content-center">
+                <ngb-timepicker [(ngModel)]="time" [meridian]="meridian"></ngb-timepicker>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary text-center">Schedule Appointment</button>
+        </mdb-card-text>
+      </mdb-card-body>
+    </mdb-card>
+    <br />
+  </div>
+  <br />
+  <br />
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        <pre>Selected date: <br />{{this.date.value | json}}</pre>
+      </div>
+      <div class="col">
+        <pre>Selected time: <br />{{time | json}}</pre>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+</div>
