@@ -28,6 +28,15 @@ export class HealthPairService
 // ! ***** APPOINTMENT ********
 // ! ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+/**
+* Sends a requests for all appointments in the database.
+*
+* @example
+* Simply call the function:
+* getAppointmentAll()
+*
+* @returns An Observable with all of the Appointments in the database
+*/
   getAppointmentAll() : Observable<Appointment[]>
   {
     return this.http.get<Appointment[]>(`${this.baseUrl}api/appointments`)
@@ -36,6 +45,16 @@ export class HealthPairService
       );
   }
 
+/**
+* Sends a request to the server for a specific Appointment related to an ID
+*
+* @example
+* Simply call the function with an input ID:
+* getAppointmentById(1)
+*
+* @param {number} id The ID that you are searching for
+* @returns An Observable with a single Appointment from the database
+*/
   getAppointmentById(id : number) : Observable<Appointment>
   {
     return this.http.get<Appointment>(`${this.baseUrl}api/appointments/${id}`)
@@ -44,6 +63,16 @@ export class HealthPairService
       );
   }
 
+/**
+* Sends a request to the server for a specific Appointment related to an input string
+*
+* @example
+* Simply call the function with an input string:
+* searchAppointment('Name')
+*
+* @param {string} term The string that you are searching for
+* @returns An Observable with an action result from the server, and any Appointments from the database that contain your input string
+*/
   searchAppointment(term: string): Observable<Appointment[]>
   {
     if (!term.trim()) {
@@ -54,6 +83,16 @@ export class HealthPairService
     );
   }
 
+/**
+* Sends a request to the server to create a Appointment
+*
+* @example
+* Call the function with an input Appointment object:
+* createAppointment(myObject)
+*
+* @param {Appointment} appointment The Appointment object that you are trying to add to the database
+* @returns An Observable with the action result from the server, and a copy of your created Appointment
+*/
   createAppointment(appointment: Appointment)
   {
     return this.http.post<Appointment>(`${this.baseUrl}api/appointments`, appointment)
@@ -62,6 +101,16 @@ export class HealthPairService
       );;
   }
 
+/**
+* Sends a request to the server to update a specific Appointment, it uses the ID of your input object.
+*
+* @example
+* Call the function with an input Appointment object:
+* updateAppointment(myObject)
+*
+* @param {Appointment} appointment The Object with the new values that you are trying to update
+* @returns An Observable with a action result from the server, and the updated Appointment from the database
+*/
   updateAppointment(appointment: Appointment): Observable<any>
   {
     return this.http.put(`${this.baseUrl}api/appointments/${appointment.AppointmentId}`, appointment, this.httpOptions).pipe(
@@ -69,6 +118,16 @@ export class HealthPairService
     );
   }
 
+/**
+* Sends a request to the server to delete a specific Appointment related to the input ID.
+*
+* @example
+* Simply call the function with an input id:
+* deleteAppointment(1)
+*
+* @param {number} id The ID that you are trying to delete
+* @returns An Observable with a action result from the server
+*/
   deleteAppointment(id: number)
   {
     return this.http.delete(`${this.baseUrl}api/appointments/${id}`)
