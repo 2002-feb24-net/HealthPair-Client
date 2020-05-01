@@ -4,26 +4,30 @@ trigger:
 pr:
 - master
 
-variables:
-  appDir: healthpair
-stages: 
+stages:
+
 - stage: build
-  jobs: 
+
+  variables:
+    nodeVersion: 12.x
+    appDir: ng-notes-client
+
+  jobs:
+
   - job: build
+
     pool:
-      name: Azure Pipelines
       vmImage: ubuntu-latest
-      demands:
-      - npm
-      - java
 
     steps:
-      - task: DockerCompose@0
-        inputs:
-          containerregistrytype: 'Container Registry'
-          dockerRegistryEndpoint: 'HealthPairDocker'
-          dockerComposeFile: '**/docker-compose.prod.yml'
-          action: 'Build services'
+
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Container Registry'
+        dockerRegistryEndpoint: 'HealthPairDocker'
+        dockerComposeFile: 'docker-compose.prod.yml'
+        action: 'Build services'
+      displayName: docker-compose build
 
   - job: test
 
@@ -31,13 +35,16 @@ stages:
       vmImage: ubuntu-latest
 
     steps:
-    
-    - task: Npm@1
-      displayName: 'npm install'
+
+    - task: NodeTool@0
       inputs:
-        workingDir: healthpair
-        verbose: false
-    
+        versionSpec: '$(nodeVersion)'
+      displayName: node $(nodeVersion)
+
+    - script: npm ci
+      workingDirectory: $(appDir)
+      displayName: npm install
+
     - task: SonarCloudPrepare@1
       inputs:
         SonarCloud: 'HealthPairSC'
@@ -50,20 +57,26 @@ stages:
         extraProperties: |
           sonar.coverage.exclusions=**/*.spec.ts
           sonar.typescript.lcov.reportPaths=$(appDir)/coverage/$(appDir)/lcov.info
+      displayName: sonarcloud analysis prepare
+
     - script: npx ng test --browsers ChromeHeadless --no-watch --code-coverage
-      workingDirectory: ./fur2feathers
+      workingDirectory: $(appDir)
       continueOnError: true
       displayName: ng test
+
+    # - script: npm run lint
+    #   workingDirectory: $(appDir)
+    #   displayName: ng lint
+
     - task: SonarCloudAnalyze@1
       displayName: sonarcloud analysis run
 
     - task: SonarCloudPublish@1
       inputs:
-          pollingTimeoutSec: '300'
+        pollingTimeoutSec: '300'
       displayName: sonarcloud results build publish
 
 - stage: deploy
-
   dependsOn: build
 
   jobs:
@@ -88,20 +101,21 @@ stages:
             inputs:
               containerregistrytype: 'Container Registry'
               dockerRegistryEndpoint: 'HealthPairDocker'
-              dockerComposeFile: '**/docker-compose.prod.yml'
+              dockerComposeFile: 'docker-compose.prod.yml'
               action: 'Build services'
-            displayName: docker build
+            displayName: docker-compose build
+
           - task: DockerCompose@0
             inputs:
               containerregistrytype: 'Container Registry'
               dockerRegistryEndpoint: 'HealthPairDocker'
-              dockerComposeFile: '**/docker-compose.prod.yml'
+              dockerComposeFile: 'docker-compose.prod.yml'
               action: 'Push services'
-            displayName: docker push
+            displayName: docker-compose push
 
           - task: AzureWebAppContainer@1
             inputs:
-              azureSubscription: 'Azure subscription 1(a2152353-9b25-48cf-bad2-948e50f630f2)'
+              azureSubscription: 'Azure subscription 1(3)(a2152353-9b25-48cf-bad2-948e50f630f2)'
               appName: 'HealthPair-Client'
               multicontainerConfigFile: 'docker-compose.prod.yml'
-            displayName: app service deploy
+            displayName: azure app service deploy
