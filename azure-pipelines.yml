@@ -19,6 +19,23 @@ stages:
     pool:
       vmImage: ubuntu-latest
 
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: $(nodeVersion)
+      displayName: node $(nodeVersion)
+
+    - script: npm ci
+      workingDirectory: $(appDir)
+      displayName: npm install
+
+    - script: npx ng build --outputPath $(Build.ArtifactStagingDirectory)/app --prod
+      workingDirectory: $(appDir)
+      displayName: ng build
+
+    - publish: $(Build.ArtifactStagingDirectory)/app
+      artifact: app
+      displayName: artifact publish app
 
   - job: test
 

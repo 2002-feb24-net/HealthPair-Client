@@ -20,6 +20,5 @@ WORKDIR /usr/share/nginx/html
 # remove default nginx page
 RUN rm -rf *
 # config server for deep linking
-COPY nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=build /app/dist/* ./
