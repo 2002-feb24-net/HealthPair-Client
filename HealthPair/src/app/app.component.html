@@ -1,13 +1,10 @@
+<app-navbar></app-navbar>
 <div class="pt-3 px-4" style="min-height:600px;">
-  <span class="row bg-dark text-white">
-    DEV USE ONLY:
-    <a class="nav-link" routerLink="/landing-page">Home</a>
-    <a class="nav-link" routerLink="/provider-selection">Provider Selection</a>
-    <a class="nav-link" routerLink="/appointment-details">Appointment Details</a>
-  </span>
-  <br />
   <h4>Welcome to</h4>
   <h1><fa-icon [icon]="faHandHoldingMedical" class="text-black fa-1x"></fa-icon>&nbsp;HealthPair</h1>
   <br />
+  <a class="nav-link" routerLink="/landing-page">Home</a>
+  <a class="nav-link" routerLink="/provider-selection">Provider Selection</a>
+  <a class="nav-link" routerLink="/appointment-details">Appointment Details</a>
   <router-outlet></router-outlet>
 </div>

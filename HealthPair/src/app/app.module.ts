@@ -8,7 +8,6 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-
 import { ProviderSelectionComponent } from './provider-selection/provider-selection.component';
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -26,9 +25,6 @@ import { AlertComponent } from './alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { JwtInterceptor, ErrorInterceptor } from './authentification';
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
