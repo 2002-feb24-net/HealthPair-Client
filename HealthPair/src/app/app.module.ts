@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { ProviderSelectionComponent } from './provider-selection/provider-selection.component';
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -22,10 +24,11 @@ import { InsuranceDetailsComponent } from './insurance-details/insurance-details
 import { AlertComponent } from './alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {  AgmCoreModule} from '@agm/core'
 
 
+import { JwtInterceptor, ErrorInterceptor } from './authentification';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,9 +61,13 @@ import {  AgmCoreModule} from '@agm/core'
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyCc0kimMGMhnEA54EA05zdTZD4u7IjSmzQ"
-    })
+    }),
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

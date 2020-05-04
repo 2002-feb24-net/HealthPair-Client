@@ -21,8 +21,8 @@ export class AuthenticationService {
         return this.CurrentPatientSubject.value;
     }
 
-    login(username, password) {
-        return this.http.post<any>(`${this.baseUrl}api/patients/authenticate`, { username, password })
+    login(email, password) {
+        return this.http.post<any>(`${this.baseUrl}api/patient/authenticate`, { email, password })
             .pipe(map(patient => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('CurrentPatient', JSON.stringify(patient));
