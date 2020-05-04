@@ -15,6 +15,9 @@ export class LandingPageComponent implements OnInit {
   //Get longitude and latitude
   lat:string = '';
   long:string = '';
+  city:string = '';
+  state:string = '';
+  zip:number = 0;
 
   //Hold an instance of the user-loaction service
   location: Object;
@@ -26,17 +29,22 @@ export class LandingPageComponent implements OnInit {
   constructor(private builder: FormBuilder, private userLocation: UserLocationService) { }
 
   ngOnInit(): void {
-    //Calls the servce when it the component loads
-    this.userLocation.getLocation().subscribe(data => {
-      console.log(data);
-      this.lat = data.latitude;
-      this.long = data.longitude;
-    })
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.displayLocationInfo);
+    } else {
+    }
   }
 
   onSubmit() {
     this.insurance = this.landingpageForm.get('insurance')?.value;
     this.specialty = this.landingpageForm.get('specialty')?.value;
+  }
+
+   displayLocationInfo(position) {
+    const lng = position.coords.longitude;
+    const lat = position.coords.latitude;
+  
+    console.log(`longitude: ${ lng } | latitude: ${ lat }`);
   }
 
 }

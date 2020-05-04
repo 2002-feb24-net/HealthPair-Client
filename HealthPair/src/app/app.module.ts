@@ -23,7 +23,7 @@ import { AlertComponent } from './alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { HttpClientModule } from '@angular/common/http';
-
+import {  AgmCoreModule} from '@agm/core'
 
 
 @NgModule({
@@ -41,7 +41,8 @@ import { HttpClientModule } from '@angular/common/http';
     FacilityDetailsComponent,
     InsuranceComponent,
     InsuranceDetailsComponent,
-    AlertComponent
+    AlertComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -54,7 +55,10 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     BrowserModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: "AIzaSyCc0kimMGMhnEA54EA05zdTZD4u7IjSmzQ"
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
