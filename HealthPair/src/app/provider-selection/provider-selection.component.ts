@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HealthPairService } from '../_services/healthpairapi.service';
+import { Provider } from '../models/Provider';
 
 @Component({
   selector: 'app-provider-selection',
@@ -6,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./provider-selection.component.css']
 })
 export class ProviderSelectionComponent implements OnInit {
-
 cards = [
     {
       title: 'Joe Bob',
@@ -40,13 +41,16 @@ cards = [
       distance: '0.1 miles',
       img: 'https://cdn4.iconfinder.com/data/icons/linecon/512/photo-512.png'
     },
-
   ];
-
-
-  constructor() { }
-
+  providers: Provider[]; 
+  constructor(
+    private APIService: HealthPairService
+  ) {}
   ngOnInit(): void {
+    this.getProviders();
   }
-
+  getProviders() {
+    this.APIService.getProviderAll().subscribe(returnedproviders => this.providers = returnedproviders);
+    console.log(this.providers);
+  }
 }
