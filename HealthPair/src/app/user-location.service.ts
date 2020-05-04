@@ -33,23 +33,17 @@ export class UserLocationService {
   
 
   showPosition(position) {
+    var distance = require('google-distance-matrix');
+
     var currentPosstion = position.longitude + " "  + position.longitude;
+    var origin = [currentPosstion];
+    var destinations = ['Moline', '41.5067, 90.5151']
 
-    var request = {
-      location: currentPosstion,
-      radius: '500',
-      type: ['hospital']
-    };
+    distance.matrix(origin, destinations, function (err, distances) {
+      if (!err)
+          console.log(distances);
+  })
 
-    var service = new google.maps.places.PlacesServiceStatus();
-    service.nearbySearch(request, this.callback)
-  }
 
-  callback(results, status) {
-    if(status == google.maps.places.PlacesServiceStatus.OK) {
-      for(var i = 0; i < results.length; ++i) {
-        console.log(results);
-      }
-    }
-  }
+}
 }

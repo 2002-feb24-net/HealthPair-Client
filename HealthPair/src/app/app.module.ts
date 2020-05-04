@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { HttpClient } from '@angular/common/http';
 import {  AgmCoreModule} from '@agm/core'
+import { google } from '@agm/core/services/google-maps-types';
 
 
 import { JwtInterceptor, ErrorInterceptor } from './authentification';
@@ -60,9 +61,9 @@ import { JwtInterceptor, ErrorInterceptor } from './authentification';
     MaterialModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCc0kimMGMhnEA54EA05zdTZD4u7IjSmzQ"
+      apiKey: process.env.API_KEY,
     }),
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
