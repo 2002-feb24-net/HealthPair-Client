@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from '../_services'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -10,6 +12,7 @@ export class NavbarComponent implements OnInit {
   navbarOpen = false;
   loggedin = false;
   faUserCircle = faUserCircle;
+  currentPatient: any;
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }
@@ -20,8 +23,11 @@ export class NavbarComponent implements OnInit {
   logout() {
     document.getElementById("test").style.color = "red";
     this.loggedin = false;
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
-  constructor() {
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
+    this.authenticationService.CurrentPatient.subscribe(x => this.currentPatient = x);
   }
   ngOnInit() {
     document.getElementById("test").style.color = "red";
