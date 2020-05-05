@@ -16,6 +16,7 @@ interface Location
 export class UserLocationService
 {
   key: string = 'AIzaSyCC8iBCJi0HNtZaFi-KCObb8QyrKY2TkxM';
+  exampleLocation = '1600 Amphitheatre Parkway, Mountain View, CA';
 
   constructor(private http: HttpClient) { }
 
@@ -29,6 +30,7 @@ export class UserLocationService
         },
         err =>
         {
+          // TODO: Error handling
           reject(err);
         });
     });
