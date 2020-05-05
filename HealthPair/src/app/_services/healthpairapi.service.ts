@@ -94,11 +94,11 @@ export class HealthPairService
 * @param {Appointment} appointment The Appointment object that you are trying to add to the database
 * @returns An Observable with the action result from the server, and a copy of your created Appointment
 */
-  createAppointment(appointment: Appointment)
+  createAppointment(appointment: Appointment) : Observable<Appointment>
   {
     return this.http.post<Appointment>(`${this.baseUrl}api/appointment`, appointment)
       .pipe(
-        catchError(this.handleError<Appointment[]>(`createAppointment`,[]))
+        catchError(this.handleError<Appointment>(`createAppointment`))
       );;
   }
 
@@ -207,11 +207,11 @@ searchFacility(term : string): Observable<Facility[]>
 * @param {Facility} facility The Facility object that you are trying to add to the database
 * @returns An Observable with the action result from the server, and a copy of your created Facility
 */
-createFacility(facility : Facility)
+createFacility(facility : Facility) : Observable<Facility>
 {
   return this.http.post<Facility>(`${this.baseUrl}api/facility`, facility)
     .pipe(
-      catchError(this.handleError<Facility[]>(`createFacility`,[]))
+      catchError(this.handleError<Facility>(`createFacility`))
     );;
 }
 
@@ -320,11 +320,11 @@ searchInsurance(term : string): Observable<Insurance[]>
 * @param {Insurance} insurance The Insurance object that you are trying to add to the database
 * @returns An Observable with the action result from the server, and a copy of your created Insurance
 */
-createInsurance(insurance : Insurance)
+createInsurance(insurance : Insurance) : Observable<Insurance>
 {
   return this.http.post<Insurance>(`${this.baseUrl}api/insurance`, insurance)
     .pipe(
-      catchError(this.handleError<Insurance[]>(`createInsurance`,[]))
+      catchError(this.handleError<Insurance>(`createInsurance`))
     );;
 }
 
@@ -341,7 +341,7 @@ createInsurance(insurance : Insurance)
 updateInsurance(insurance : Insurance): Observable<any>
 {
   return this.http.put(`${this.baseUrl}api/insurance/${insurance.InsuranceId}`, insurance, this.httpOptions).pipe(
-    catchError(this.handleError<Insurance>('updateInsurance'))
+    catchError(this.handleError<Insurance>('updateInsurance',))
   );
 }
 
@@ -434,11 +434,11 @@ searchPatient(term : string): Observable<Patient[]>
 * @param {Patient} patient The Patient object that you are trying to add to the database
 * @returns An Observable with the action result from the server, and a copy of your created Patient
 */
-createPatient(patient : Patient)
+createPatient(patient : Patient) : Observable<Patient>
 {
-  return this.http.post<Patient>(`${this.baseUrl}api/patient`, patient)
+  return this.http.post<Patient>(`${this.baseUrl}api/patient`, patient, this.httpOptions)
     .pipe(
-      catchError(this.handleError<Patient[]>(`createPatient`,[]))
+      catchError(this.handleError<Patient>(`createPatient`))
     );;
 }
 
@@ -547,11 +547,11 @@ searchProvider(term : string): Observable<Provider[]>
 * @param {Provider} provider The Provider object that you are trying to add to the database
 * @returns An Observable with the action result from the server, and a copy of your created Provider
 */
-createProvider(provider : Provider)
+createProvider(provider : Provider) : Observable<Provider>
 {
   return this.http.post<Provider>(`${this.baseUrl}api/provider`, provider)
     .pipe(
-      catchError(this.handleError<Provider[]>(`createProvider`,[]))
+      catchError(this.handleError<Provider>(`createProvider`))
     );;
 }
 
@@ -659,11 +659,11 @@ searchSpecialty(term : string): Observable<Specialty[]>
 * @param {Specialty} specialty The Specialty object that you are trying to add to the database
 * @returns An Observable with the action result from the server, and a copy of your created Specialty
 */
-createSpecialty(specialty : Specialty)
+createSpecialty(specialty : Specialty) : Observable<Specialty>
 {
   return this.http.post<Specialty>(`${this.baseUrl}api/specialty`, specialty)
     .pipe(
-      catchError(this.handleError<Specialty[]>(`createSpecialty`,[]))
+      catchError(this.handleError<Specialty>(`createSpecialty`))
     );;
 }
 
