@@ -42,15 +42,15 @@ cards = [
       img: 'https://cdn4.iconfinder.com/data/icons/linecon/512/photo-512.png'
     },
   ];
-  providers: Provider[]; 
-  constructor(
-    private APIService: HealthPairService
-  ) {}
+
+  imgurl = 'https://cdn4.iconfinder.com/data/icons/linecon/512/photo-512.png';
+  providers: Provider[];
+  constructor(private APIService: HealthPairService){}
   ngOnInit(): void {
-    this.getProviders();
+    this.getAll();
   }
-  getProviders() {
-    this.APIService.getProviderAll().subscribe(returnedproviders => this.providers = returnedproviders);
-    console.log(this.providers);
+
+  getAll() {
+    this.APIService.getProviderAll().subscribe(providers => this.providers = providers);
   }
 }

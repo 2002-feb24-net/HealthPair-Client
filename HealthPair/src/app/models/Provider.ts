@@ -8,9 +8,8 @@ export class Provider
     ProviderFirstName : string;
     ProviderLastName : string;
     ProviderPhoneNumber : number;
-
     Facility : Facility;
     Specialty : Specialty;
     Appointments : Appointment[];
-    Insurances : Insurance[];
+    Insurances: Insurance[];
 }
