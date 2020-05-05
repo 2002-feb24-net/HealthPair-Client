@@ -17,12 +17,10 @@ export class NavbarComponent implements OnInit {
     this.navbarOpen = !this.navbarOpen;
   }
   login() {
-    document.getElementById("test").style.color = "green";
     this.router.navigate(['/login']);
     if(this.currentPatient){this.loggedin = true;}
   }
   logout() {
-    document.getElementById("test").style.color = "red";
     this.loggedin = false;
     this.authenticationService.logout();
     this.router.navigate(['']);
