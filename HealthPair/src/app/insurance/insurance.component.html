@@ -3,7 +3,7 @@
       <ul class="models" style='list-style-type:none;'>
           <li *ngFor="let insurance of myInsurances">
               <div *ngIf="insurance.insuranceId">
-                  <div>Facility: {{insurance.insuranceName}} </div>n
+                  <div>Facility: {{insurance.insuranceName}} </div>
                   <button class="delete" title="delete insurance" (click)="delete(insurance)">delete</button>
               </div>
           </li>

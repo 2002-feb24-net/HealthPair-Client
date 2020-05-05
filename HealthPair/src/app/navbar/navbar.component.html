@@ -13,7 +13,9 @@
       <li class="nav-item" *ngIf="currentPatient && this.currentPatient.isAdmin">
         <a class="nav-link" routerLink="/facility">Facilities</a>
       </li>
-
+      <li class="nav-item" *ngIf="currentPatient && this.currentPatient.isAdmin">
+        <a class="nav-link" routerLink="/insurance">Insurance</a>
+      </li>
     </ul>
     <fa-icon [icon]="faUserCircle" class="fa-2x text-white d-none d-lg-block"></fa-icon>
     <ul class="navbar-nav float-left float-lg-right float-xl-right">
