@@ -22,7 +22,6 @@ export class NavbarComponent implements OnInit {
     if(this.currentPatient){this.loggedin = true;}
   }
   logout() {
-    document.getElementById("test").style.color = "red";
     this.loggedin = false;
     this.authenticationService.logout();
     this.router.navigate(['']);
