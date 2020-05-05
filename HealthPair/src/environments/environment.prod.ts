@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  healthPairApiBaseUrl: 'https://healthpair-api.azurewebsites.net/'
+  healthPairApiBaseUrl: 'http://healthpair-api.azurewebsites.net/'
 };
