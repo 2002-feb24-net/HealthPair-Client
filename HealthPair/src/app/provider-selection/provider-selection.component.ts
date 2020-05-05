@@ -46,5 +46,10 @@ cards = [
   providers: Provider[];
   constructor(private APIService: HealthPairService){}
   ngOnInit(): void {
-}
+    this.getAll();
+  }
+
+  getAll() {
+    this.APIService.getProviderAll().subscribe(providers => this.providers = providers);
+  }
 }

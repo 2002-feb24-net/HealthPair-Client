@@ -10,31 +10,30 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/landing-page">New Appointment</a>
       </li>
-      <span class="text-warning">TEST: </span>
-      &nbsp;
-      <a class="nav-link text-white btn btn-primary" (click)="login()" style="cursor:pointer;">LOGIN</a>
-      &nbsp;
-      <a class="nav-link text-white btn btn-primary" (click)="logout()" style="cursor:pointer;">LOGOUT</a>
-      &nbsp;
-      <p id="test">{{this.loggedin}}</p>
+      <li class="nav-item" *ngIf="currentPatient && this.currentPatient.isAdmin">
+        <a class="nav-link" routerLink="/facility">Facilities</a>
+      </li>
 
     </ul>
     <fa-icon [icon]="faUserCircle" class="fa-2x text-white d-none d-lg-block"></fa-icon>
     <ul class="navbar-nav float-left float-lg-right float-xl-right">
-      <li *ngIf="loggedin == true" class="nav-item">
+      <li *ngIf="currentPatient">
+        {{this.currentPatient.patientFirstName}}
+      </li>
+      <li *ngIf="currentPatient" class="nav-item">
         <a class="nav-link" routerLink="/register">Edit Profile</a>
       </li>
-      <li *ngIf="loggedin == true" class="nav-item">
+      <li *ngIf="currentPatient" class="nav-item">
         <a class="nav-link" routerLink="/register">My Appointments</a>
       </li>
-      <li *ngIf="loggedin == true" class="nav-item">
-        <a class="nav-link" routerLink="/register">Logout</a>
+      <li *ngIf="currentPatient" class="nav-item">
+        <a class="nav-link text-white btn btn-primary" (click)="logout()" style="cursor:pointer;">LOGOUT</a>
       </li>
-      <li *ngIf="loggedin == false" class="nav-item">
+      <li *ngIf="currentPatient == undefined" class="nav-item">
         <a class="nav-link" routerLink="/register">Register</a>
       </li>
-      <li *ngIf="loggedin == false" class="nav-item">
-        <a class="nav-link" routerLink="/login">Login</a>
+      <li *ngIf="currentPatient == undefined" class="nav-item">
+        <a class="nav-link text-white btn btn-primary" (click)="login()" style="cursor:pointer;">LOGIN</a>
       </li>
     </ul>
   </div>

@@ -15,7 +15,12 @@ export class FacilityComponent implements OnInit {
   createdMessage : string;
   highest: number;
 
-  constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService) { this.currentPatient = this.authenticationService.CurrentPatientValue; }
+  constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService)
+  {
+    this.currentPatient = this.authenticationService.CurrentPatientValue;
+    this.getHighestFacilityId();
+    this.myFacilities = [];
+  }
 
   ngOnInit()
   {
@@ -29,31 +34,30 @@ export class FacilityComponent implements OnInit {
       facility.FacilityName = FacilityName,
       facility.FacilityAddress1 = FacilityAddress1,
       facility.FacilityCity = FacilityCity,
-
+      facility.FacilityState = FacilityState,
+      facility.FacilityZipcode = FacilityZipcode,
+      facility.FacilityPhoneNumber = FacilityPhoneNumber
     }
     this.HealthPairService.createFacility(facility)
-      .subscribe(review => {
-        review.ReviewId=this.highest+1,
-        review.Rating=reviewRating,
-        review.Username=this.currentUser.username,
-        this.game.Reviews.push(review)
+      .subscribe(myFacility => {
+        this.myFacilities.push(myFacility)
       });
 
-    this.createdMessage = "Your review has been created!";
+    this.createdMessage = "Your facility has been created!";
 
   }
 
-  delete(review: Review): void {
-    this.game.Reviews = this.game.Reviews.filter(r => r !== review);
-    this.PACGamesService.deleteReview(review).subscribe();
+  delete(facility: Facility): void {
+    this.myFacilities = this.myFacilities.filter(r => r !== facility);
+    this.HealthPairService.deleteFacility(facility.FacilityId).subscribe();
   }
 
-  getHighestReviewId()
+  getHighestFacilityId()
   {
-    this.PACGamesService.getReviews()
-      .subscribe(reviews => {
-        this.myReviews = reviews,
-        this.highest = this.myReviews[this.myReviews.length-1].ReviewId;
+    this.HealthPairService.getFacilityAll()
+      .subscribe(facilities => {
+        this.myFacilities = facilities,
+        this.highest = this.myFacilities[this.myFacilities.length-1].FacilityId;
       });
   }
 

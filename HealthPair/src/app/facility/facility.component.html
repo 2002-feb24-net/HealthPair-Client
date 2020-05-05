@@ -1,3 +1,46 @@
-<p>
-  facility works!
-</p>
+<div *ngIf="myFacilities" placeholder="Loading...">
+  <ul class = "facilities">
+      <ul class="facilities" style='list-style-type:none;'>
+          <li *ngFor="let facility of myFacilities">
+              <div *ngIf="facility.facilityId">
+                  <div>Facility: {{facility.facilityName}} </div>
+                  <span>Address: {{facility.facilityAddress1}}, {{facility.facilityCity}}, {{facility.facilityState}}. {{facility.facilityZipcode}} </span>
+                  <button class="delete" title="delete facility" (click)="delete(facility)">delete</button>
+              </div>
+          </li>
+      </ul>
+  </ul>
+
+  <br/>
+  <br/>
+  <div *ngIf = "this.createdMessage">{{this.createdMessage}}</div>
+  <div>
+  <label>Add Facility:
+      <br/>
+      <div>
+          <label> Facility Name:
+              <input type="text" #FacilityName />
+          </label>
+          <label> Street and Number:
+              <input type="text" #FacilityAddress1 />
+          </label>
+          <label> City:
+            <input type="text" #FacilityCity />
+          </label>
+          <label> State:
+            <input type="text" #FacilityState />
+          </label>
+          <label> Zipcode:
+            <input type="text" #FacilityZipcode />
+          </label>
+          <label> Phone Number:
+            <input type="text" #FacilityPhoneNumber />
+          </label>
+      </div>
+  </label>
+  <button (click)="add(FacilityName.value,FacilityAddress1.value,FacilityCity.value,FacilityState.value,FacilityZipcode.value,FacilityPhoneNumber.value);
+  FacilityName.value=''; FacilityAddress1.value=''; FacilityCity.value=''; FacilityState.value=''; FacilityPhoneNumber.value='';" [routerLink]="''">
+      Add Facility
+  </button>
+  </div>
+</div>
