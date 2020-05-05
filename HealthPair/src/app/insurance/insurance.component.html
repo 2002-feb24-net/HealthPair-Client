@@ -1,3 +1,31 @@
-<p>
-  insurance works!
-</p>
+<div *ngIf="myInsurances" placeholder="Loading...">
+  <ul class = "models">
+      <ul class="models" style='list-style-type:none;'>
+          <li *ngFor="let insurance of myInsurances">
+              <div *ngIf="insurance.insuranceId">
+                  <div>Facility: {{insurance.insuranceName}} </div>n
+                  <button class="delete" title="delete insurance" (click)="delete(insurance)">delete</button>
+              </div>
+          </li>
+      </ul>
+  </ul>
+
+  <br/>
+  <br/>
+  <div *ngIf = "this.createdMessage">{{this.createdMessage}}</div>
+  <div>
+  <label>Add Insurance:
+      <br/>
+      <div>
+          <label> Insurance Name:
+              <input type="text" #InsuranceName />
+          </label>
+      </div>
+  </label>
+  <button (click)="add(InsuranceName.value);
+  InsuranceName.value='';" [routerLink]="''">
+      Add Insurance
+  </button>
+  </div>
+</div>
+
