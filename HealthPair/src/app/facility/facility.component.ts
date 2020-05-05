@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HealthPairService,AuthenticationService} from '../_services';
-import { Facility } from '../models';
+import { Facility, Patient } from '../models';
 
 @Component({
   selector: 'app-facility',
@@ -9,7 +9,7 @@ import { Facility } from '../models';
 })
 export class FacilityComponent implements OnInit {
 
-  currentPatient : any;
+  currentPatient : Patient;
   facility : Facility;
   myFacilities : Facility[];
   createdMessage : string;
