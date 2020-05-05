@@ -1,20 +1,19 @@
-import { Insurance,Appointment } from '.';
-
 export class Patient
 {
     PatientId : number;
-    InsuranceId : number;
     PatientFirstName : string;
     PatientLastName : string;
+    PatientPassword : string;
     PatientAddress1 : string;
     PatientCity : string;
     PatientState : string;
     PatientZipcode : number;
     PatientBirthDay : Date;
     PatientPhoneNumber : number;
+    PatientEmail : string;
+    IsAdmin : boolean;
     Token : string;
-    Admin : boolean;
 
-    Insurance : Insurance;
-    Appointments : Appointment[];
+    InsuranceId : number;
+    InsuranceName : string;
 }
