@@ -18,18 +18,19 @@ export class NavbarComponent implements OnInit {
   }
   login() {
     document.getElementById("test").style.color = "green";
-    this.loggedin = true;
+    this.router.navigate(['/login']);
+    if(this.currentPatient){this.loggedin = true;}
   }
   logout() {
     document.getElementById("test").style.color = "red";
     this.loggedin = false;
     this.authenticationService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['']);
   }
   constructor(private authenticationService: AuthenticationService, private router: Router) {
     this.authenticationService.CurrentPatient.subscribe(x => this.currentPatient = x);
   }
   ngOnInit() {
-    document.getElementById("test").style.color = "red";
+    if(!this.currentPatient){this.login();}
   }
 }

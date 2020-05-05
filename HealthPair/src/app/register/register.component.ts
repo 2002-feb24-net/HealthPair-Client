@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import {RegisterService} from '../_services/register.service'
 
 import { AlertService, HealthPairService, AuthenticationService } from '../_services';
+import { NgForOf } from '@angular/common';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
@@ -45,6 +47,8 @@ export class RegisterComponent implements OnInit {
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
+
+
         }
 
         this.loading = true;
@@ -60,4 +64,8 @@ export class RegisterComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+  insertRecord(form: NgForm){
+    (this.HealthPairService.createPatient(form.value)).subscribe(res=>{this.alertService.success('Success!');})
+  }
 }

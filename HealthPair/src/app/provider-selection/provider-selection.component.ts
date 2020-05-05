@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HealthPairService } from '../_services/healthpairapi.service';
-import { Provider } from '../models/Provider';
+import { Provider } from '../models';
 
 @Component({
   selector: 'app-provider-selection',
@@ -42,15 +42,14 @@ cards = [
       img: 'https://cdn4.iconfinder.com/data/icons/linecon/512/photo-512.png'
     },
   ];
-  providers: Provider[]; 
-  constructor(
-    private APIService: HealthPairService
-  ) {}
+  imgurl = 'https://cdn4.iconfinder.com/data/icons/linecon/512/photo-512.png';
+  providers: Provider[];
+  constructor(private APIService: HealthPairService){}
   ngOnInit(): void {
-    this.getProviders();
+    this.getAll();
   }
-  getProviders() {
-    this.APIService.getProviderAll().subscribe(returnedproviders => this.providers = returnedproviders);
-    console.log(this.providers);
+
+  getAll() {
+    this.APIService.getProviderAll().subscribe(providers => this.providers = providers);
   }
 }

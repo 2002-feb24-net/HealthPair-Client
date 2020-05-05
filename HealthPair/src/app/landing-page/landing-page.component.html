@@ -6,12 +6,9 @@
     <div class="form-inline">
       <div class="md-form">
         Accepts&nbsp;
-        <select class="form-control" formControlName="insurance">
-          <option selected>Humana</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+        <select class="form-control" formControlName="insurance" *ngIf="insurances">
+          <option selected>Select Insurance</option>
+          <option *ngFor="let insurance of insurances">{{insurance.insuranceName}}</option>
         </select>
         &nbsp;and Practices&nbsp;
         <select class="form-control" formControlName="specialty">
@@ -29,9 +26,9 @@
   </form>
   <hr />
   <br /><br /><br /><br />
-  <h5>SELECTED:</h5>
+  <h5 *ngIf="this.chosenInsurance" > SELECTED: </h5>
   <br />
-  Insurance: {{this.insurance}}
+  <div *ngIf="this.chosenInsurance"> Insurance: {{this.chosenInsurance}} </div>
   <br />
-  Specialty: {{this.specialty}}
+  <div *ngIf="this.chosenInsurance"> Specialty: {{this.specialty}} </div>
 </div>

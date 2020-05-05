@@ -1,34 +1,33 @@
 <ul class="pl-5">
   <li>Here are docs that accept !Humana! and practice !Optometry!...</li>
-  <li *ngFor="let Provider of providers">
-    {{ Provider }}
-  </li>
 </ul>
+<span style="padding-left: 5%;"><button (click)="getAll()">Refresh</button></span>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-12 mx-auto my-5" *ngFor="let card of cards">
+    <div class="col-md-12 mx-auto my-5" *ngFor="let prov of providers">
       <mdb-card>
         <mdb-card-body class="text-center">
           <div class="d-inline-block image col-md-3">
-            <mdb-card-img [src]="card.img" alt="Card image cap"></mdb-card-img>
+            <mdb-card-img [src]="this.imgurl" alt="Card image cap"></mdb-card-img>
           </div>
           <div class="d-inline-block col-md-6 text-xs-right">
             <mdb-card-title class="text-center text-md-left">
-              <h2>{{card.title}}</h2>
+              <h2>{{prov.providerFirstName}} {{prov.providerLastName}}</h2>
             </mdb-card-title>
             <mdb-card-text class="text-center text-md-left">
-              {{card.description}}
+              {{prov.specialty}}
             </mdb-card-text>
             <mdb-card-text class="text-center text-md-left">
-              {{card.address}}
+              add
             </mdb-card-text>
           </div>
           <div class="d-inline-block col-md-3 float-md-right text-md-right">
             <mdb-card-text class="text-center text-md-right">
-              {{card.distance}}
+              dist
             </mdb-card-text>
             <div>
-              <button mdbBtn color="primary">{{card.buttonText}}</button>
+              <button mdbBtn color="primary">SELECT</button>
             </div>
           </div>
         </mdb-card-body>
