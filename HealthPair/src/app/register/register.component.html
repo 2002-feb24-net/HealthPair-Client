@@ -58,7 +58,7 @@
 
 <div class="form-group">
   <label for="PatientPhoneNumber">Phone Number</label>
-  <input type="number" formControlName="PatientPhoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientPhoneNumber.errors }" placeholder="(555)-555-5555)"/>
+  <input type="number" formControlName="PatientPhoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientPhoneNumber.errors }" placeholder="(555)-555-5555"/>
   <div *ngIf="submitted && f.PatientPhoneNumber.errors" class="invalid-feedback">
       <div *ngIf="f.PatientPhoneNumber.errors.required">Phone Number is required</div>
   </div>
