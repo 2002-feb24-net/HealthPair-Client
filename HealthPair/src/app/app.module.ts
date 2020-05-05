@@ -30,6 +30,7 @@ import { google } from '@agm/core/services/google-maps-types';
 
 
 import { JwtInterceptor, ErrorInterceptor } from './authentification';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,9 +61,7 @@ import { JwtInterceptor, ErrorInterceptor } from './authentification';
     BrowserModule,
     MaterialModule,
     HttpClientModule,
-    AgmCoreModule.forRoot({
-      apiKey: process.env.API_KEY,
-    }),
+   //
     HttpClientModule,
   ],
   providers: [

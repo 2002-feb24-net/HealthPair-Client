@@ -31,6 +31,7 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.displayLocationInfo);
+      this.userLocation.getLocation();
     } else {
     }
   }
