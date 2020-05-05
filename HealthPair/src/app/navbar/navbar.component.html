@@ -33,7 +33,7 @@
         <a class="nav-link" routerLink="/register">Register</a>
       </li>
       <li *ngIf="currentPatient == undefined" class="nav-item">
-        <a class="nav-link text-white btn btn-primary" (click)="login()" style="cursor:pointer;">LOGIN</a>
+        <a class="nav-link text-white btn btn-primary" routerLink="/login" (click)="login()" style="cursor:pointer;">LOGIN</a>
       </li>
     </ul>
   </div>
