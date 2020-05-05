@@ -1,5 +1,3 @@
-import { Provider } from '.';
-
 export class Facility
 {
     FacilityId : number;
@@ -9,6 +7,4 @@ export class Facility
     FacilityState : string;
     FacilityZipcode : number;
     FacilityPhoneNumber : number;
-
-    Providers : Provider[];
 }

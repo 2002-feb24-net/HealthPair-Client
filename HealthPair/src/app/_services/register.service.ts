@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Patient} from '../models/Patient';
+import { Patient } from '../models';
 import { environment } from 'src/environments/environment';
 
 const httpOptions = {
