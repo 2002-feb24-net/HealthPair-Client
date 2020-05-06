@@ -33,7 +33,11 @@
   <div *ngIf="this.chosenInsurance"> Specialty: {{this.specialty}} </div>
 </div>
 
-{{this.testMessage}}
-<span style="padding-left: 5%;"><button (click)="GetCurrentLocation()">Get My Location</button></span>
-<span style="padding-left: 5%;"><button (click)="GetTargetLocation('1600 Amphitheatre Parkway','Mountain View','California')">Get Other Location</button></span>
-<span style="padding-left: 5%;"><button (click)="CalculateDistance('1600 Amphitheatre Parkway','Mountain View','California')">Calculate Distance</button></span>
+<div>{{this.yourLocation}}</div>
+<div>{{this.destinationLocation}}</div>
+<div>{{this.finalDistance}}</div>
+<div>
+  <span style="padding-left: 5%;"><button (click)="getCurrentLocation()">Get My Location</button></span>
+  <span style="padding-left: 5%;"><button (click)="getTargetLocation('1600 Amphitheatre Parkway','Mountain View','California')">Get Other Location</button></span>
+  <span style="padding-left: 5%;"><button (click)="calculateDistance('1600 Amphitheatre Parkway','Mountain View','California')">Calculate Distance</button></span>
+</div>
