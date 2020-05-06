@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import {RegisterService} from '../_services/register.service'
-
 import { AlertService, HealthPairService, AuthenticationService } from '../_services';
 import { NgForOf } from '@angular/common';
+import { Insurance, Patient } from '../models';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
+    insurances: Insurance[];
+    chosenInsurance: string;
+    myInsurance: any;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -31,15 +33,67 @@ export class RegisterComponent implements OnInit {
             PatientFirstName: ['', Validators.required],
             PatientLastName: ['', Validators.required],
             PatientInsurance: ['', Validators.required],
-            PatientPassword: ['', [Validators.required, Validators.minLength(6)], Validators.pattern('[a-zA-Z ]*')]
+            PatientAddress1: ['', Validators.required],
+            PatientCity: ['', Validators.required],
+            PatientState: ['', Validators.required],
+            PatientZipcode: ['', Validators.required],
+            PatientBirthDay: ['', Validators.required],
+            PatientPhoneNumber: ['', Validators.required],
+            PatientEmail: ['', Validators.required],
+            PatientPassword: ['', [Validators.required, Validators.minLength(6)], ]
         });
+
+        this.getAll();
     }
 
     // convenience getter for easy access to form fields
     get f() { return this.registerForm.controls; }
 
-    onSubmit() {
+    onSubmit(
+
+    ) {
         this.submitted = true;
+        this.loading = true;
+        this.chosenInsurance = this.registerForm.get('PatientInsurance')?.value;
+
+
+        this.HealthPairService.getInsuranceByName(this.chosenInsurance)
+          .subscribe(insurance => {
+            this.myInsurance = insurance;
+            console.log(this.myInsurance);
+            var myReturnObject: Patient = new Patient
+
+            {
+                myReturnObject.InsuranceId = this.myInsurance[0].insuranceId,
+                myReturnObject.InsuranceName = this.myInsurance[0].insuranceName,
+                myReturnObject.PatientId = 0,
+                myReturnObject.PatientFirstName = this.registerForm.value.PatientFirstName,
+                myReturnObject.PatientLastName = this.registerForm.value.PatientLastName,
+                myReturnObject.PatientAddress1 = this.registerForm.value.PatientAddress1,
+                myReturnObject.PatientBirthDay = this.registerForm.value.PatientBirthDay,
+                myReturnObject.PatientCity = this.registerForm.value.PatientCity,
+                myReturnObject.PatientEmail = this.registerForm.value.PatientEmail,
+                myReturnObject.PatientPassword = this.registerForm.value.PatientPassword,
+                myReturnObject.PatientPhoneNumber = this.registerForm.value.PatientPhoneNumber,
+                myReturnObject.PatientState = this.registerForm.value.PatientState,
+                myReturnObject.PatientZipcode = this.registerForm.value.PatientZipcode
+            }
+            console.log(myReturnObject);
+            this.HealthPairService.createPatient(myReturnObject)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.alertService.success('Registration successful', true);
+                    this.router.navigate(['/login']);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+          })
+
+
+
 
         // reset alerts on submit
         this.alertService.clear();
@@ -51,21 +105,17 @@ export class RegisterComponent implements OnInit {
 
         }
 
-        this.loading = true;
-        this.HealthPairService.createPatient(this.registerForm.value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+
+
     }
 
-  insertRecord(form: NgForm){
-    (this.HealthPairService.createPatient(form.value)).subscribe(res=>{this.alertService.success('Success!');})
-  }
+    getAll()
+    {
+      this.HealthPairService.getInsuranceAll()
+        .subscribe(insurances =>
+        {
+          this.insurances = insurances;
+        });
+    }
+
 }
