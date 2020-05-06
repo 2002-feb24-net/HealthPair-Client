@@ -7,6 +7,8 @@ import { AppointmentDetailsComponent } from './appointment-details/appointment-d
 import { FacilityComponent } from './facility/facility.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { InsuranceComponent  } from './insurance/insurance.component';
+import { SpecialtyComponent } from './specialty/specialty.component';
 
 
 const routes: Routes = [
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'provider-selection', component: ProviderSelectionComponent },
   { path: 'appointment-details', component: AppointmentDetailsComponent },
   { path: 'facility', component: FacilityComponent },
+  {path: 'insurance', component: InsuranceComponent},
+  { path: 'specialty', component: SpecialtyComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 

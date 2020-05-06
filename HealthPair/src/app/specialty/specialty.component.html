@@ -1,0 +1,32 @@
+<div *ngIf="mySpecialties" placeholder="Loading...">
+    <ul class = "models">
+        <ul class="models" style='list-style-type:none;'>
+            <li *ngFor="let specialty of mySpecialties">
+                <div *ngIf="specialty.specialtyId">
+                    <div>Specialty: {{specialty.specialty}} </div>
+                    <button class="delete" title="delete specialty" (click)="delete(specialty)">delete</button>
+                </div>
+            </li>
+        </ul>
+    </ul>
+  
+    <br/>
+    <br/>
+    <div *ngIf = "this.createdMessage">{{this.createdMessage}}</div>
+    <div>
+    <label>Add Specialty:
+        <br/>
+        <div>
+            <label> Specialty:
+                <input type="text" #specialtyName />
+            </label>
+        </div>
+    </label>
+    <button (click)="AddSpecialty(specialtyName.value);
+    specialtyName.value='';">
+        Add Specialty
+    </button>
+    </div>
+  </div>
+  
+  
