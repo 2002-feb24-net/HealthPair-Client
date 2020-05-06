@@ -4,5 +4,5 @@ export const environment =
   //healthPairApiBaseUrl: 'http://192.168.99.100:8000/',
   //healthPairApiBaseUrl: 'https://localhost:44344/',
   healthPairApiBaseUrl: 'https://healthpair-api.azurewebsites.net/',
-  geoLocationBaseUrl: 'https://maps.googleapis.com/maps/api/geocode'
+  geoLocationBaseUrl: 'https://maps.googleapis.com/maps/api/geocode/json?address='
 };
