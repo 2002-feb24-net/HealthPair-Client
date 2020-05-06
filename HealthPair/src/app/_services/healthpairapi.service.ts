@@ -605,7 +605,7 @@ deleteProvider(id: number)
 */
 getSpecialtyAll() : Observable<Specialty[]>
 {
-  return this.http.get<Specialty[]>(`${this.baseUrl}api/specialty`)
+  return this.http.get<Specialty[]>(`${this.baseUrl}api/speciality`)
     .pipe(
       catchError(this.handleError<Specialty[]>(`getSpecialtyAll`,[]))
     );
