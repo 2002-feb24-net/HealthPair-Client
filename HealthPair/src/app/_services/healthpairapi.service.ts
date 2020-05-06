@@ -1,12 +1,12 @@
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 
 
 import { Appointment,Facility,Insurance,Patient,Provider,Specialty } from "../models"
 import { AlertService } from '../_services/alert.service';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -720,5 +720,5 @@ deleteSpecialty(id: number)
       console.error(operation + " " + error);
       return of(result as T);
     };
-}
+  }
 }
