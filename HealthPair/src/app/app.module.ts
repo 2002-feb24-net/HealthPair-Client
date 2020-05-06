@@ -30,6 +30,7 @@ import { google } from '@agm/core/services/google-maps-types';
 
 
 import { JwtInterceptor, ErrorInterceptor } from './authentification';
+import { SpecialtyComponent } from './specialty/specialty.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { JwtInterceptor, ErrorInterceptor } from './authentification';
     InsuranceComponent,
     InsuranceDetailsComponent,
     AlertComponent,
+    SpecialtyComponent
 
   ],
   imports: [

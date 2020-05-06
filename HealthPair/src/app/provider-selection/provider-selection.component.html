@@ -1,7 +1,6 @@
 <ul class="pl-5">
-  <li>Here are docs that accept !Humana! and practice !Optometry!...</li>
+  <li>Here are docs that accept {{SearchService.sharedIns}} and practice {{SearchService.sharedSpec}}</li>
 </ul>
-<span style="padding-left: 5%;"><button (click)="getAll()">Refresh</button></span>
 
 <div class="container">
   <div class="row">
@@ -19,12 +18,12 @@
               {{prov.specialty}}
             </mdb-card-text>
             <mdb-card-text class="text-center text-md-left">
-              add
+              address
             </mdb-card-text>
           </div>
           <div class="d-inline-block col-md-3 float-md-right text-md-right">
             <mdb-card-text class="text-center text-md-right">
-              dist
+              distance
             </mdb-card-text>
             <div>
               <button mdbBtn color="primary">SELECT</button>

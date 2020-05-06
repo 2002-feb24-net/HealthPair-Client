@@ -3,7 +3,10 @@ import { FormBuilder } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 
 import { HealthPairService,AuthenticationService,UserLocationService } from '../_services';
-import { Insurance, Patient } from '../models';
+import { Insurance, Patient, Specialty } from '../models';
+import { SearchService } from '../_services/search.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-landing-page',
@@ -12,8 +15,9 @@ import { Insurance, Patient } from '../models';
 })
 export class LandingPageComponent implements OnInit {
   chosenInsurance: string;
-  specialty: string;
+  speciality: string;
 
+  specialties: Specialty[];
   insurances: Insurance[];
   currentPatient : Patient;
 
@@ -26,16 +30,18 @@ export class LandingPageComponent implements OnInit {
     insurance: ['Humana'],
     specialty: ['Optometry']
   })
-  constructor(private builder: FormBuilder, private HealthPairService: HealthPairService,private authenticationService: AuthenticationService, private locationService: UserLocationService) { }
+  constructor(private SearchService: SearchService, private router: Router, private builder: FormBuilder, private HealthPairService: HealthPairService,private authenticationService: AuthenticationService, private locationService: UserLocationService) { }
 
   ngOnInit(): void {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
     this.getAll();
+    this.getAllSpecialties();
   }
 
   onSubmit() {
-    this.chosenInsurance = this.landingpageForm.get('insurance')?.value;
-    this.specialty = this.landingpageForm.get('specialty')?.value;
+    this.SearchService.sharedIns = this.landingpageForm.get('insurance')?.value;
+    this.SearchService.sharedSpec = this.landingpageForm.get('specialty')?.value;
+    this.router.navigate(['/provider-selection'])
   }
 
   getAll()
@@ -46,6 +52,14 @@ export class LandingPageComponent implements OnInit {
         this.insurances = insurances;
       });
   }
+
+  getAllSpecialties() {
+    this.HealthPairService.getSpecialtyAll()
+      .subscribe(specialties => {
+        this.specialties = specialties;
+      });
+  }
+
 
   getCurrentLocation() {
     this.yourLocation = "Your Location: Calculating...";
