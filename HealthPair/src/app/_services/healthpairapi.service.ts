@@ -40,7 +40,7 @@ export class HealthPairService
 */
   getAppointmentAll() : Observable<Appointment[]>
   {
-    return this.http.get<Appointment[]>(`${this.baseUrl}api/appointment`)
+    return this.http.get<Appointment[]>(`${this.baseUrl}api/Appointment`)
       .pipe(
         catchError(this.handleError<Appointment[]>(`getAppointmentAll`,[]))
       );
@@ -58,7 +58,7 @@ export class HealthPairService
 */
   getAppointmentById(id : number) : Observable<Appointment>
   {
-    return this.http.get<Appointment>(`${this.baseUrl}api/appointment/${id}`)
+    return this.http.get<Appointment>(`${this.baseUrl}api/Appointment/${id}`)
       .pipe(
         catchError(this.handleError<Appointment>(`getAppointmentById`))
       );
@@ -79,7 +79,7 @@ export class HealthPairService
     if (!term.trim()) {
       return of([]);
     }
-    return this.http.get<Appointment[]>(`${this.baseUrl}api/appointment?search=${term}`).pipe(
+    return this.http.get<Appointment[]>(`${this.baseUrl}api/Appointment?search=${term}`).pipe(
       catchError(this.handleError<Appointment[]>('searchAppointment', []))
     );
   }
@@ -96,7 +96,7 @@ export class HealthPairService
 */
   createAppointment(appointment: Appointment) : Observable<Appointment>
   {
-    return this.http.post<Appointment>(`${this.baseUrl}api/appointment`, appointment)
+    return this.http.post<Appointment>(`${this.baseUrl}api/Appointment`, appointment)
       .pipe(
         catchError(this.handleError<Appointment>(`createAppointment`))
       );;
@@ -114,7 +114,7 @@ export class HealthPairService
 */
   updateAppointment(appointment: Appointment): Observable<any>
   {
-    return this.http.put(`${this.baseUrl}api/appointment/${appointment.AppointmentId}`, appointment, this.httpOptions).pipe(
+    return this.http.put(`${this.baseUrl}api/Appointment/${appointment.AppointmentId}`, appointment, this.httpOptions).pipe(
       catchError(this.handleError<Appointment>('updateAppointment'))
     );
   }
@@ -131,7 +131,7 @@ export class HealthPairService
 */
   deleteAppointment(id: number)
   {
-    return this.http.delete(`${this.baseUrl}api/appointment/${id}`)
+    return this.http.delete(`${this.baseUrl}api/Appointment/${id}`)
       .pipe(
         catchError(this.handleError<Appointment[]>(`deleteAppointment`,[]))
       );;
@@ -153,7 +153,7 @@ export class HealthPairService
 */
 getFacilityAll() : Observable<Facility[]>
 {
-  return this.http.get<Facility[]>(`${this.baseUrl}api/facility`)
+  return this.http.get<Facility[]>(`${this.baseUrl}api/Facility`)
     .pipe(
       catchError(this.handleError<Facility[]>(`getFacilityAll`,[]))
     );
@@ -171,7 +171,7 @@ getFacilityAll() : Observable<Facility[]>
 */
 getFacilityById(id : number) : Observable<Facility>
 {
-  return this.http.get<Facility>(`${this.baseUrl}api/facility/${id}`)
+  return this.http.get<Facility>(`${this.baseUrl}api/Facility/${id}`)
     .pipe(
       catchError(this.handleError<Facility>(`getFacilityById`))
     );
@@ -192,7 +192,7 @@ searchFacility(term : string): Observable<Facility[]>
   if (!term.trim()) {
     return of([]);
   }
-  return this.http.get<Facility[]>(`${this.baseUrl}api/facility?search=${term}`).pipe(
+  return this.http.get<Facility[]>(`${this.baseUrl}api/Facility?search=${term}`).pipe(
     catchError(this.handleError<Facility[]>('searchFacility', []))
   );
 }
@@ -209,7 +209,7 @@ searchFacility(term : string): Observable<Facility[]>
 */
 createFacility(facility : Facility) : Observable<Facility>
 {
-  return this.http.post<Facility>(`${this.baseUrl}api/facility`, facility)
+  return this.http.post<Facility>(`${this.baseUrl}api/Facility`, facility)
     .pipe(
       catchError(this.handleError<Facility>(`createFacility`))
     );;
@@ -227,7 +227,7 @@ createFacility(facility : Facility) : Observable<Facility>
 */
 updateFacility(facility : Facility): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/facility/${facility.FacilityId}`, facility, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Facility/${facility.FacilityId}`, facility, this.httpOptions).pipe(
     catchError(this.handleError<Facility>('updateFacility'))
   );
 }
@@ -244,7 +244,7 @@ updateFacility(facility : Facility): Observable<any>
 */
 deleteFacility(id: number)
 {
-  return this.http.delete(`${this.baseUrl}api/facility/${id}`)
+  return this.http.delete(`${this.baseUrl}api/Facility/${id}`)
     .pipe(
       catchError(this.handleError<Facility[]>(`deleteFacility`,[]))
     );;
@@ -266,7 +266,7 @@ deleteFacility(id: number)
 */
 getInsuranceAll() : Observable<Insurance[]>
 {
-  return this.http.get<Insurance[]>(`${this.baseUrl}api/insurance`)
+  return this.http.get<Insurance[]>(`${this.baseUrl}api/Insurance`)
     .pipe(
       catchError(this.handleError<Insurance[]>(`getInsuranceAll`,[]))
     );
@@ -284,7 +284,7 @@ getInsuranceAll() : Observable<Insurance[]>
 */
 getInsuranceById(id : number) : Observable<Insurance>
 {
-  return this.http.get<Insurance>(`${this.baseUrl}api/insurance/${id}`)
+  return this.http.get<Insurance>(`${this.baseUrl}api/Insurance/${id}`)
     .pipe(
       catchError(this.handleError<Insurance>(`getInsuranceById`))
     );
@@ -305,7 +305,7 @@ searchInsurance(term : string): Observable<Insurance[]>
   if (!term.trim()) {
     return of([]);
   }
-  return this.http.get<Insurance[]>(`${this.baseUrl}api/insurance?search=${term}`).pipe(
+  return this.http.get<Insurance[]>(`${this.baseUrl}api/Insurance?search=${term}`).pipe(
     catchError(this.handleError<Insurance[]>('searchInsurance', []))
   );
 }
@@ -322,7 +322,7 @@ searchInsurance(term : string): Observable<Insurance[]>
 */
 createInsurance(insurance : Insurance) : Observable<Insurance>
 {
-  return this.http.post<Insurance>(`${this.baseUrl}api/insurance`, insurance)
+  return this.http.post<Insurance>(`${this.baseUrl}api/Insurance`, insurance)
     .pipe(
       catchError(this.handleError<Insurance>(`createInsurance`))
     );;
@@ -340,7 +340,7 @@ createInsurance(insurance : Insurance) : Observable<Insurance>
 */
 updateInsurance(insurance : Insurance): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/insurance/${insurance.InsuranceId}`, insurance, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Insurance/${insurance.InsuranceId}`, insurance, this.httpOptions).pipe(
     catchError(this.handleError<Insurance>('updateInsurance',))
   );
 }
@@ -357,7 +357,7 @@ updateInsurance(insurance : Insurance): Observable<any>
 */
 deleteInsurance(id: number)
 {
-  return this.http.delete(`${this.baseUrl}api/insurance/${id}`)
+  return this.http.delete(`${this.baseUrl}api/Insurance/${id}`)
     .pipe(
       catchError(this.handleError<Insurance[]>(`deleteInsurance`,[]))
     );;
@@ -380,7 +380,7 @@ deleteInsurance(id: number)
 */
 getPatientAll() : Observable<Patient[]>
 {
-  return this.http.get<Patient[]>(`${this.baseUrl}api/patient`)
+  return this.http.get<Patient[]>(`${this.baseUrl}api/Patient`)
     .pipe(
       catchError(this.handleError<Patient[]>(`getPatientAll`,[]))
     );
@@ -398,7 +398,7 @@ getPatientAll() : Observable<Patient[]>
 */
 getPatientById(id : number) : Observable<Patient>
 {
-  return this.http.get<Patient>(`${this.baseUrl}api/patient/${id}`)
+  return this.http.get<Patient>(`${this.baseUrl}api/Patient/${id}`)
     .pipe(
       catchError(this.handleError<Patient>(`getPatientById`))
     );
@@ -419,7 +419,7 @@ searchPatient(term : string): Observable<Patient[]>
   if (!term.trim()) {
     return of([]);
   }
-  return this.http.get<Patient[]>(`${this.baseUrl}api/patient?search=${term}`).pipe(
+  return this.http.get<Patient[]>(`${this.baseUrl}api/Patient?search=${term}`).pipe(
     catchError(this.handleError<Patient[]>('searchPatient', []))
   );
 }
@@ -436,7 +436,7 @@ searchPatient(term : string): Observable<Patient[]>
 */
 createPatient(patient : Patient) : Observable<Patient>
 {
-  return this.http.post<Patient>(`${this.baseUrl}api/patient`, patient, this.httpOptions)
+  return this.http.post<Patient>(`${this.baseUrl}api/Patient`, patient, this.httpOptions)
     .pipe(
       catchError(this.handleError<Patient>(`createPatient`))
     );;
@@ -454,7 +454,7 @@ createPatient(patient : Patient) : Observable<Patient>
 */
 updatePatient(patient : Patient): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/patient/${patient.PatientId}`, patient, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Patient/${patient.PatientId}`, patient, this.httpOptions).pipe(
     catchError(this.handleError<Patient>('updatePatient'))
   );
 }
@@ -472,7 +472,7 @@ updatePatient(patient : Patient): Observable<any>
 */
 deletePatient(id: number)
 {
-  return this.http.delete(`${this.baseUrl}api/patient/${id}`)
+  return this.http.delete(`${this.baseUrl}api/Patient/${id}`)
     .pipe(
       catchError(this.handleError<Patient[]>(`deletePatient`,[]))
     );;
@@ -493,7 +493,7 @@ deletePatient(id: number)
 */
 getProviderAll() : Observable<Provider[]>
 {
-  return this.http.get<Provider[]>(`${this.baseUrl}api/provider`)
+  return this.http.get<Provider[]>(`${this.baseUrl}api/Provider`)
     .pipe(
       catchError(this.handleError<Provider[]>(`getProviderAll`,[]))
     );
@@ -511,7 +511,7 @@ getProviderAll() : Observable<Provider[]>
 */
 getProviderById(id : number) : Observable<Provider>
 {
-  return this.http.get<Provider>(`${this.baseUrl}api/provider/${id}`)
+  return this.http.get<Provider>(`${this.baseUrl}api/Provider/${id}`)
     .pipe(
       catchError(this.handleError<Provider>(`getProviderById`))
     );
@@ -532,7 +532,7 @@ searchProvider(term : string): Observable<Provider[]>
   if (!term.trim()) {
     return of([]);
   }
-  return this.http.get<Provider[]>(`${this.baseUrl}api/provider?search=${term}`).pipe(
+  return this.http.get<Provider[]>(`${this.baseUrl}api/Provider?search=${term}`).pipe(
     catchError(this.handleError<Provider[]>('searchProvider', []))
   );
 }
@@ -549,7 +549,7 @@ searchProvider(term : string): Observable<Provider[]>
 */
 createProvider(provider : Provider) : Observable<Provider>
 {
-  return this.http.post<Provider>(`${this.baseUrl}api/provider`, provider)
+  return this.http.post<Provider>(`${this.baseUrl}api/Provider`, provider)
     .pipe(
       catchError(this.handleError<Provider>(`createProvider`))
     );;
@@ -567,7 +567,7 @@ createProvider(provider : Provider) : Observable<Provider>
 */
 updateProvider(provider : Provider): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/provider/${provider.ProviderId}`, provider, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Provider/${provider.ProviderId}`, provider, this.httpOptions).pipe(
     catchError(this.handleError<Provider>('updateProvider'))
   );
 }
@@ -584,7 +584,7 @@ updateProvider(provider : Provider): Observable<any>
 */
 deleteProvider(id: number)
 {
-  return this.http.delete(`${this.baseUrl}api/provider/${id}`)
+  return this.http.delete(`${this.baseUrl}api/Provider/${id}`)
     .pipe(
       catchError(this.handleError<Provider[]>(`deleteProvider`,[]))
     );;
@@ -605,7 +605,7 @@ deleteProvider(id: number)
 */
 getSpecialtyAll() : Observable<Specialty[]>
 {
-  return this.http.get<Specialty[]>(`${this.baseUrl}api/specialty`)
+  return this.http.get<Specialty[]>(`${this.baseUrl}api/Specialty`)
     .pipe(
       catchError(this.handleError<Specialty[]>(`getSpecialtyAll`,[]))
     );
@@ -623,7 +623,7 @@ getSpecialtyAll() : Observable<Specialty[]>
 */
 getSpecialtyById(id : number) : Observable<Specialty>
 {
-  return this.http.get<Specialty>(`${this.baseUrl}api/specialty/${id}`)
+  return this.http.get<Specialty>(`${this.baseUrl}api/Specialty/${id}`)
     .pipe(
       catchError(this.handleError<Specialty>(`getSpecialtyById`))
     );
@@ -644,7 +644,7 @@ searchSpecialty(term : string): Observable<Specialty[]>
   if (!term.trim()) {
     return of([]);
   }
-  return this.http.get<Specialty[]>(`${this.baseUrl}api/specialty?search=${term}`).pipe(
+  return this.http.get<Specialty[]>(`${this.baseUrl}api/Specialty?search=${term}`).pipe(
     catchError(this.handleError<Specialty[]>('searchSpecialty', []))
   );
 }
@@ -661,7 +661,7 @@ searchSpecialty(term : string): Observable<Specialty[]>
 */
 createSpecialty(specialty : Specialty) : Observable<Specialty>
 {
-  return this.http.post<Specialty>(`${this.baseUrl}api/specialty`, specialty)
+  return this.http.post<Specialty>(`${this.baseUrl}api/Specialty`, specialty)
     .pipe(
       catchError(this.handleError<Specialty>(`createSpecialty`))
     );;
@@ -679,7 +679,7 @@ createSpecialty(specialty : Specialty) : Observable<Specialty>
 */
 updateSpecialty(specialty : Specialty): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/specialty/${specialty.SpecialtyId}`, specialty, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Specialty/${specialty.SpecialtyId}`, specialty, this.httpOptions).pipe(
     catchError(this.handleError<Specialty>('updateSpecialty'))
   );
 }
@@ -696,7 +696,7 @@ updateSpecialty(specialty : Specialty): Observable<any>
 */
 deleteSpecialty(id: number)
 {
-  return this.http.delete(`${this.baseUrl}api/specialty/${id}`)
+  return this.http.delete(`${this.baseUrl}api/Specialty/${id}`)
     .pipe(
       catchError(this.handleError<Specialty[]>(`deleteSpecialty`,[]))
     );;
