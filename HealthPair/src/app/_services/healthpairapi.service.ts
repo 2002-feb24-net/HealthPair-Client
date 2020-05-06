@@ -209,7 +209,7 @@ searchFacility(term : string): Observable<Facility[]>
 */
 createFacility(facility : Facility) : Observable<Facility>
 {
-  return this.http.post<Facility>(`${this.baseUrl}/api/Facility/`, facility)
+  return this.http.post<Facility>(`${this.baseUrl}/api/facility/`, facility)
     .pipe(
       catchError(this.handleError<Facility>(`createFacility`))
     );;
