@@ -1,5 +1,4 @@
 <div class="container text-center">
-  <br>
   <h2>Find a doc who...</h2>
   <br />
   <form [formGroup]="landingpageForm" (ngSubmit)="onSubmit()">
@@ -7,16 +6,13 @@
       <div class="md-form">
         Accepts&nbsp;
         <select class="form-control" formControlName="insurance" *ngIf="insurances">
-          <option selected>Select Insurance</option>
+          <option selected>Humana</option>
           <option *ngFor="let insurance of insurances">{{insurance.insuranceName}}</option>
         </select>
         &nbsp;and Practices&nbsp;
         <select class="form-control" formControlName="specialty">
           <option selected>Optometry</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+          <option *ngFor="let specialty of specialties">{{specialty.specialty}}</option>
         </select>
         &nbsp;&nbsp;
         <span class="d-sm-none"><br /></span>
@@ -25,13 +21,11 @@
     </div>
   </form>
   <hr />
-  <br /><br /><br /><br />
-  <h5 *ngIf="this.chosenInsurance" > SELECTED: </h5>
   <br />
-  <div *ngIf="this.chosenInsurance"> Insurance: {{this.chosenInsurance}} </div>
-  <br />
-  <div *ngIf="this.chosenInsurance"> Specialty: {{this.specialty}} </div>
 </div>
+
+
+<p>theplace</p>
 
 <div>{{this.yourLocation}}</div>
 <div>{{this.destinationLocation}}</div>
