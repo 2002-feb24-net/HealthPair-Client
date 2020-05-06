@@ -357,7 +357,7 @@ updateInsurance(insurance : Insurance): Observable<any>
 */
 deleteInsurance(id: number)
 {
-  return this.http.delete(`${this.baseUrl}api/Insurance/${id}`)
+  return this.http.delete(`${this.baseUrl}api/insurance/${id}`)
     .pipe(
       catchError(this.handleError<Insurance[]>(`deleteInsurance`,[]))
     );;
