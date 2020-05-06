@@ -14,4 +14,6 @@ export class Provider
 
     SpecialtyId : number;
     Specialty : string;
+
+    InsuranceIds : number[];
 }
