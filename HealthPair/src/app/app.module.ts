@@ -24,7 +24,13 @@ import { InsuranceDetailsComponent } from './insurance-details/insurance-details
 import { AlertComponent } from './alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
+import { HttpClient } from '@angular/common/http';
+import {  AgmCoreModule} from '@agm/core'
+import { google } from '@agm/core/services/google-maps-types';
+
+
 import { JwtInterceptor, ErrorInterceptor } from './authentification';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +46,8 @@ import { JwtInterceptor, ErrorInterceptor } from './authentification';
     FacilityDetailsComponent,
     InsuranceComponent,
     InsuranceDetailsComponent,
-    AlertComponent
+    AlertComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,9 @@ import { JwtInterceptor, ErrorInterceptor } from './authentification';
     BrowserAnimationsModule,
     BrowserModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+   //
+    HttpClientModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
