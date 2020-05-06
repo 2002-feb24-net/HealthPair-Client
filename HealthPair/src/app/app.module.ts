@@ -25,6 +25,7 @@ import { AlertComponent } from './alert/alert.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
 import { JwtInterceptor, ErrorInterceptor } from './authentification';
+import { SpecialtyComponent } from './specialty/specialty.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { JwtInterceptor, ErrorInterceptor } from './authentification';
     FacilityDetailsComponent,
     InsuranceComponent,
     InsuranceDetailsComponent,
-    AlertComponent
+    AlertComponent,
+    SpecialtyComponent
   ],
   imports: [
     BrowserModule,
