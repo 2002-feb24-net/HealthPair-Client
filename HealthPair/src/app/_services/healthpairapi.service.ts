@@ -209,7 +209,7 @@ searchFacility(term : string): Observable<Facility[]>
 */
 createFacility(facility : Facility) : Observable<Facility>
 {
-  return this.http.post<Facility>(`${this.baseUrl}/api/facility/`, facility)
+  return this.http.post<Facility>(`${this.baseUrl}api/facility`, facility)
     .pipe(
       catchError(this.handleError<Facility>(`createFacility`))
     );;
@@ -322,7 +322,7 @@ searchInsurance(term : string): Observable<Insurance[]>
 */
 createInsurance(insurance : Insurance) : Observable<Insurance>
 {
-  return this.http.post<Insurance>(`${this.baseUrl}api/Insurance/`, insurance)
+  return this.http.post<Insurance>(`${this.baseUrl}api/insurance`, insurance)
     .pipe(
       catchError(this.handleError<Insurance>(`createInsurance`))
     );;
@@ -357,7 +357,7 @@ updateInsurance(insurance : Insurance): Observable<any>
 */
 deleteInsurance(id: number)
 {
-  return this.http.delete(`${this.baseUrl}api/Insurance/` + id)
+  return this.http.delete(`${this.baseUrl}api/Insurance/${id}`)
     .pipe(
       catchError(this.handleError<Insurance[]>(`deleteInsurance`,[]))
     );;
@@ -605,7 +605,7 @@ deleteProvider(id: number)
 */
 getSpecialtyAll() : Observable<Specialty[]>
 {
-  return this.http.get<Specialty[]>(`${this.baseUrl}api/Speciality`)
+  return this.http.get<Specialty[]>(`${this.baseUrl}api/specialty`)
     .pipe(
       catchError(this.handleError<Specialty[]>(`getSpecialtyAll`,[]))
     );
@@ -661,7 +661,7 @@ searchSpecialty(term : string): Observable<Specialty[]>
 */
 createSpecialty(specialty : Specialty) : Observable<Specialty>
 {
-  return this.http.post<Specialty>(`${this.baseUrl}api/Speciality/`, specialty)
+  return this.http.post<Specialty>(`${this.baseUrl}api/specialty`, specialty)
     .pipe(
       catchError(this.handleError<Specialty>(`createSpecialty`))
     );;
