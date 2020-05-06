@@ -10,7 +10,7 @@
           <option *ngFor="let insurance of insurances">{{insurance.insuranceName}}</option>
         </select>
         &nbsp;and Practices&nbsp;
-        <select class="form-control" formControlName="specialty">
+        <select class="form-control" formControlName="specialty" *ngIf="specialties">
           <option selected>Optometry</option>
           <option *ngFor="let specialty of specialties">{{specialty.specialty}}</option>
         </select>
