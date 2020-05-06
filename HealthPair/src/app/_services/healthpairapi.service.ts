@@ -454,11 +454,7 @@ searchPatient(term : string): Observable<Patient[]>
 */
 createPatient(patient : Patient) : Observable<Patient>
 {
-<<<<<<< HEAD
   return this.http.post<Patient>(`${this.baseUrl}api/Patient`, patient, this.httpOptions)
-=======
-  return this.http.post<Patient>(`${this.baseUrl}api/patient`, patient)
->>>>>>> a69d87e1e82076e4c11bba4b15dc51b514ff4e2c
     .pipe(
       catchError(this.handleError<Patient>(`createPatient`))
     );;
