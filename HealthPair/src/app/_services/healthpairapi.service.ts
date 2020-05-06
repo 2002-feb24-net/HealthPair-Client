@@ -209,7 +209,7 @@ searchFacility(term : string): Observable<Facility[]>
 */
 createFacility(facility : Facility) : Observable<Facility>
 {
-  return this.http.post<Facility>(`${this.baseUrl}api/facility`, facility)
+  return this.http.post<Facility>(`${this.baseUrl}/api/Facility/`, facility)
     .pipe(
       catchError(this.handleError<Facility>(`createFacility`))
     );;
@@ -322,7 +322,7 @@ searchInsurance(term : string): Observable<Insurance[]>
 */
 createInsurance(insurance : Insurance) : Observable<Insurance>
 {
-  return this.http.post<Insurance>(`${this.baseUrl}api/insurance`, insurance)
+  return this.http.post<Insurance>(`${this.baseUrl}api/Insurance/`, insurance)
     .pipe(
       catchError(this.handleError<Insurance>(`createInsurance`))
     );;
