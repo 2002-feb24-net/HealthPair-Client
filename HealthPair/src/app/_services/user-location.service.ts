@@ -27,26 +27,27 @@ export class UserLocationService
 
   getMyPosition(): Promise<any>
   {
-    return new Promise((resolve, reject) =>
+    if (navigator.geolocation)
     {
-      navigator.geolocation.getCurrentPosition(resp =>
-        {
-          resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
-        },
-        err =>
-        {
-          // TODO: Error handling
-          reject(err);
-        });
-    });
-  }
-
-  getLocationCoordsDemo()
-  {
-    return this.http.get<any>(`${this.baseUrl}1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=${this.key}`)
-      .pipe(
-        catchError(this.handleError<any>(`getLocationCoords`))
-      );
+      return new Promise((resolve, reject) =>
+      {
+        navigator.geolocation.getCurrentPosition(resp =>
+          {
+            resolve({lng: resp.coords.longitude, lat: resp.coords.latitude});
+          },
+          err =>
+          {
+            // TODO: Error handling
+            this.handleError(`getMyPosition`,err)
+            console.log(err.message);
+            reject(err);
+          });
+      });
+    }
+    else
+    {
+      alert("Something went wrong when pulling your location from the browser.");
+    }
   }
 
   getLocationCoords(address1 : string, city : string, state : string)
