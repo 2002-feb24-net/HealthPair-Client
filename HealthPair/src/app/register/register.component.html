@@ -1,5 +1,5 @@
 <h2>Register</h2>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="on">
   <div class="form-group">
     <label for="PatientFirstName">First Name</label>
     <input type="text" formControlName="PatientFirstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientFirstName.errors }" placeholder="First Name"/>
@@ -63,23 +63,39 @@
       <div *ngIf="f.PatientPhoneNumber.errors.required">Phone Number is required</div>
   </div>
 </div>
+<!--
+<div class="form-group">
+  <label for="PatientInsurance">Insurance</label>
+  <input type="text" formControlName="PatientInsurance" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientInsurance.errors }" placeholder="Blue Cross Blue Shield"/>
+  <div *ngIf="submitted && f.PatientInsurance.errors" class="invalid-feedback">
+      <div *ngIf="f.PatientInsurance.errors.required">Insurance is required</div>
+  </div>
+</div> -->
+
+<select class="form-control" formControlName="PatientInsurance" *ngIf="insurances">
+  <option selected>Select Insurance</option>
+  <option *ngFor="let insurance of insurances">{{insurance.insuranceName}}</option>
+  </select>
+
+<br>
+<br>
 
     <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="email@email.com"/>
-        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email is required</div>
+        <label for="PatientEmail">Email</label>
+        <input type="email" formControlName="PatientEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientEmail.errors }" placeholder="email@email.com"/>
+        <div *ngIf="submitted && f.PatientEmail.errors" class="invalid-feedback">
+            <div *ngIf="f.PatientEmail.errors.required">Email is required</div>
         </div>
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Password"/>
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
+        <label for="PatientPassword">Password</label>
+        <input type="password" formControlName="PatientPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientPassword.errors }" placeholder="Password"/>
+        <div *ngIf="submitted && f.PatientPassword.errors" class="invalid-feedback">
+            <div *ngIf="f.PatientPassword.errors.required">Password is required</div>
         </div>
     </div>
     <div class="form-group">
-      <button  [disabled]="loading" class="btn btn-primary">
+      <button type="submit" [disabled]="loading" class="btn btn-primary" >
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Register
       </button>

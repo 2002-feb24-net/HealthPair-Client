@@ -1,12 +1,12 @@
-import { catchError } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 
 
 import { Appointment,Facility,Insurance,Patient,Provider,Specialty } from "../models"
 import { AlertService } from '../_services/alert.service';
-import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -291,6 +291,24 @@ getInsuranceById(id : number) : Observable<Insurance>
 }
 
 /**
+* Sends a request to the server for a specific Insurance related to an name
+*
+* @example
+* Simply call the function with an input name:
+* getInsuranceByname(1)
+*
+* @param {string} name The name that you are searching for
+* @returns An Observable with an action result, and a single Insurance from the database
+*/
+getInsuranceByName(name : string)
+{
+  return this.http.get<Insurance>(`${this.baseUrl}api/insurance?search=${name}`)
+    .pipe(
+      catchError(this.handleError<Insurance>(`getInsuranceByName`))
+    );
+}
+
+/**
 * Sends a request to the server for a specific Insurance related to an input string
 *
 * @example
@@ -436,7 +454,7 @@ searchPatient(term : string): Observable<Patient[]>
 */
 createPatient(patient : Patient) : Observable<Patient>
 {
-  return this.http.post<Patient>(`${this.baseUrl}api/patient`, patient, this.httpOptions)
+  return this.http.post<Patient>(`${this.baseUrl}api/patient`, patient)
     .pipe(
       catchError(this.handleError<Patient>(`createPatient`))
     );;
@@ -720,5 +738,5 @@ deleteSpecialty(id: number)
       console.error(operation + " " + error);
       return of(result as T);
     };
-  }
+}
 }
