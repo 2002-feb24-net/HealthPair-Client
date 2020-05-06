@@ -357,7 +357,7 @@ updateInsurance(insurance : Insurance): Observable<any>
 */
 deleteInsurance(id: number)
 {
-  return this.http.delete(`${this.baseUrl}api/insurance/${id}`)
+  return this.http.delete(`${this.baseUrl}api/Insurance/` + id)
     .pipe(
       catchError(this.handleError<Insurance[]>(`deleteInsurance`,[]))
     );;
@@ -605,7 +605,7 @@ deleteProvider(id: number)
 */
 getSpecialtyAll() : Observable<Specialty[]>
 {
-  return this.http.get<Specialty[]>(`${this.baseUrl}api/specialty`)
+  return this.http.get<Specialty[]>(`${this.baseUrl}api/Speciality`)
     .pipe(
       catchError(this.handleError<Specialty[]>(`getSpecialtyAll`,[]))
     );
@@ -661,7 +661,7 @@ searchSpecialty(term : string): Observable<Specialty[]>
 */
 createSpecialty(specialty : Specialty) : Observable<Specialty>
 {
-  return this.http.post<Specialty>(`${this.baseUrl}api/specialty`, specialty)
+  return this.http.post<Specialty>(`${this.baseUrl}api/Speciality/`, specialty)
     .pipe(
       catchError(this.handleError<Specialty>(`createSpecialty`))
     );;

@@ -9,24 +9,25 @@ import {Specialty, Patient} from '../models'
 })
 export class SpecialtyComponent implements OnInit {
   currentPatient : Patient;
-  specialty : Specialty;
+  specialtyName : Specialty;
   mySpecialties : Specialty[];
   createdMessage : string;
   highest: number;
 
   constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService) {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
-    // this.getHighestInsuranceId();
+    this.getHighestSpecialtyId();
     this.mySpecialties = [];
   }
 
   ngOnInit() {
+    this.getHighestSpecialtyId();
   }
 
-  AddSpecialty(specialty: string) {
+  AddSpecialty(specialtyName: string) {
     let newSpecialty = new Specialty
     {
-      newSpecialty.Specialty = specialty
+      newSpecialty.Specialty = specialtyName
     }
     this.HealthPairService.createSpecialty(newSpecialty)
     .subscribe(mySpecialty => {
@@ -36,7 +37,7 @@ export class SpecialtyComponent implements OnInit {
     this.createdMessage = "Your specialty has been created!"
   }
 
-  delete(specialty: Specialty): void {
+  delete(specialty: Specialty) {
     this.mySpecialties = this.mySpecialties.filter(r => r !== specialty);
     this.HealthPairService.deleteFacility(specialty.SpecialtyId).subscribe();
   }

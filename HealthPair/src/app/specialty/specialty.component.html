@@ -3,7 +3,7 @@
         <ul class="models" style='list-style-type:none;'>
             <li *ngFor="let specialty of mySpecialties">
                 <div *ngIf="specialty.specialtyId">
-                    <div>Facility: {{specailty.specialty}} </div>
+                    <div>Specialty: {{specialty.specialty}} </div>
                     <button class="delete" title="delete specialty" (click)="delete(specialty)">delete</button>
                 </div>
             </li>
@@ -18,12 +18,12 @@
         <br/>
         <div>
             <label> Specialty:
-                <input type="text" #Specialty />
+                <input type="text" #specialtyName />
             </label>
         </div>
     </label>
-    <button (click)="add(Specialty.value);
-    Specialty.value='';">
+    <button (click)="AddSpecialty(specialtyName.value);
+    specialtyName.value='';">
         Add Specialty
     </button>
     </div>
