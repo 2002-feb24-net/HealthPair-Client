@@ -17,7 +17,7 @@ export class AuthenticationService {
         this.CurrentPatient = this.CurrentPatientSubject.asObservable();
     }
 
-    public get CurrentPatientValue(): Patient {
+    public get CurrentPatientValue(): any {
         return this.CurrentPatientSubject.value;
     }
 
