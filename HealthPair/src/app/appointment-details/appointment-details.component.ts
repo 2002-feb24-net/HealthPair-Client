@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { HealthPairService,AuthenticationService} from '../_services';
-import { Patient,Provider } from '../models';
+import { Patient,Provider,Appointment } from '../models';
 
 @Component({
   selector: 'app-appointment-details',
@@ -11,11 +11,12 @@ import { Patient,Provider } from '../models';
 })
 export class AppointmentDetailsComponent implements OnInit
 {
-  @Input() currentProvider : Provider;
+  @Input() currentProvider : any;
   currentPatient : any;
   appointmentForm: FormGroup;
   loading = false;
   submitted = false;
+  responseText : string;
 
 
   title = 'test';
@@ -33,41 +34,46 @@ export class AppointmentDetailsComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.appointmentForm = this.formBuilder.group({
-      DoctorName: ['', Validators.required],
-      LocationName: ['', Validators.required],
-      PatientName: ['', Validators.required],
-      PatientPhoneNumber: ['', [Validators.required, Validators.minLength(9),  Validators.maxLength(12)]],
-      PatientAddress: ['', Validators.required],
-      PatientCity: ['', Validators.required],
-      PatientState: ['', Validators.required],
-      PatientZipcode: ['', Validators.required],
-      AppointmentDate: ['', Validators.required],
-      AppointmentTime: ['', Validators.required],
-  });
+  //   this.appointmentForm = this.formBuilder.group({
+  //     DoctorName: ['', Validators.required],
+  //     LocationName: ['', Validators.required],
+  //     PatientName: ['', Validators.required],
+  //     PatientPhoneNumber: ['', [Validators.required, Validators.minLength(9),  Validators.maxLength(12)]],
+  //     PatientAddress: ['', Validators.required],
+  //     PatientCity: ['', Validators.required],
+  //     PatientState: ['', Validators.required],
+  //     PatientZipcode: ['', Validators.required],
+  //     AppointmentDate: ['', Validators.required],
+  //     AppointmentTime: ['', Validators.required],
+  // });
+
+  this.HealthPairService.getProviderById(1)
+    .subscribe(prov => this.currentProvider = prov);
+
   }
 
-  get f() { return this.appointmentForm.controls; }
+  // get f() { return this.appointmentForm.controls; }
 
-  //note: all inputs are going to be strings based on the way its currently being pulled
-  submitAppointment()
+    onSubmit(date:Date,time:any)
     {
-      console.log("submitted");
-      console.log(this.appointmentForm.value);
-      this.submitted = true;
+      console.log(this.currentPatient);
+      var craftedDate = new Date;
+      craftedDate.setFullYear(date.getFullYear());
+      craftedDate.setMonth(date.getMonth());
+      craftedDate.setDate(date.getDate());
+      craftedDate.setHours(time.hour);
+      craftedDate.setMinutes(time.minute);
+      craftedDate.setSeconds(time.second);
 
-      // stop here if form is invalid
-      if (this.appointmentForm.invalid) {
-          return;
+      var myAppointment = new Appointment
+      {
+        myAppointment.AppointmentId = 0;
+        myAppointment.AppointmentDate = craftedDate;
+        myAppointment.PatientId = this.currentPatient.patientId;
+        myAppointment.ProviderId = this.currentProvider.providerId;
       }
-
-      this.loading = true;
-      console.log(this.appointmentForm.value.AppointmentDate);
+      this.HealthPairService.createAppointment(myAppointment)
+        .subscribe();
+      this.responseText = "Appointment Successfully Created!";
     }
-
-    onSubmit()
-    {
-      console.log("submitted");
-    }
-
 }
