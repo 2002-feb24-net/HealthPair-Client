@@ -82,6 +82,7 @@ export class EditProfileComponent implements OnInit {
       newPatient.Token = form[11].viewModel
       newPatient.InsuranceId = form[12].viewModel,
       newPatient.InsuranceName = form[13].viewModel
+      newPatient.IsAdmin = form[14].viewModel
       
     };
     console.log(newPatient);
