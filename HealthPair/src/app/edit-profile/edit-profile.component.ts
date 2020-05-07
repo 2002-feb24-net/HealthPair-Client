@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HealthPairService} from '../_services/healthpairapi.service';
-import {NgForm } from '@angular/forms'
-import { Patient} from '../Models'
+import {NgForm, FormGroup, FormControl, Validators } from '@angular/forms'
+import { Patient} from '../models'
 import { ContentObserver } from '@angular/cdk/observers';
 import {AuthenticationService } from '../_services';
 import { from } from 'rxjs';
@@ -13,6 +13,8 @@ import { from } from 'rxjs';
 })
 export class EditProfileComponent implements OnInit {
   currentPatient: any;
+  editProfile:FormGroup;
+  ngForm: NgForm;
 
 
   constructor(public service: HealthPairService, private authenticationService: AuthenticationService) { 
@@ -20,7 +22,10 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.resetForm();
+    this.editProfile = new FormGroup ({
+      'patientPassword' : new FormControl(this.currentPatient.patientPassword, 
+        [Validators.required])
+    })
   }
 
   // resetForm(form?: NgForm) {
@@ -46,18 +51,42 @@ export class EditProfileComponent implements OnInit {
   //   }
   // }
 
-  onSubmit(form: NgForm) {
+  get f() {
+    return this.editProfile.controls;
+  }
+
+  onSubmit(form: any) {
     if(this.currentPatient.patientId == 0) {
       // this.resetForm(form);
       console.log("User does not exist")
     } else {
-      this.UpdateRecord(form);
+      console.log(form._directives);
+      this.UpdateRecord(form._directives);
     }
   }
 
-  UpdateRecord(form: NgForm) {
-    this.currentPatient = this.authenticationService.CurrentPatient
-    this.service.updatePatient(this.currentPatient).subscribe(
+  UpdateRecord(form: any) {
+    var newPatient : Patient = new Patient 
+    {
+      newPatient.PatientId = form[0].viewModel,
+      newPatient.PatientFirstName = form[1].viewModel,
+      newPatient.PatientLastName = form[2].viewModel,
+      newPatient.PatientEmail = form[3].viewModel,
+      newPatient.PatientPassword = form[4].viewModel,
+      newPatient.PatientAddress1 = form[5].viewModel,
+      newPatient.PatientCity  = form[6].viewModel,
+      newPatient.PatientState = form[7].viewModel,
+      newPatient.PatientZipcode = form[8].viewModel,
+      newPatient.PatientPhoneNumber = form[9].viewModel,
+      newPatient.PatientBirthDay = form[10].viewModel,
+      newPatient.Token = form[11].viewModel
+      newPatient.InsuranceId = form[12].viewModel,
+      newPatient.InsuranceName = form[13].viewModel
+      
+    };
+    console.log(newPatient);
+
+    this.service.updatePatient(newPatient).subscribe(
       res => {
         // this.resetForm(form);
         console.log("Patient updated");

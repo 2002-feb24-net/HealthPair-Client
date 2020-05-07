@@ -1,6 +1,8 @@
-<form id="edit-profile" #form="ngForm" autocomplete="off" (submit)="onSubmit(form)" *ngIf="currentPatient">
+<form id="edit-profile" #form="ngForm" (submit)="onSubmit(form)" *ngIf="currentPatient">
     <h2>Edit profile for {{this.currentPatient.patientFirstName}}</h2>
-
+    <label hidden>First Name:
+        <input type="text" name="PatientId" [(ngModel)]="currentPatient.patientId">
+    </label>
     <label>First Name:
         <input type="text" name="PatientFirstName" [(ngModel)]="currentPatient.patientFirstName">
     </label>
@@ -14,7 +16,8 @@
     </label>
 
     <label>Password:
-        <input type="text" name="PatientPassword"[(ngModel)]="currentPatient.patientPassword">
+        <input type="text" name="PatientPassword"[(ngModel)]="currentPatient.patientPassword" required>
+        <div *ngIf="f.patientPassword.errors.required">Password is required</div>
     </label>
 
     <label>Street Address:
@@ -38,6 +41,18 @@
     <label>BirthDay:
         <input type="date" name="PatientBirthDay" [ngModel]="currentPatient.patientBirthDay | date:'yyyy-MM-dd'" (ngModelChange)="currentPatient.patientBirthDay = onSubmit(form)" type="date">
     </label>
+    <br />
+    <label hidden>Token
+        <input type="text" name="Token" [(ngModel)]="currentPatient.token">
+    </label>
+    <label> Insurance Id:
+        <input type="text" name="InsuranceId" [(ngModel)]="currentPatient.insuranceId">
+    </label>
+    <label>Insuarnce Name:
+        <input type="text" name="InsuranceName" [(ngModel)]="currentPatient.insuranceName">
+    </label>
+    <br />
+    <br />
 
-    <button type="submit">Update Profile</button>
+    <button type="submit" type="submit" [disabled]="form.invalid">Update Profile</button>
 </form>
