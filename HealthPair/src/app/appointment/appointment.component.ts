@@ -9,7 +9,7 @@ import {AuthenticationService, HealthPairService} from "../_services"
 })
 export class AppointmentComponent implements OnInit {
   currentPatient:any;
-  appointments: Appointment [];
+  appointments: Appointment[] = [];
 
 
   constructor(public service: HealthPairService, private authenticationService: AuthenticationService) {
@@ -21,7 +21,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   GetAppointmentByCurrentUser() {
-    this.service.getAppointmentAll()
+    return this.service.getAppointmentAll()
     .subscribe(appointments =>
       this.appointments = appointments
       )};

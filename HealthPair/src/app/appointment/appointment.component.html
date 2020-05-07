@@ -1,3 +1,13 @@
-<p>
-  appointment works!
-</p>
+<div *ngIf="appointments.length > 0 && currentPatient">
+  <h2>Appointments for {{this.currentPatient.patientFirstName}} {{this.currentPatient.patientLastName}}</h2>
+  <br />
+  <div *ngFor="let appointment of appointments">
+    <div *ngIf = "this.currentPatient.patientId == this.appointment.patientId">
+    <p>Date: {{this.appointment.appointmentDate}}</p>
+    <p>Provider's Name {{this.appointment.providerFirstName}} {{this.appointment.providerLastName}}</p>
+    <p>Provider's phone number: {{this.appointment.providerPhoneNumber }}</p>
+    
+    <br />
+  </div>
+  </div>
+</div>
