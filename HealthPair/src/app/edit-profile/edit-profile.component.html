@@ -1,42 +1,42 @@
-<h2>Edit profile for Patient</h2>
+<form id="edit-profile" #form="ngForm" autocomplete="off" (submit)="onSubmit(form)" *ngIf="currentPatient">
+    <h2>Edit profile for {{this.currentPatient.patientFirstName}}</h2>
 
-<form id="edit-profile">
     <label>First Name:
-        <input type="text">
+        <input type="text" name="PatientFirstName" [(ngModel)]="currentPatient.patientFirstName">
     </label>
 
     <label>Last Name:
-        <input type="text">
+        <input type="text" name="PatientLastName" [(ngModel)]="currentPatient.patientLastName">
     </label>
 
     <label>Email:
-        <input type="text">
+        <input type="text" name="PatientEmail" [(ngModel)]="currentPatient.patientEmail">
     </label>
 
     <label>Password:
-        <input type="text">
+        <input type="text" name="PatientPassword"[(ngModel)]="currentPatient.patientPassword">
     </label>
 
     <label>Street Address:
-        <input type="text">
+        <input type="text" name="PatientAddress1"[(ngModel)]="currentPatient.patientAddress1">
     </label>
 
     <label>City:
-        <input type="text">
+        <input type="text" name="PatientCity"[(ngModel)]="currentPatient.patientCity">
     </label>
 
     <label>State:
-        <input type="text">
+        <input type="text" name="PatientState"[(ngModel)]="currentPatient.patientState">
     </label>
 
     <label>Zip:
-        <input type="number">
+        <input type="number" name="PatientZipcode"[(ngModel)]="currentPatient.patientZipcode">
     </label>
     <label>Phone Number:
-        <input type="text">
+        <input type="text" name="PatientPhoneNumber"[(ngModel)]="currentPatient.patientPhoneNumber">
     </label>
     <label>BirthDay:
-        <input type="date">
+        <input type="date" name="PatientBirthDay" [ngModel]="currentPatient.patientBirthDay | date:'yyyy-MM-dd'" (ngModelChange)="currentPatient.patientBirthDay = onSubmit(form)" type="date">
     </label>
 
     <button type="submit">Update Profile</button>
