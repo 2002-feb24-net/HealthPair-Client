@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Patient, Appointment} from '../models';
+import {AuthenticationService, HealthPairService} from "../_services"
 
 @Component({
   selector: 'app-appointment',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./appointment.component.css']
 })
 export class AppointmentComponent implements OnInit {
+  currentPatient:any;
+  appointments: Appointment [];
 
-  constructor() { }
+
+  constructor(public service: HealthPairService, private authenticationService: AuthenticationService) {
+    this.authenticationService.CurrentPatient.subscribe(x => this.currentPatient = x);
+  }
 
   ngOnInit() {
+    this.GetAppointmentByCurrentUser();
   }
+
+  GetAppointmentByCurrentUser() {
+    this.service.getAppointmentAll()
+    .subscribe(appointments =>
+      this.appointments = appointments
+      )};
 
 }
