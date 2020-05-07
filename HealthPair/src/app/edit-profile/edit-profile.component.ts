@@ -16,6 +16,7 @@ export class EditProfileComponent implements OnInit {
   constructor(public service: HealthPairService) { }
 
   ngOnInit(): void {
+    this.resetForm();
   }
 
   resetForm(form?: NgForm) {
