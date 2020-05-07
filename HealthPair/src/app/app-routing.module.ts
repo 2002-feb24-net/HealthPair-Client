@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './landing-page/landing-page.component';
@@ -9,6 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { InsuranceComponent  } from './insurance/insurance.component';
 import { SpecialtyComponent } from './specialty/specialty.component';
+import { EditProfileComponent} from './edit-profile/edit-profile.component'
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'specialty', component: SpecialtyComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'edit-profile', component: EditProfileComponent },
 
 
   // otherwise redirect to home
