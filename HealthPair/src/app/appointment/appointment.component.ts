@@ -25,5 +25,4 @@ export class AppointmentComponent implements OnInit {
     .subscribe(appointments =>
       this.appointments = appointments
       )};
-
 }
