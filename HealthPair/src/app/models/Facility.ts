@@ -1,10 +1,10 @@
 export class Facility
 {
-    FacilityId : number;
-    FacilityName : string;
-    FacilityAddress1 : string;
-    FacilityCity : string;
-    FacilityState : string;
-    FacilityZipcode : number;
-    FacilityPhoneNumber : number;
+    facilityId : number;
+    facilityName : string;
+    facilityAddress1 : string;
+    facilityCity : string;
+    facilityState : string;
+    facilityZipcode : number;
+    facilityPhoneNumber : number;
 }

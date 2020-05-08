@@ -114,7 +114,7 @@ export class HealthPairService
 */
   updateAppointment(appointment: Appointment): Observable<any>
   {
-    return this.http.put(`${this.baseUrl}api/Appointment/${appointment.AppointmentId}`, appointment, this.httpOptions).pipe(
+    return this.http.put(`${this.baseUrl}api/Appointment/${appointment.appointmentId}`, appointment, this.httpOptions).pipe(
       catchError(this.handleError<Appointment>('updateAppointment'))
     );
   }
@@ -227,7 +227,7 @@ createFacility(facility : Facility) : Observable<Facility>
 */
 updateFacility(facility : Facility): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Facility/${facility.FacilityId}`, facility, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Facility/${facility.facilityId}`, facility, this.httpOptions).pipe(
     catchError(this.handleError<Facility>('updateFacility'))
   );
 }
@@ -340,7 +340,7 @@ createInsurance(insurance : Insurance) : Observable<Insurance>
 */
 updateInsurance(insurance : Insurance): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Insurance/${insurance.InsuranceId}`, insurance, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Insurance/${insurance.insuranceId}`, insurance, this.httpOptions).pipe(
     catchError(this.handleError<Insurance>('updateInsurance',))
   );
 }
@@ -454,7 +454,7 @@ createPatient(patient : Patient) : Observable<Patient>
 */
 updatePatient(patient : Patient): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Patient/${patient.PatientId}`, patient, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Patient/${patient.patientId}`, patient, this.httpOptions).pipe(
     catchError(this.handleError<Patient>('updatePatient'))
   );
 }
@@ -567,7 +567,7 @@ createProvider(provider : Provider) : Observable<Provider>
 */
 updateProvider(provider : Provider): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Provider/${provider.ProviderId}`, provider, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Provider/${provider.providerId}`, provider, this.httpOptions).pipe(
     catchError(this.handleError<Provider>('updateProvider'))
   );
 }
@@ -679,7 +679,7 @@ createSpecialty(specialty : Specialty) : Observable<Specialty>
 */
 updateSpecialty(specialty : Specialty): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Specialty/${specialty.SpecialtyId}`, specialty, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Specialty/${specialty.specialtyId}`, specialty, this.httpOptions).pipe(
     catchError(this.handleError<Specialty>('updateSpecialty'))
   );
 }

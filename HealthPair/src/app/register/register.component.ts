@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
     submitted = false;
     insurances: Insurance[];
     chosenInsurance: string;
-    myInsurance: any;
+    myInsurance: Insurance;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -57,28 +57,26 @@ export class RegisterComponent implements OnInit {
         this.chosenInsurance = this.registerForm.get('PatientInsurance')?.value;
 
 
-        this.HealthPairService.getInsuranceByName(this.chosenInsurance)
+        this.HealthPairService.searchInsurance(this.chosenInsurance)
           .subscribe(insurance => {
-            this.myInsurance = insurance;
-            console.log(this.myInsurance);
+            this.myInsurance[0] = insurance;
             var myReturnObject: Patient = new Patient
 
             {
-                myReturnObject.InsuranceId = this.myInsurance[0].insuranceId,
-                myReturnObject.InsuranceName = this.myInsurance[0].insuranceName,
-                myReturnObject.PatientId = 0,
-                myReturnObject.PatientFirstName = this.registerForm.value.PatientFirstName,
-                myReturnObject.PatientLastName = this.registerForm.value.PatientLastName,
-                myReturnObject.PatientAddress1 = this.registerForm.value.PatientAddress1,
-                myReturnObject.PatientBirthDay = this.registerForm.value.PatientBirthDay,
-                myReturnObject.PatientCity = this.registerForm.value.PatientCity,
-                myReturnObject.PatientEmail = this.registerForm.value.PatientEmail,
-                myReturnObject.PatientPassword = this.registerForm.value.PatientPassword,
-                myReturnObject.PatientPhoneNumber = this.registerForm.value.PatientPhoneNumber,
-                myReturnObject.PatientState = this.registerForm.value.PatientState,
-                myReturnObject.PatientZipcode = this.registerForm.value.PatientZipcode
+                myReturnObject.insuranceId = this.myInsurance[0].insuranceId,
+                myReturnObject.insuranceName = this.myInsurance[0].insuranceName,
+                myReturnObject.patientId = 0,
+                myReturnObject.patientFirstName = this.registerForm.value.PatientFirstName,
+                myReturnObject.patientLastName = this.registerForm.value.PatientLastName,
+                myReturnObject.patientAddress1 = this.registerForm.value.PatientAddress1,
+                myReturnObject.patientBirthDay = this.registerForm.value.PatientBirthDay,
+                myReturnObject.patientCity = this.registerForm.value.PatientCity,
+                myReturnObject.patientEmail = this.registerForm.value.PatientEmail,
+                myReturnObject.patientPassword = this.registerForm.value.PatientPassword,
+                myReturnObject.patientPhoneNumber = this.registerForm.value.PatientPhoneNumber,
+                myReturnObject.patientState = this.registerForm.value.PatientState,
+                myReturnObject.patientZipcode = this.registerForm.value.PatientZipcode
             }
-            console.log(myReturnObject);
             this.HealthPairService.createPatient(myReturnObject)
             .pipe(first())
             .subscribe(

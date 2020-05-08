@@ -37,31 +37,13 @@ export class AppointmentDetailsComponent implements OnInit
 
   ngOnInit(): void
   {
-  //   this.appointmentForm = this.formBuilder.group({
-  //     DoctorName: ['', Validators.required],
-  //     LocationName: ['', Validators.required],
-  //     PatientName: ['', Validators.required],
-  //     PatientPhoneNumber: ['', [Validators.required, Validators.minLength(9),  Validators.maxLength(12)]],
-  //     PatientAddress: ['', Validators.required],
-  //     PatientCity: ['', Validators.required],
-  //     PatientState: ['', Validators.required],
-  //     PatientZipcode: ['', Validators.required],
-  //     AppointmentDate: ['', Validators.required],
-  //     AppointmentTime: ['', Validators.required],
-  // });
-
   this.HealthPairService.getProviderById(1)
     .subscribe(prov => this.currentProvider = prov);
 
-  this.submitted == false;
-
   }
-
-  // get f() { return this.appointmentForm.controls; }
 
     onSubmit(date:Date,time:any)
     {
-      console.log(this.currentPatient);
       var craftedDate = new Date;
       craftedDate.setFullYear(date.getFullYear());
       craftedDate.setMonth(date.getMonth());
@@ -70,21 +52,18 @@ export class AppointmentDetailsComponent implements OnInit
       craftedDate.setMinutes(time.minute);
       craftedDate.setSeconds(time.second);
 
+
+
       var myAppointment = new Appointment
       {
-        myAppointment.AppointmentId = 0;
-        myAppointment.AppointmentDate = craftedDate;
-        myAppointment.PatientId = this.currentPatient.patientId;
-        myAppointment.ProviderId = this.currentProvider.providerId;
+        myAppointment.appointmentId = 0;
+        myAppointment.appointmentDate = craftedDate;
+        myAppointment.patientId = this.currentPatient.patientId;
+        myAppointment.providerId = this.currentProvider.providerId;
       }
       this.HealthPairService.createAppointment(myAppointment)
         .subscribe();
+      console.log(myAppointment);
       this.responseText = "Appointment Successfully Created!";
-      this.submitted = true; //Sets the boolean to true and tiggers the other *ngIf div
-
-      //Automatically redirects to the landing page after 3.5 seconds
-      setTimeout(() => {
-        this.router.navigate(['']);
-      }, 3500)
     }
 }

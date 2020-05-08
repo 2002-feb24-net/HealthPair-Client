@@ -31,12 +31,12 @@ export class FacilityComponent implements OnInit {
   {
     let facility = new Facility
     {
-      facility.FacilityName = FacilityName,
-      facility.FacilityAddress1 = FacilityAddress1,
-      facility.FacilityCity = FacilityCity,
-      facility.FacilityState = FacilityState,
-      facility.FacilityZipcode = FacilityZipcode,
-      facility.FacilityPhoneNumber = FacilityPhoneNumber
+      facility.facilityName = FacilityName,
+      facility.facilityAddress1 = FacilityAddress1,
+      facility.facilityCity = FacilityCity,
+      facility.facilityState = FacilityState,
+      facility.facilityZipcode = FacilityZipcode,
+      facility.facilityPhoneNumber = FacilityPhoneNumber
     }
     this.HealthPairService.createFacility(facility)
       .subscribe(myFacility => {
@@ -49,7 +49,7 @@ export class FacilityComponent implements OnInit {
 
   delete(facility: Facility): void {
     this.myFacilities = this.myFacilities.filter(r => r !== facility);
-    this.HealthPairService.deleteFacility(facility.FacilityId).subscribe();
+    this.HealthPairService.deleteFacility(facility.facilityId).subscribe();
   }
 
   getHighestFacilityId()
@@ -57,7 +57,7 @@ export class FacilityComponent implements OnInit {
     this.HealthPairService.getFacilityAll()
       .subscribe(facilities => {
         this.myFacilities = facilities,
-        this.highest = this.myFacilities[this.myFacilities.length-1].FacilityId;
+        this.highest = this.myFacilities[this.myFacilities.length-1].facilityId;
       });
   }
 

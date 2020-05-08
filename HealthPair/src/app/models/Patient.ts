@@ -1,19 +1,19 @@
 export class Patient
 {
-    PatientId : number;
-    PatientFirstName : string;
-    PatientLastName : string;
-    PatientPassword : string;
-    PatientAddress1 : string;
-    PatientCity : string;
-    PatientState : string;
-    PatientZipcode : number;
-    PatientBirthDay : Date;
-    PatientPhoneNumber : number;
-    PatientEmail : string;
-    IsAdmin : boolean;
-    Token : string;
+    patientId : number;
+    patientFirstName : string;
+    patientLastName : string;
+    patientPassword : string;
+    patientAddress1 : string;
+    patientCity : string;
+    patientState : string;
+    patientZipcode : number;
+    patientBirthDay : Date;
+    patientPhoneNumber : number;
+    patientEmail : string;
+    isAdmin : boolean;
+    token : string;
 
-    InsuranceId : number;
-    InsuranceName : string;
+    insuranceId : number;
+    insuranceName : string;
 }

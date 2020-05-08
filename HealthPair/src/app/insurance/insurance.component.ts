@@ -15,7 +15,7 @@ export class InsuranceComponent implements OnInit {
   createdMessage : string;
   highest: number;
 
-  constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService) { 
+  constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService) {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
     this.getHighestInsuranceId();
     this.myInsurances = [];
@@ -28,7 +28,7 @@ export class InsuranceComponent implements OnInit {
   add(InsuranceName: string) : void {
     let insurance = new Insurance
     {
-     insurance.InsuranceName =  InsuranceName
+     insurance.insuranceName =  InsuranceName
     }
     this.HealthPairService.createInsurance(insurance)
       .subscribe(myInsurance => {
@@ -40,7 +40,7 @@ export class InsuranceComponent implements OnInit {
 
   delete(insurance: Insurance): void {
     this.myInsurances = this.myInsurances.filter(r => r !== insurance);
-    this.HealthPairService.deleteFacility(insurance.InsuranceId).subscribe();
+    this.HealthPairService.deleteFacility(insurance.insuranceId).subscribe();
   }
 
   getHighestInsuranceId()
@@ -48,7 +48,7 @@ export class InsuranceComponent implements OnInit {
     this.HealthPairService.getInsuranceAll()
       .subscribe(insurances => {
         this.myInsurances = insurances,
-        this.highest = this.myInsurances[this.myInsurances.length-1].InsuranceId;
+        this.highest = this.myInsurances[this.myInsurances.length-1].insuranceId;
       });
   }
 

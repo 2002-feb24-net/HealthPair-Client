@@ -1,7 +1,7 @@
 export class Insurance
 {
     insuranceId : number;
-    InsuranceName : string;
+    insuranceName : string;
 
-    ProviderIds : number[];
+    providerIds : number[];
 }
