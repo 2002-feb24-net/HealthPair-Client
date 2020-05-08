@@ -1,10 +1,11 @@
 <ul class="pl-5">
   <li>Here are docs that accept {{SearchService.sharedIns}} and practice {{SearchService.sharedSpec}}</li>
 </ul>
+<p>Currently just showing providers with an accepted insuranceID of 15</p>
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 mx-auto my-5" *ngFor="let prov of providers">
+    <div class="col-md-12 mx-auto my-5" *ngFor="let prov of finalProviders">
       <mdb-card>
         <mdb-card-body class="text-center">
           <div class="d-inline-block image col-md-3">
