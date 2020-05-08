@@ -37,9 +37,9 @@ export class UserLocationService
           err =>
           {
             // TODO: Error handling
-            this.handleError(`getMyPosition`,err)
+            //this.handleError(`getMyPosition`,err)
             console.log(err.message);
-            reject(err);
+            //reject(err);
           });
       });
     }

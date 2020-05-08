@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { HealthPairService,AuthenticationService,UserLocationService } from '../_services';
+import { HealthPairService,AuthenticationService } from '../_services';
 import { Insurance, Patient, Specialty } from '../models';
 import { SearchService } from '../_services/search.service';
 import { Router } from '@angular/router';
@@ -16,32 +15,41 @@ import { Router } from '@angular/router';
 export class LandingPageComponent implements OnInit {
   chosenInsurance: string;
   speciality: string;
+  warningText : string;
 
   specialties: Specialty[];
   insurances: Insurance[];
   currentPatient : Patient;
 
-  yourLocation : string;
-  destinationLocation : string;
-  finalDistance : string;
+  loading = true;
+  submitted = false;
 
 
-  landingpageForm = this.builder.group({
-    insurance: ['Humana'],
-    specialty: ['Optometry']
+  landingPageForm = this.builder.group({
+    insurance: ['', Validators.required],
+    specialty: ['', Validators.required]
   })
-  constructor(private SearchService: SearchService, private router: Router, private builder: FormBuilder, private HealthPairService: HealthPairService,private authenticationService: AuthenticationService, private locationService: UserLocationService) { }
+  constructor(private SearchService: SearchService, private router: Router, private builder: FormBuilder, private HealthPairService: HealthPairService,private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
     this.getAll();
-    this.getAllSpecialties();
   }
 
+  get f() { return this.landingPageForm.controls; }
+
+
   onSubmit() {
-    this.SearchService.sharedIns = this.landingpageForm.get('insurance')?.value;
-    this.SearchService.sharedSpec = this.landingpageForm.get('specialty')?.value;
+    this.submitted = true;
+    if (this.landingPageForm.invalid)
+    {
+      return;
+    }
+    this.loading = true;
+    this.SearchService.sharedIns = this.landingPageForm.get('insurance')?.value;
+    this.SearchService.sharedSpec = this.landingPageForm.get('specialty')?.value;
     this.router.navigate(['/provider-selection'])
+    this.loading = false;
   }
 
   getAll()
@@ -49,61 +57,28 @@ export class LandingPageComponent implements OnInit {
     this.HealthPairService.getInsuranceAll()
       .subscribe(insurances =>
       {
-        this.insurances = insurances;
+        this.insurances = insurances
+        this.insurances = this.insurances.sort((a, b) => (a.insuranceName > b.insuranceName) ? 1 : -1);
       });
-  }
 
-  getAllSpecialties() {
-    this.HealthPairService.getSpecialtyAll()
+      this.HealthPairService.getSpecialtyAll()
       .subscribe(specialties => {
         this.specialties = specialties;
+        this.specialties = this.specialties.sort((a, b) => (a.specialty > b.specialty) ? 1 : -1)
       });
-  }
-
-
-  getCurrentLocation() {
-    this.yourLocation = "Your Location: Calculating...";
-    return this.locationService.getMyPosition()
-      .then(pos => {
-        console.log(`Position: ${pos.lng} ${pos.lat}`);
-        const myReturn = [pos.lng, pos.lat];
-        this.yourLocation = "Your Location: Longitude: " + myReturn[0] + " Latitude: " + myReturn[1];
-        return myReturn;
-      });
-  }
-  getTargetLocation(address: string, city: string, state: string) {
-    this.destinationLocation = "Destination: Calculating...";
-    return this.locationService.getLocationCoords(address, city, state)
-      .toPromise()
-      .then(coords => {
-        this.Log("Latitude: " + coords.results[0].geometry.location.lat)
-        this.Log("Longitude: " + coords.results[0].geometry.location.lng)
-        const myReturn = [coords.results[0].geometry.location.lng, coords.results[0].geometry.location.lat];
-        this.destinationLocation = "Destination: Longitude: " + myReturn[0] + " Latitude: " + myReturn[1];
-        return myReturn;
-      });
-  }
-  calculateDistance(address: string, city: string, state: string) {
-    const promises = [this.getCurrentLocation(), this.getTargetLocation(address, city, state)];
-    this.finalDistance = "Distance: Calculating...";
-    return Promise.all(promises)
-      .then(locations => {
-        const lon1 = locations[0][0];
-        const lat1 = locations[0][1];
-        const lon2 = locations[1][0];
-        const lat2 = locations[1][1];
-        const p = 0.017453292519943295;    // Math.PI / 180
-        const c = Math.cos;
-        const a = 0.5 - c((lat2 - lat1) * p) / 2 +
-          c(lat1 * p) * c(lat2 * p) *
-          (1 - c((lon2 - lon1) * p)) / 2;
-        this.finalDistance = "Distance: " + Math.round(12742 * Math.asin(Math.sqrt(a))) + " KMs.";
-        return Math.round(12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
-      });
-  }
-
-  Log(input : any)
-  {
-    console.log(input);
+      setTimeout(() => {
+        setTimeout(() => {
+        }, 1000)
+        if (this.insurances != undefined && this.specialties != undefined)
+        {
+          this.loading = false;
+        }
+        if (this.loading == true)
+        {
+          this.warningText = "Load is taking longer than usual. There may be a problem connecting with the database.";
+          console.log("retrying..");
+          this.getAll();
+        }
+      },2000)
   }
 }

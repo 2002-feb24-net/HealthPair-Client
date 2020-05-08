@@ -16,4 +16,6 @@ export class Provider
     specialty : string;
 
     insuranceIds : number[];
+
+    distance : number;
 }
