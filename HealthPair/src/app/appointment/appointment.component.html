@@ -3,11 +3,11 @@
   <br />
   <div *ngFor="let appointment of appointments; let i = index;">
     <div *ngIf = "this.currentPatient.patientId == this.appointment.patientId" class="usersAppointment">
-     <h3>Appointment</h3>
+     <h3>{{this.appointmentHeader}}</h3>
     <p><b>Date:</b> {{this.appointment.appointmentDate | date}}</p>
     <p><b>Provider's Name: </b>{{this.appointment.providerFirstName}} {{this.appointment.providerLastName}}</p>
     <p><b>Provider's phone number: </b>{{this.appointment.providerPhoneNumber }}</p>
-    
+    <button (click)="CancelAppointment(this.appointment.appointmentId)">Cancel Appointment</button>
     <br />
   </div>
   </div>
