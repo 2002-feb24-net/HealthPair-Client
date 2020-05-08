@@ -6,20 +6,14 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SearchService {
 
-  public choseIns = new BehaviorSubject('none selected');
-  sharedIns = this.choseIns.asObservable();
-  static sharedIns: any;
+  sharedIns: string;
 
-  public choseSpec = new BehaviorSubject('none selected');
-  sharedSpec = this.choseSpec.asObservable();
-  static sharedSpec: any;
 
-  constructor() { }
+  sharedSpec: string;
 
-  setIns(choseIns: string) {
-    this.choseIns.next(choseIns)
+
+  constructor() {
   }
-  setSpec(choseSpec: string) {
-    this.choseSpec.next(choseSpec)
-  }
+
+
 }
