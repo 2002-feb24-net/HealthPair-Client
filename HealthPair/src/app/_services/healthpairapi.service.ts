@@ -114,7 +114,7 @@ export class HealthPairService
 */
   updateAppointment(appointment: Appointment): Observable<any>
   {
-    return this.http.put(`${this.baseUrl}api/Appointment/${appointment.AppointmentId}`, appointment, this.httpOptions).pipe(
+    return this.http.put(`${this.baseUrl}api/Appointment/${appointment.appointmentId}`, appointment, this.httpOptions).pipe(
       catchError(this.handleError<Appointment>('updateAppointment'))
     );
   }
@@ -227,7 +227,7 @@ createFacility(facility : Facility) : Observable<Facility>
 */
 updateFacility(facility : Facility): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Facility/${facility.FacilityId}`, facility, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Facility/${facility.facilityId}`, facility, this.httpOptions).pipe(
     catchError(this.handleError<Facility>('updateFacility'))
   );
 }
@@ -291,24 +291,6 @@ getInsuranceById(id : number) : Observable<Insurance>
 }
 
 /**
-* Sends a request to the server for a specific Insurance related to an name
-*
-* @example
-* Simply call the function with an input name:
-* getInsuranceByName(1)
-*
-* @param {string} name The name that you are searching for
-* @returns An Observable with an action result, and a single Insurance from the database
-*/
-getInsuranceByName(name : string)
-{
-  return this.http.get<Insurance>(`${this.baseUrl}api/insurance?search=${name}`)
-    .pipe(
-      catchError(this.handleError<Insurance>(`getInsuranceByName`))
-    );
-}
-
-/**
 * Sends a request to the server for a specific Insurance related to an input string
 *
 * @example
@@ -358,7 +340,7 @@ createInsurance(insurance : Insurance) : Observable<Insurance>
 */
 updateInsurance(insurance : Insurance): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Insurance/${insurance.InsuranceId}`, insurance, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Insurance/${insurance.insuranceId}`, insurance, this.httpOptions).pipe(
     catchError(this.handleError<Insurance>('updateInsurance',))
   );
 }
@@ -472,7 +454,7 @@ createPatient(patient : Patient) : Observable<Patient>
 */
 updatePatient(patient : Patient): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Patient/${patient.PatientId}`, patient, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Patient/${patient.patientId}`, patient, this.httpOptions).pipe(
     catchError(this.handleError<Patient>('updatePatient'))
   );
 }
@@ -585,7 +567,7 @@ createProvider(provider : Provider) : Observable<Provider>
 */
 updateProvider(provider : Provider): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Provider/${provider.ProviderId}`, provider, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Provider/${provider.providerId}`, provider, this.httpOptions).pipe(
     catchError(this.handleError<Provider>('updateProvider'))
   );
 }
@@ -648,24 +630,6 @@ getSpecialtyById(id : number) : Observable<Specialty>
 }
 
 /**
-* Sends a request to the server for a specific Insurance related to an name
-*
-* @example
-* Simply call the function with an input name:
-* getSpecialtyByName(1)
-*
-* @param {string} name The name that you are searching for
-* @returns An Observable with an action result, and a single Specialty from the database
-*/
-getSpecialtyByName(name : string)
-{
-  return this.http.get<Specialty>(`${this.baseUrl}api/specialty?search=${name}`)
-    .pipe(
-      catchError(this.handleError<Specialty>(`getSpecialtyByName`))
-    );
-}
-
-/**
 * Sends a request to the server for a specific Specialty related to an input string
 *
 * @example
@@ -715,7 +679,7 @@ createSpecialty(specialty : Specialty) : Observable<Specialty>
 */
 updateSpecialty(specialty : Specialty): Observable<any>
 {
-  return this.http.put(`${this.baseUrl}api/Specialty/${specialty.SpecialtyId}`, specialty, this.httpOptions).pipe(
+  return this.http.put(`${this.baseUrl}api/Specialty/${specialty.specialtyId}`, specialty, this.httpOptions).pipe(
     catchError(this.handleError<Specialty>('updateSpecialty'))
   );
 }

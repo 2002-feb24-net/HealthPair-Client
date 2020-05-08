@@ -12,28 +12,29 @@ export class AppointmentComponent implements OnInit {
   currentPatient:any;
   appointments: Appointment[] = [];
   appointment: Appointment;
-  appointmentHeader: string = "Appointment";
 
 
-  constructor(public service: HealthPairService, private authenticationService: AuthenticationService) {
+  constructor(public service: HealthPairService, private authenticationService: AuthenticationService)
+  {
     this.authenticationService.CurrentPatient.subscribe(x => this.currentPatient = x);
   }
 
-  ngOnInit() {
+  ngOnInit()
+  {
     this.GetAppointmentByCurrentUser();
   }
 
-  GetAppointmentByCurrentUser() {
+  GetAppointmentByCurrentUser()
+  {
     return this.service.getAppointmentAll()
-    .subscribe(appointments =>
+      .subscribe(appointments => {
       this.appointments = appointments
-      )};
+      this.appointments = this.appointments.sort((a, b) => (a.appointmentDate > b.appointmentDate) ? 1 : -1)})
+  };
 
-    CancelAppointment(id:number) {
-      return this.service.getAppointmentById(id)
-      .subscribe(appointment =>{
-        this.appointment = appointment;
-        this.appointmentHeader += "(Canceled)"
-      })
+    CancelAppointment(appointment : Appointment)
+    {
+      this.appointments = this.appointments.filter(r => r !== appointment);
+      return this.service.deleteAppointment(appointment.appointmentId).subscribe()
     }
 }

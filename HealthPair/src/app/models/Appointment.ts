@@ -1,15 +1,15 @@
 export class Appointment
 {
-    AppointmentId : number;
-    AppointmentDate : Date;
+    appointmentId : number;
+    appointmentDate : Date;
 
-    PatientId: number;
-    PatientFirstName : string;
-    PatientLastName : string;
-    PatientPhoneNumber : number;
+    patientId: number;
+    patientFirstName : string;
+    patientLastName : string;
+    patientPhoneNumber : number;
 
-    ProviderId : number;
-    ProviderFirstName : string;
-    ProviderLastName : string;
-    ProviderPhoneNumber : number;
+    providerId : number;
+    providerFirstName : string;
+    providerLastName : string;
+    providerPhoneNumber : number;
 }

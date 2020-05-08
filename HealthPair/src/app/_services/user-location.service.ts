@@ -5,7 +5,6 @@ import { Observable, of } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { AlertService } from '../_services/alert.service';
-import { Location } from '../models';
 
 //Create an interface for location to store longitude and latitude
 

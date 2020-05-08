@@ -4,4 +4,3 @@ export * from './Insurance';
 export * from './Patient';
 export * from './Provider';
 export * from './Specialty';
-export * from './LocationResult';
