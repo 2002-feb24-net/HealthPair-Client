@@ -50,6 +50,8 @@ export class AppointmentDetailsComponent implements OnInit
   this.HealthPairService.getProviderById(1)
     .subscribe(prov => this.currentProvider = prov);
 
+  this.submitted == false;
+
   }
 
   // get f() { return this.appointmentForm.controls; }
@@ -75,5 +77,6 @@ export class AppointmentDetailsComponent implements OnInit
       this.HealthPairService.createAppointment(myAppointment)
         .subscribe();
       this.responseText = "Appointment Successfully Created!";
+      this.submitted = true;
     }
 }
