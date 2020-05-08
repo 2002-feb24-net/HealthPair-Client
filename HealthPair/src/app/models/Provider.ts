@@ -17,5 +17,5 @@ export class Provider
 
     insuranceIds : number[];
 
-    distance : number;
+    distance : number = 0;
 }

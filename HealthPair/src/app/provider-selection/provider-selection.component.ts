@@ -19,6 +19,8 @@ export class ProviderSelectionComponent implements OnInit {
 
   stringIns: string;
 
+  currentNum : number;
+
   constructor(private APIService: HealthPairService, public SearchService: SearchService, private locationService: UserLocationService) { }
   ngOnInit(): void {
     this.initialProviders = [];
@@ -37,18 +39,20 @@ export class ProviderSelectionComponent implements OnInit {
 
   getAll(id: number)
   {
-    this.APIService.getProviderAll().subscribe(providers =>
+    this.APIService.getProviderAll().subscribe(async providers =>
     {
       this.initialProviders = providers;
-      console.log(this.initialProviders)
-      console.log(id);
       for (var i: number = 0; i < this.initialProviders.length; i++)
       {
-          this.calculateDistance(this.initialProviders[i]).then(myDist => this.initialProviders[i].distance = myDist);
-          console.log(this.initialProviders[i])
+        if (this.initialProviders[i].insuranceIds.includes(id) && this.initialProviders[i].specialty.includes(this.SearchService.sharedSpec))
+        {
+          this.initialProviders[i].distance = 0;
           this.finalProviders.push(this.initialProviders[i]);
+          this.finalProviders[i].distance = await Promise.resolve(this.calculateDistance(this.initialProviders[i]));
+          this.finalProviders = this.finalProviders.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
         }
-      });
+      }
+    });
   }
 
   getCurrentLocation() {
@@ -67,6 +71,7 @@ export class ProviderSelectionComponent implements OnInit {
     return this.locationService.getLocationCoords(address, city, state)
       .toPromise()
       .then(coords => {
+        console.log(coords);
         console.log("Latitude: " + coords.results[0].geometry.location.lat)
         console.log("Longitude: " + coords.results[0].geometry.location.lng)
         const myReturn = [coords.results[0].geometry.location.lng, coords.results[0].geometry.location.lat];

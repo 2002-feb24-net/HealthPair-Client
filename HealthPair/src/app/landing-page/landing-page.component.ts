@@ -60,7 +60,6 @@ export class LandingPageComponent implements OnInit {
         this.insurances = insurances
         this.insurances = this.insurances.sort((a, b) => (a.insuranceName > b.insuranceName) ? 1 : -1);
       });
-
       this.HealthPairService.getSpecialtyAll()
       .subscribe(specialties => {
         this.specialties = specialties;
@@ -69,7 +68,7 @@ export class LandingPageComponent implements OnInit {
       setTimeout(() => {
         setTimeout(() => {
         }, 1000)
-        if (this.insurances != undefined && this.specialties != undefined)
+        if (this.insurances != undefined && this.specialties != undefined && this.insurances.length>0 && this.specialties.length>0)
         {
           this.loading = false;
         }
