@@ -291,24 +291,6 @@ getInsuranceById(id : number) : Observable<Insurance>
 }
 
 /**
-* Sends a request to the server for a specific Insurance related to an name
-*
-* @example
-* Simply call the function with an input name:
-* getInsuranceByName(1)
-*
-* @param {string} name The name that you are searching for
-* @returns An Observable with an action result, and a single Insurance from the database
-*/
-getInsuranceByName(name : string)
-{
-  return this.http.get<Insurance>(`${this.baseUrl}api/insurance?search=${name}`)
-    .pipe(
-      catchError(this.handleError<Insurance>(`getInsuranceByName`))
-    );
-}
-
-/**
 * Sends a request to the server for a specific Insurance related to an input string
 *
 * @example
@@ -644,24 +626,6 @@ getSpecialtyById(id : number) : Observable<Specialty>
   return this.http.get<Specialty>(`${this.baseUrl}api/Specialty/${id}`)
     .pipe(
       catchError(this.handleError<Specialty>(`getSpecialtyById`))
-    );
-}
-
-/**
-* Sends a request to the server for a specific Insurance related to an name
-*
-* @example
-* Simply call the function with an input name:
-* getSpecialtyByName(1)
-*
-* @param {string} name The name that you are searching for
-* @returns An Observable with an action result, and a single Specialty from the database
-*/
-getSpecialtyByName(name : string)
-{
-  return this.http.get<Specialty>(`${this.baseUrl}api/specialty?search=${name}`)
-    .pipe(
-      catchError(this.handleError<Specialty>(`getSpecialtyByName`))
     );
 }
 
