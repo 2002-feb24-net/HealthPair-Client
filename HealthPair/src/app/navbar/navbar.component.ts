@@ -23,7 +23,6 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.loggedin = false;
     this.authenticationService.logout();
-    this.router.navigate(['']);
   }
   constructor(private authenticationService: AuthenticationService, private router: Router) {
     this.authenticationService.CurrentPatient.subscribe(x => this.currentPatient = x);
