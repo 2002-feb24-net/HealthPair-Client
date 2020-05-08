@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { HealthPairService,AuthenticationService} from '../_services';
 import { Patient,Provider,Appointment } from '../models';
 
+import { Router} from '@angular/router';
+
 @Component({
   selector: 'app-appointment-details',
   templateUrl: './appointment-details.component.html',
@@ -27,7 +29,8 @@ export class AppointmentDetailsComponent implements OnInit
     this.meridian = !this.meridian;
   }
 
-  constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService, private formBuilder: FormBuilder)
+  constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService, private formBuilder: FormBuilder,
+    private router: Router)
   {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
   }
@@ -77,6 +80,11 @@ export class AppointmentDetailsComponent implements OnInit
       this.HealthPairService.createAppointment(myAppointment)
         .subscribe();
       this.responseText = "Appointment Successfully Created!";
-      this.submitted = true;
+      this.submitted = true; //Sets the boolean to true and tiggers the other *ngIf div
+
+      //Automatically redirects to the landing page after 3.5 seconds
+      setTimeout(() => {
+        this.router.navigate(['']);
+      }, 3500)
     }
 }
