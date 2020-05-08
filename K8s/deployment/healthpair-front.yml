@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: healthpair-front
+  labels:
+    app: healthpair
+    role: front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: healthpair
+      role: front
+  template:
+    metadata:
+      labels:
+        app: healthpair
+        role: front
+    spec:
+      containers:
+      - name: healthpair-front
+        image: kyranbryant/healhpair-client:1.0
+        ports:
+        - containerPort: 80

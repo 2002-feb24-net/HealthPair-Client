@@ -10,20 +10,41 @@ import { SearchService } from '../_services/search.service';
 })
 export class ProviderSelectionComponent implements OnInit {
   imgurl = 'https://cdn4.iconfinder.com/data/icons/linecon/512/photo-512.png';
-  providers: Provider[];
+  initialProviders: Provider[];
+  finalProviders: Provider[];
 
-  choseIns: string;
-  choseSpec: string;
+  stringIns: string;
 
   constructor(private APIService: HealthPairService, public SearchService: SearchService) { }
   ngOnInit(): void {
-    this.getAll();
+    this.initialProviders = [];
+    this.finalProviders = [];
+    console.log(this.SearchService.sharedIns)
+    if (this.SearchService.sharedIns) {
+      this.getInsuranceByName().then(myID => this.getAll(myID)); 
+    }
   }
 
-  getAll() {
-    this.APIService.getProviderAll().subscribe(providers => this.providers = providers);
+  getInsuranceByName() {
+    console.log(this.stringIns)
+    return this.APIService.searchInsurance(this.SearchService.sharedIns).toPromise().then(insurance => {
+      console.log(insurance[0].insuranceId)
+      return insurance[0].insuranceId
+    })
   }
-  filterbySpecialty() {
-    this.APIService.getProviderAll().subscribe(providers => this.providers = providers);
+
+
+    getAll(id: number) {
+    this.APIService.getProviderAll().subscribe(providers => {
+      this.initialProviders = providers;
+      console.log(this.initialProviders)
+      console.log(id);
+      for (var i: number = 0; i < this.initialProviders.length; i++) {
+        if (this.initialProviders[i].insuranceIds.includes(id) && this.initialProviders[i].specialty.includes(this.SearchService.sharedSpec)) {
+          this.finalProviders.push(this.initialProviders[i]);
+          console.log(this.finalProviders)
+        }
+      }
+    });
   }
 }

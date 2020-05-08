@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { InsuranceComponent  } from './insurance/insurance.component';
 import { SpecialtyComponent } from './specialty/specialty.component';
 import { AppointmentComponent } from './appointment/appointment.component';
+import {LogoutComponent} from './logout/logout.component'
 
 const routes: Routes = [
 
@@ -18,11 +19,13 @@ const routes: Routes = [
   { path: 'provider-selection', component: ProviderSelectionComponent },
   { path: 'appointment-details', component: AppointmentDetailsComponent },
   { path: 'facility', component: FacilityComponent },
-  {path: 'insurance', component: InsuranceComponent},
+  { path: 'insurance', component: InsuranceComponent},
   { path: 'specialty', component: SpecialtyComponent},
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent},
   { path: 'register', component: RegisterComponent },
   {path: 'appointment', component: AppointmentComponent },
+
 
 
   // otherwise redirect to home
