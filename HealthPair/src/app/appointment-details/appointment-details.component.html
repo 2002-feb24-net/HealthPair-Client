@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="this.submitted == false">
   <div class="text-center rounded">
     <div class="container">
       <h3>Enter your details...</h3>
@@ -83,3 +83,4 @@
   <br />
   <br />
 </div>
+<div *ngIf="this.submitted == true">This is a comformation that your appointment has been made</div>
