@@ -13,18 +13,36 @@ export class ProviderSelectionComponent implements OnInit {
   initialProviders: Provider[];
   finalProviders: Provider[];
 
+  stringIns: string;
+
   constructor(private APIService: HealthPairService, public SearchService: SearchService) { }
   ngOnInit(): void {
+    this.initialProviders = [];
     this.finalProviders = [];
-    this.getAll();
+    console.log(this.SearchService.sharedIns)
+    if (this.SearchService.sharedIns) {
+      this.getInsuranceByName().then(myID => this.getAll(myID)); 
+    }
   }
 
-  getAll() {
+  getInsuranceByName() {
+    console.log(this.stringIns)
+    return this.APIService.searchInsurance(this.SearchService.sharedIns).toPromise().then(insurance => {
+      console.log(insurance[0].insuranceId)
+      return insurance[0].insuranceId
+    })
+  }
+
+
+    getAll(id: number) {
     this.APIService.getProviderAll().subscribe(providers => {
       this.initialProviders = providers;
-      for (const initialProvider of this.initialProviders) {
-        if (initialProvider.insuranceIds.includes(15)) {
-          this.finalProviders.push(initialProvider);
+      console.log(this.initialProviders)
+      console.log(id);
+      for (var i: number = 0; i < this.initialProviders.length; i++) {
+        if (this.initialProviders[i].insuranceIds.includes(id) && this.initialProviders[i].specialty.includes(this.SearchService.sharedSpec)) {
+          this.finalProviders.push(this.initialProviders[i]);
+          console.log(this.finalProviders)
         }
       }
     });

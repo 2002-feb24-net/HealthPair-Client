@@ -6,14 +6,14 @@ export class Provider
     ProviderPhoneNumber : number;
 
     FacilityId : number;
-    FacilityAddress1 : string;
+    facilityAddress1 : string;
     FacilityName : string;
     FacilityCity: string;
     FacilityState : string;
     FacilityPhoneNumber : number;
 
     SpecialtyId : number;
-    Specialty : string;
+    specialty : string;
 
     insuranceIds : number[];
 }
