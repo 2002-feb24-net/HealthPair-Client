@@ -10,20 +10,23 @@ import { SearchService } from '../_services/search.service';
 })
 export class ProviderSelectionComponent implements OnInit {
   imgurl = 'https://cdn4.iconfinder.com/data/icons/linecon/512/photo-512.png';
-  providers: Provider[];
-
-  choseIns: string;
-  choseSpec: string;
+  initialProviders: Provider[];
+  finalProviders: Provider[];
 
   constructor(private APIService: HealthPairService, public SearchService: SearchService) { }
   ngOnInit(): void {
+    this.finalProviders = [];
     this.getAll();
   }
 
   getAll() {
-    this.APIService.getProviderAll().subscribe(providers => this.providers = providers);
-  }
-  filterbySpecialty() {
-    this.APIService.getProviderAll().subscribe(providers => this.providers = providers);
+    this.APIService.getProviderAll().subscribe(providers => {
+      this.initialProviders = providers;
+      for (const initialProvider of this.initialProviders) {
+        if (initialProvider.insuranceIds.includes(15)) {
+          this.finalProviders.push(initialProvider);
+        }
+      }
+    });
   }
 }
