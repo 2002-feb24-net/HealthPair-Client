@@ -9,7 +9,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { InsuranceComponent  } from './insurance/insurance.component';
 import { SpecialtyComponent } from './specialty/specialty.component';
-
+import { AppointmentComponent } from './appointment/appointment.component';
 
 const routes: Routes = [
 
@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'specialty', component: SpecialtyComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  {path: 'appointment', component: AppointmentComponent },
 
 
   // otherwise redirect to home
