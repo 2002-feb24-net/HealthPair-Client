@@ -105,8 +105,8 @@ stages:
     - task: PublishPipelineArtifact@1
       displayName: k8s manifest publish
       inputs:
-        targetPath: 'X:\Revature\HealthPair-Client\k8s'
-        artifact: 'k8s'
+        targetPath: 'K8s'
+        artifact: 'K8s'
         publishLocation: 'pipeline'
 
   - deployment: deploy_dev
@@ -128,7 +128,7 @@ stages:
               action: 'deploy'
               kubernetesServiceConnection: 'dev-default-1588982326204'
               namespace: 'default'
-              manifests: '$(Pipeline.Workspace)/k8s/**/*.yml'
+              manifests: '$(Pipeline.Workspace)/K8s/**/*.yml'
 
           - task: Kubernetes@1
             displayName: kubectl rollout restart
@@ -138,7 +138,7 @@ stages:
               namespace: 'default'
               command: 'rollout'
               useConfigurationFile: true
-              configuration: '$(Pipeline.Workspace)/k8s/deployment'
+              configuration: '$(Pipeline.Workspace)/K8s/deployment'
               arguments: 'restart'
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
