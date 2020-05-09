@@ -19,6 +19,7 @@ spec:
     spec:
       containers:
       - name: healthpair-front
-        image: kyranbryant/healhpair-client:1.0
+        image: kyranbryant/healthpair-client:1.0
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
