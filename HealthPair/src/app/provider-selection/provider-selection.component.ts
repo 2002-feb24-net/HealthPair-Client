@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HealthPairService } from '../_services/healthpairapi.service';
 import { Provider } from '../models';
 import { SearchService, UserLocationService } from '../_services';
+import { ActivatedRoute,Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-provider-selection',
@@ -19,14 +21,25 @@ export class ProviderSelectionComponent implements OnInit {
 
   stringIns: string;
 
-  currentNum : number;
+  currentProviderCount : number = 0;
 
-  constructor(private APIService: HealthPairService, public SearchService: SearchService, private locationService: UserLocationService) { }
+  constructor(
+    private APIService: HealthPairService,
+    public SearchService: SearchService,
+    private locationService: UserLocationService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private location: Location,
+  ) { }
   ngOnInit(): void {
     this.initialProviders = [];
     this.finalProviders = [];
     if (this.SearchService.sharedIns) {
       this.getInsuranceByName().then(myID => this.getAll(myID));
+    }
+    if (this.SearchService.sharedIns == undefined)
+    {
+      this.router.navigateByUrl('/landing-page');
     }
   }
 
@@ -48,11 +61,19 @@ export class ProviderSelectionComponent implements OnInit {
         {
           this.initialProviders[i].distance = 0;
           this.finalProviders.push(this.initialProviders[i]);
-          this.finalProviders[i].distance = await Promise.resolve(this.calculateDistance(this.initialProviders[i]));
-          this.finalProviders = this.finalProviders.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
         }
       }
+      for (var q: number = 0; q < this.finalProviders.length; q++)
+      {
+        this.setDistance(q);
+      }
+      this.finalProviders = this.finalProviders.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
     });
+  }
+
+  async setDistance(q : number)
+  {
+      this.finalProviders[q].distance = await Promise.resolve(this.calculateDistance(this.finalProviders[q]));
   }
 
   getCurrentLocation() {
@@ -71,7 +92,6 @@ export class ProviderSelectionComponent implements OnInit {
     return this.locationService.getLocationCoords(address, city, state)
       .toPromise()
       .then(coords => {
-        console.log(coords);
         console.log("Latitude: " + coords.results[0].geometry.location.lat)
         console.log("Longitude: " + coords.results[0].geometry.location.lng)
         const myReturn = [coords.results[0].geometry.location.lng, coords.results[0].geometry.location.lat];
@@ -99,7 +119,10 @@ export class ProviderSelectionComponent implements OnInit {
       });
   }
 
-
+  goBack(): void
+  {
+    this.location.back();
+  }
 
 
 }

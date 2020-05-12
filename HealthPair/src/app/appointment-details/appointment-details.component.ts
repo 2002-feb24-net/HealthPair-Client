@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { HealthPairService,AuthenticationService} from '../_services';
 import { Patient,Provider,Appointment } from '../models';
 
-import { Router} from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-appointment-details',
@@ -13,7 +14,7 @@ import { Router} from '@angular/router';
 })
 export class AppointmentDetailsComponent implements OnInit
 {
-  @Input() currentProvider : any;
+  currentProvider : any;
   currentPatient : any;
   appointmentForm: FormGroup;
   loading = false;
@@ -30,14 +31,16 @@ export class AppointmentDetailsComponent implements OnInit
   }
 
   constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService, private formBuilder: FormBuilder,
-    private router: Router)
+    private router: Router, private route: ActivatedRoute, private location: Location)
   {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
   }
 
   ngOnInit(): void
   {
-  this.HealthPairService.getProviderById(1)
+    const id = +this.route.snapshot.paramMap.get('id');
+
+  this.HealthPairService.getProviderById(id)
     .subscribe(prov => this.currentProvider = prov);
 
   }
@@ -65,5 +68,10 @@ export class AppointmentDetailsComponent implements OnInit
         .subscribe();
       console.log(myAppointment);
       this.responseText = "Appointment Successfully Created!";
+    }
+
+    goBack(): void
+    {
+      this.location.back();
     }
 }

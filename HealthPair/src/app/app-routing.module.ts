@@ -10,14 +10,15 @@ import { RegisterComponent } from './register/register.component';
 import { InsuranceComponent  } from './insurance/insurance.component';
 import { SpecialtyComponent } from './specialty/specialty.component';
 import { AppointmentComponent } from './appointment/appointment.component';
-import {LogoutComponent} from './logout/logout.component'
+import { LogoutComponent } from './logout/logout.component'
+import { AuthGuard } from './authentification';
 
 const routes: Routes = [
 
   { path: '', redirectTo: '/landing-page', pathMatch: 'full' },
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'provider-selection', component: ProviderSelectionComponent },
-  { path: 'appointment-details', component: AppointmentDetailsComponent },
+  { path: 'appointment-details/:id', component: AppointmentDetailsComponent, canActivate: [AuthGuard] },
   { path: 'facility', component: FacilityComponent },
   { path: 'insurance', component: InsuranceComponent},
   { path: 'specialty', component: SpecialtyComponent},

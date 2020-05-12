@@ -28,7 +28,7 @@
               <span *ngIf="prov.distance != 0"> {{prov.distance}} kilmeters away </span>
             </mdb-card-text>
             <div>
-              <button mdbBtn color="primary">SELECT</button>
+              <button mdbBtn color="primary" routerLink="/appointment-details/{{prov.providerId}}">SELECT</button>
             </div>
           </div>
         </mdb-card-body>
@@ -36,3 +36,4 @@
     </div>
   </div>
 </div>
+<button (click)="goBack()">Go Back</button>
