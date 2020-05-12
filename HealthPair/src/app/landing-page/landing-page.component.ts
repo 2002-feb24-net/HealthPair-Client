@@ -67,7 +67,6 @@ export class LandingPageComponent implements OnInit {
       .subscribe(insurances =>
       {
         this.insurances = insurances;
-        console.log(insurances);
         if(this.currentPatient != null)
         {
           this.insurances = this.insurances.filter(p => p.insuranceName !== this.currentPatient.insuranceName);
