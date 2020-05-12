@@ -1,4 +1,4 @@
-<div *ngIf="appointments.length > 0 && currentPatient">
+<div *ngIf="appointments.length > 0">
   <h2>Appointments for {{this.currentPatient.patientFirstName}} {{this.currentPatient.patientLastName}}</h2>
   <br />
   <div *ngFor="let appointment of appointments; let i = index;">
@@ -11,4 +11,7 @@
     <br />
     </div>
   </div>
+</div>
+<div *ngIf="appointments.length == 0">
+  No Appointments found for {{this.currentPatient.patientFirstName}} {{this.currentPatient.patientLastName}}!
 </div>

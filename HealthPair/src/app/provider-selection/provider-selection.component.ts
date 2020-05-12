@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { HealthPairService } from '../_services/healthpairapi.service';
-import { Provider } from '../models';
-import { SearchService, UserLocationService } from '../_services';
+import { HealthPairService, AuthenticationService, SearchService, UserLocationService } from '../_services';
+import { Provider, Patient } from '../models';
+import { ActivatedRoute,Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-provider-selection',
@@ -10,23 +11,38 @@ import { SearchService, UserLocationService } from '../_services';
 })
 export class ProviderSelectionComponent implements OnInit {
   imgurl = 'https://cdn4.iconfinder.com/data/icons/linecon/512/photo-512.png';
+
   initialProviders: Provider[];
   finalProviders: Provider[];
+  currentPatient : Patient;
 
   yourLocation : string;
   destinationLocation : string;
   finalDistance : string;
 
   stringIns: string;
+  currentProviderCount : number = 0;
 
-  currentNum : number;
-
-  constructor(private APIService: HealthPairService, public SearchService: SearchService, private locationService: UserLocationService) { }
+  constructor(
+    private APIService: HealthPairService,
+    public SearchService: SearchService,
+    private locationService: UserLocationService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private location: Location,
+    private authenticationService: AuthenticationService
+  ) {
+    this.currentPatient = this.authenticationService.CurrentPatientValue;
+  }
   ngOnInit(): void {
     this.initialProviders = [];
     this.finalProviders = [];
     if (this.SearchService.sharedIns) {
       this.getInsuranceByName().then(myID => this.getAll(myID));
+    }
+    if (this.SearchService.sharedIns == undefined)
+    {
+      this.router.navigateByUrl('/landing-page');
     }
   }
 
@@ -48,18 +64,25 @@ export class ProviderSelectionComponent implements OnInit {
         {
           this.initialProviders[i].distance = 0;
           this.finalProviders.push(this.initialProviders[i]);
-          this.finalProviders[i].distance = await Promise.resolve(this.calculateDistance(this.initialProviders[i]));
-          this.finalProviders = this.finalProviders.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
         }
       }
+      for (var q: number = 0; q < this.finalProviders.length; q++)
+      {
+        this.setDistance(q);
+      }
     });
+  }
+
+  async setDistance(q : number)
+  {
+      this.finalProviders[q].distance = await Promise.resolve(this.calculateDistance(this.finalProviders[q]));
+      this.finalProviders = this.finalProviders.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
   }
 
   getCurrentLocation() {
     this.yourLocation = "Your Location: Calculating...";
     return this.locationService.getMyPosition()
       .then(pos => {
-        console.log(`Position: ${pos.lng} ${pos.lat}`);
         const myReturn = [pos.lng, pos.lat];
         this.yourLocation = "Your Location: Longitude: " + myReturn[0] + " Latitude: " + myReturn[1];
         return myReturn;
@@ -71,9 +94,6 @@ export class ProviderSelectionComponent implements OnInit {
     return this.locationService.getLocationCoords(address, city, state)
       .toPromise()
       .then(coords => {
-        console.log(coords);
-        console.log("Latitude: " + coords.results[0].geometry.location.lat)
-        console.log("Longitude: " + coords.results[0].geometry.location.lng)
         const myReturn = [coords.results[0].geometry.location.lng, coords.results[0].geometry.location.lat];
         this.destinationLocation = "Destination: Longitude: " + myReturn[0] + " Latitude: " + myReturn[1];
         return myReturn;
@@ -99,7 +119,10 @@ export class ProviderSelectionComponent implements OnInit {
       });
   }
 
-
+  goBack(): void
+  {
+    this.location.back();
+  }
 
 
 }

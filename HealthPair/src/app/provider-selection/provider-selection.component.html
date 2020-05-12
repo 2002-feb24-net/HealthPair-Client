@@ -18,8 +18,7 @@
               {{prov.specialty}}
             </mdb-card-text>
             <mdb-card-text class="text-center text-md-left">
-              {{prov.facilityAddress1}}
-              address
+              {{prov.facilityAddress1}}, {{prov.facilityCity}}, {{prov.facilityState}}
             </mdb-card-text>
           </div>
           <div class="d-inline-block col-md-3 float-md-right text-md-right">
@@ -28,7 +27,12 @@
               <span *ngIf="prov.distance != 0"> {{prov.distance}} kilmeters away </span>
             </mdb-card-text>
             <div>
-              <button mdbBtn color="primary">SELECT</button>
+              <div *ngIf="currentPatient == undefined">
+                You need to log in to make an appointment!
+                <button routerLink="/login">Log In</button>
+                <button routerLink="/register">Register</button>
+              </div>
+              <button *ngIf="currentPatient != undefined" mdbBtn color="primary" routerLink="/appointment-details/{{prov.providerId}}">SELECT</button>
             </div>
           </div>
         </mdb-card-body>
@@ -36,3 +40,4 @@
     </div>
   </div>
 </div>
+<button (click)="goBack()">Go Back</button>

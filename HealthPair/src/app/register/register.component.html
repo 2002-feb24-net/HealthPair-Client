@@ -29,7 +29,7 @@
   <input type="text" formControlName="PatientCity" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientCity.errors }" placeholder="City"/>
   <div *ngIf="submitted && f.PatientCity.errors" class="invalid-feedback">
       <div *ngIf="f.PatientCity.errors.required">City is required</div>
-  </div> 
+  </div>
 </div>
 
 <div class="form-group">
@@ -42,7 +42,7 @@
 
 <div class="form-group">
   <label for="PatientZipcode">Zip Code</label>
-  <input type="number" formControlName="PatientZipcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientZipcode.errors }" placeholder="90222" min="1" max="5"/>
+  <input type="number" formControlName="PatientZipcode" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientZipcode.errors }" placeholder="22222"/>
   <div *ngIf="submitted && f.PatientZipcode.errors" class="invalid-feedback">
       <div *ngIf="f.PatientZipcode.errors.required">ZipCode is required</div>
   </div>
@@ -57,26 +57,23 @@
 </div>
 
 <div class="form-group">
-  <label for="PatientPhoneNumber">Phone Number</label>
-  <input type="number" formControlName="PatientPhoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientPhoneNumber.errors }" placeholder="(555)-555-5555"/>
+  <label for="PatientPhoneNumber">Phone Number (Only Numbers)</label>
+  <input type="number" formControlName="PatientPhoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientPhoneNumber.errors }" placeholder="5555555555"/>
   <div *ngIf="submitted && f.PatientPhoneNumber.errors" class="invalid-feedback">
       <div *ngIf="f.PatientPhoneNumber.errors.required">Phone Number is required</div>
   </div>
 </div>
-<!--
+
 <div class="form-group">
   <label for="PatientInsurance">Insurance</label>
-  <input type="text" formControlName="PatientInsurance" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientInsurance.errors }" placeholder="Blue Cross Blue Shield"/>
-  <div *ngIf="submitted && f.PatientInsurance.errors" class="invalid-feedback">
-      <div *ngIf="f.PatientInsurance.errors.required">Insurance is required</div>
-  </div>
-</div> -->
-
-<select class="form-control" formControlName="PatientInsurance" *ngIf="insurances">
-  <option selected>Select Insurance</option>
-  <option *ngFor="let insurance of insurances">{{insurance.insuranceName}}</option>
+  <select class="form-control" formControlName="PatientInsurance" *ngIf="insurances" [ngClass]="{ 'is-invalid': submitted && f.PatientInsurance.errors }">
+    <option value="" selected hidden> Select Insurance</option>
+    <option *ngFor="let insurance of insurances">{{insurance.insuranceName}}</option>
   </select>
-
+  <div *ngIf="submitted && f.PatientInsurance.errors" class="invalid-feedback">
+    <div *ngIf="f.PatientInsurance.errors.required">Insurance is required</div>
+  </div>
+</div>
 <br>
 <br>
 

@@ -1,6 +1,5 @@
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { ProviderSelectionComponent } from './provider-selection/provider-selection.component';
 import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
@@ -12,22 +11,23 @@ import { SpecialtyComponent } from './specialty/specialty.component';
 import { EditProfileComponent} from './edit-profile/edit-profile.component'
 
 import { AppointmentComponent } from './appointment/appointment.component';
-import {LogoutComponent} from './logout/logout.component'
+import { LogoutComponent } from './logout/logout.component'
+import { AuthGuard } from './authentification';
 
 const routes: Routes = [
 
   { path: '', redirectTo: '/landing-page', pathMatch: 'full' },
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'provider-selection', component: ProviderSelectionComponent },
-  { path: 'appointment-details', component: AppointmentDetailsComponent },
-  { path: 'facility', component: FacilityComponent },
-  { path: 'insurance', component: InsuranceComponent},
-  { path: 'specialty', component: SpecialtyComponent},
+  { path: 'appointment-details/:id', component: AppointmentDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'facility', component: FacilityComponent, canActivate: [AuthGuard] },
+  { path: 'insurance', component: InsuranceComponent, canActivate: [AuthGuard]},
+  { path: 'specialty', component: SpecialtyComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent},
   { path: 'register', component: RegisterComponent },
-  { path: 'edit-profile', component: EditProfileComponent },
-  {path: 'appointment', component: AppointmentComponent },
+  { path: 'appointment', component: AppointmentComponent, canActivate: [AuthGuard] },
+  {path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard]},
 
 
 

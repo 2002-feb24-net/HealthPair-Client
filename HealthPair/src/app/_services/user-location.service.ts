@@ -37,9 +37,7 @@ export class UserLocationService
           err =>
           {
             // TODO: Error handling
-            //this.handleError(`getMyPosition`,err)
             console.log(err.message);
-            //reject(err);
           });
       });
     }
@@ -55,17 +53,7 @@ export class UserLocationService
     city = this.FormatLocationString(city);
     var finalString = address1+",+"+city+",+"+state;
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = `${this.baseUrl}${finalString}&key=${this.key}`; // site that doesn’t send Access-Control-*
-    // return fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-    //   .then(response => {
-    //     console.log(response);
-    //     response.text()})
-    //   .then(contents => {
-    //     var myContents = JSON.parse(contents);
-    //     return(contents);
-    //   })
-    // .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
-    // return this.http.get<any>(`${this.baseUrl}${finalString}&key=${this.key}`)
+    const url = `${this.baseUrl}${finalString}&key=${this.key}`;
     return this.http.get<any>(proxyurl + url);
   }
 

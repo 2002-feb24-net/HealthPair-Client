@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
+import { Location } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AlertService, HealthPairService, AuthenticationService } from '../_services';
-import { NgForOf } from '@angular/common';
 import { Insurance, Patient } from '../models';
 
 @Component({ templateUrl: 'register.component.html' })
@@ -20,7 +20,8 @@ export class RegisterComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private HealthPairService: HealthPairService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private location: Location
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.CurrentPatientValue) {
@@ -59,12 +60,12 @@ export class RegisterComponent implements OnInit {
 
         this.HealthPairService.searchInsurance(this.chosenInsurance)
           .subscribe(insurance => {
-            this.myInsurance[0] = insurance;
+            this.myInsurance = insurance[0];
             var myReturnObject: Patient = new Patient
 
             {
-                myReturnObject.insuranceId = this.myInsurance[0].insuranceId,
-                myReturnObject.insuranceName = this.myInsurance[0].insuranceName,
+                myReturnObject.insuranceId = this.myInsurance.insuranceId,
+                myReturnObject.insuranceName = this.myInsurance.insuranceName,
                 myReturnObject.patientId = 0,
                 myReturnObject.patientFirstName = this.registerForm.value.PatientFirstName,
                 myReturnObject.patientLastName = this.registerForm.value.PatientLastName,
@@ -82,29 +83,29 @@ export class RegisterComponent implements OnInit {
             .subscribe(
                 data => {
                     this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
+                    this.authenticationService.login(this.f.PatientEmail.value, this.f.PatientPassword.value)
+                    .pipe(first())
+                    .subscribe(
+                        data => {
+                            this.location.back();
+                        },
+                        error => {
+                            this.alertService.error(error);
+                            this.loading = false;
+                        });
                 },
                 error => {
                     this.alertService.error(error);
                     this.loading = false;
                 });
-          })
-
-
-
-
+        })
         // reset alerts on submit
         this.alertService.clear();
 
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
-
-
         }
-
-
-
     }
 
     getAll()
@@ -113,6 +114,7 @@ export class RegisterComponent implements OnInit {
         .subscribe(insurances =>
         {
           this.insurances = insurances;
+          this.insurances = this.insurances.sort((a, b) => (a.insuranceName > b.insuranceName) ? 1 : -1);
         });
     }
 
