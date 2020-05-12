@@ -18,13 +18,13 @@ const routes: Routes = [
   { path: 'landing-page', component: LandingPageComponent },
   { path: 'provider-selection', component: ProviderSelectionComponent },
   { path: 'appointment-details/:id', component: AppointmentDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'facility', component: FacilityComponent },
-  { path: 'insurance', component: InsuranceComponent},
-  { path: 'specialty', component: SpecialtyComponent},
+  { path: 'facility', component: FacilityComponent, canActivate: [AuthGuard] },
+  { path: 'insurance', component: InsuranceComponent, canActivate: [AuthGuard]},
+  { path: 'specialty', component: SpecialtyComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent},
   { path: 'register', component: RegisterComponent },
-  { path: 'appointment', component: AppointmentComponent },
+  { path: 'appointment', component: AppointmentComponent, canActivate: [AuthGuard] },
 
 
 

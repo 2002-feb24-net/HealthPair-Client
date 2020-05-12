@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HealthPairService } from '../_services/healthpairapi.service';
-import { Provider } from '../models';
-import { SearchService, UserLocationService } from '../_services';
+import { HealthPairService, AuthenticationService, SearchService, UserLocationService } from '../_services';
+import { Provider, Patient } from '../models';
 import { ActivatedRoute,Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -12,15 +11,16 @@ import { Location } from '@angular/common';
 })
 export class ProviderSelectionComponent implements OnInit {
   imgurl = 'https://cdn4.iconfinder.com/data/icons/linecon/512/photo-512.png';
+
   initialProviders: Provider[];
   finalProviders: Provider[];
+  currentPatient : Patient;
 
   yourLocation : string;
   destinationLocation : string;
   finalDistance : string;
 
   stringIns: string;
-
   currentProviderCount : number = 0;
 
   constructor(
@@ -30,7 +30,10 @@ export class ProviderSelectionComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-  ) { }
+    private authenticationService: AuthenticationService
+  ) {
+    this.currentPatient = this.authenticationService.CurrentPatientValue;
+  }
   ngOnInit(): void {
     this.initialProviders = [];
     this.finalProviders = [];
@@ -80,7 +83,6 @@ export class ProviderSelectionComponent implements OnInit {
     this.yourLocation = "Your Location: Calculating...";
     return this.locationService.getMyPosition()
       .then(pos => {
-        console.log(`Position: ${pos.lng} ${pos.lat}`);
         const myReturn = [pos.lng, pos.lat];
         this.yourLocation = "Your Location: Longitude: " + myReturn[0] + " Latitude: " + myReturn[1];
         return myReturn;
@@ -92,8 +94,6 @@ export class ProviderSelectionComponent implements OnInit {
     return this.locationService.getLocationCoords(address, city, state)
       .toPromise()
       .then(coords => {
-        console.log("Latitude: " + coords.results[0].geometry.location.lat)
-        console.log("Longitude: " + coords.results[0].geometry.location.lng)
         const myReturn = [coords.results[0].geometry.location.lng, coords.results[0].geometry.location.lat];
         this.destinationLocation = "Destination: Longitude: " + myReturn[0] + " Latitude: " + myReturn[1];
         return myReturn;
