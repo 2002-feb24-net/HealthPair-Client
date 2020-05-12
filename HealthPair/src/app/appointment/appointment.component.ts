@@ -9,7 +9,7 @@ import { NgModel } from '@angular/forms';
   styleUrls: ['./appointment.component.css']
 })
 export class AppointmentComponent implements OnInit {
-  currentPatient:any;
+  currentPatient: Patient;
   appointments: Appointment[] = [];
   appointment: Appointment;
 
@@ -26,10 +26,15 @@ export class AppointmentComponent implements OnInit {
 
   GetAppointmentByCurrentUser()
   {
-    return this.service.getAppointmentAll()
-      .subscribe(appointments => {
-      this.appointments = appointments
-      this.appointments = this.appointments.sort((a, b) => (a.appointmentDate > b.appointmentDate) ? 1 : -1)})
+    if(this.currentPatient)
+    {
+      return this.service.searchAppointment(this.currentPatient.patientFirstName)
+        .subscribe(appointments =>
+        {
+          this.appointments = appointments
+          this.appointments = this.appointments.sort((a, b) => (a.appointmentDate > b.appointmentDate) ? 1 : -1)
+        })
+    }
   };
 
     CancelAppointment(appointment : Appointment)

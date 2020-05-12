@@ -67,13 +67,13 @@ export class ProviderSelectionComponent implements OnInit {
       {
         this.setDistance(q);
       }
-      this.finalProviders = this.finalProviders.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
     });
   }
 
   async setDistance(q : number)
   {
       this.finalProviders[q].distance = await Promise.resolve(this.calculateDistance(this.finalProviders[q]));
+      this.finalProviders = this.finalProviders.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
   }
 
   getCurrentLocation() {
