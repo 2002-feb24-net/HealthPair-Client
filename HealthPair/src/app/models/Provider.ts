@@ -1,19 +1,21 @@
 export class Provider
 {
-    ProviderId : number;
-    ProviderFirstName : string;
-    ProviderLastName : string;
-    ProviderPhoneNumber : number;
+    providerId : number;
+    providerFirstName : string;
+    providerLastName : string;
+    providerPhoneNumber : number;
 
-    FacilityId : number;
-    FacilityAddress1 : string;
-    FacilityName : string;
-    FacilityCity: string;
-    FacilityState : string;
-    FacilityPhoneNumber : number;
+    facilityId : number;
+    facilityAddress1 : string;
+    facilityName : string;
+    facilityCity: string;
+    facilityState : string;
+    facilityPhoneNumber : number;
 
-    SpecialtyId : number;
-    Specialty : string;
+    specialtyId : number;
+    specialty : string;
 
-    InsuranceIds : number[];
+    insuranceIds : number[];
+
+    distance : number = 0;
 }

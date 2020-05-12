@@ -1,3 +1,14 @@
-<p>
-  appointment works!
-</p>
+<div *ngIf="appointments.length > 0 && currentPatient">
+  <h2>Appointments for {{this.currentPatient.patientFirstName}} {{this.currentPatient.patientLastName}}</h2>
+  <br />
+  <div *ngFor="let appointment of appointments; let i = index;">
+    <br/>
+    <div *ngIf = "this.currentPatient.patientId == this.appointment.patientId" class="usersAppointment">
+    <p><b>Date:</b> {{this.appointment.appointmentDate | date}}</p>
+    <p><b>Provider's Name: </b>{{this.appointment.providerFirstName}} {{this.appointment.providerLastName}}</p>
+    <p><b>Provider's phone number: </b>{{this.appointment.providerPhoneNumber }}</p>
+    <button (click)="CancelAppointment(this.appointment)">Cancel Appointment</button>
+    <br />
+    </div>
+  </div>
+</div>

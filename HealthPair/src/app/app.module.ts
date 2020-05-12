@@ -32,6 +32,7 @@ import { google } from '@agm/core/services/google-maps-types';
 import { JwtInterceptor, ErrorInterceptor } from './authentification';
 import { SpecialtyComponent } from './specialty/specialty.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     InsuranceDetailsComponent,
     AlertComponent,
     SpecialtyComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    LogoutComponent
 
   ],
   imports: [

@@ -1,37 +1,37 @@
-<div class="container text-center">
+<div *ngIf="this.loading == true" style="font-size:150%; text-align: center;">
+  Loading...
+  <div *ngIf="this.warningText">{{warningText}}</div>
+</div>
+
+<div *ngIf="this.loading==false" class="container text-center">
   <h2>Find a doc who...</h2>
   <br />
-  <form [formGroup]="landingpageForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="landingPageForm" (ngSubmit)="onSubmit()">
     <div class="form-inline">
       <div class="md-form">
         Accepts&nbsp;
-        <select class="form-control" formControlName="insurance" *ngIf="insurances">
-          <option selected>Humana</option>
+        <select class="form-control" formControlName="insurance" *ngIf="insurances" [ngClass]="{ 'is-invalid': submitted && f.insurance.errors }">
+          <option value="" selected hidden> Select Insurance</option>
           <option *ngFor="let insurance of insurances">{{insurance.insuranceName}}</option>
         </select>
         &nbsp;and Practices&nbsp;
-        <select class="form-control" formControlName="specialty" *ngIf="specialties">
-          <option selected>Optometry</option>
+        <select class="form-control" formControlName="specialty" *ngIf="specialties" [ngClass]="{ 'is-invalid': submitted && f.specialty.errors }">
+          <option value="" selected hidden> Select Specialty</option>
           <option *ngFor="let specialty of specialties">{{specialty.specialty}}</option>
         </select>
         &nbsp;&nbsp;
         <span class="d-sm-none"><br /></span>
         <button type="submit" class="btn btn-primary">Search</button>
+        <br/>
+        <span *ngIf="submitted && f.insurance.errors" class="invalid-feedback">
+          <span *ngIf="f.insurance.errors.required">Insurance is required</span>
+        </span>
+        <span *ngIf="submitted && f.specialty.errors" class="invalid-feedback">
+          <span *ngIf="f.specialty.errors.required">Specialty is required</span>
+        </span>
       </div>
     </div>
   </form>
   <hr />
   <br />
-</div>
-
-
-<p>theplace</p>
-
-<div>{{this.yourLocation}}</div>
-<div>{{this.destinationLocation}}</div>
-<div>{{this.finalDistance}}</div>
-<div>
-  <span style="padding-left: 5%;"><button (click)="getCurrentLocation()">Get My Location</button></span>
-  <span style="padding-left: 5%;"><button (click)="getTargetLocation('1600 Amphitheatre Parkway','Mountain View','California')">Get Other Location</button></span>
-  <span style="padding-left: 5%;"><button (click)="calculateDistance('1600 Amphitheatre Parkway','Mountain View','California')">Calculate Distance</button></span>
 </div>

@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { HealthPairService,AuthenticationService} from '../_services';
 import { Patient,Provider,Appointment } from '../models';
 
+import { Router} from '@angular/router';
+
 @Component({
   selector: 'app-appointment-details',
   templateUrl: './appointment-details.component.html',
@@ -27,36 +29,21 @@ export class AppointmentDetailsComponent implements OnInit
     this.meridian = !this.meridian;
   }
 
-  constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService, private formBuilder: FormBuilder)
+  constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService, private formBuilder: FormBuilder,
+    private router: Router)
   {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
   }
 
   ngOnInit(): void
   {
-  //   this.appointmentForm = this.formBuilder.group({
-  //     DoctorName: ['', Validators.required],
-  //     LocationName: ['', Validators.required],
-  //     PatientName: ['', Validators.required],
-  //     PatientPhoneNumber: ['', [Validators.required, Validators.minLength(9),  Validators.maxLength(12)]],
-  //     PatientAddress: ['', Validators.required],
-  //     PatientCity: ['', Validators.required],
-  //     PatientState: ['', Validators.required],
-  //     PatientZipcode: ['', Validators.required],
-  //     AppointmentDate: ['', Validators.required],
-  //     AppointmentTime: ['', Validators.required],
-  // });
-
   this.HealthPairService.getProviderById(1)
     .subscribe(prov => this.currentProvider = prov);
 
   }
 
-  // get f() { return this.appointmentForm.controls; }
-
     onSubmit(date:Date,time:any)
     {
-      console.log(this.currentPatient);
       var craftedDate = new Date;
       craftedDate.setFullYear(date.getFullYear());
       craftedDate.setMonth(date.getMonth());
@@ -65,15 +52,18 @@ export class AppointmentDetailsComponent implements OnInit
       craftedDate.setMinutes(time.minute);
       craftedDate.setSeconds(time.second);
 
+
+
       var myAppointment = new Appointment
       {
-        myAppointment.AppointmentId = 0;
-        myAppointment.AppointmentDate = craftedDate;
-        myAppointment.PatientId = this.currentPatient.patientId;
-        myAppointment.ProviderId = this.currentProvider.providerId;
+        myAppointment.appointmentId = 0;
+        myAppointment.appointmentDate = craftedDate;
+        myAppointment.patientId = this.currentPatient.patientId;
+        myAppointment.providerId = this.currentProvider.providerId;
       }
       this.HealthPairService.createAppointment(myAppointment)
         .subscribe();
+      console.log(myAppointment);
       this.responseText = "Appointment Successfully Created!";
     }
 }

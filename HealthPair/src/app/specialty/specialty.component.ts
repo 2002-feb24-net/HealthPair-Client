@@ -27,26 +27,26 @@ export class SpecialtyComponent implements OnInit {
   AddSpecialty(specialtyName: string) {
     let newSpecialty = new Specialty
     {
-      newSpecialty.Specialty = specialtyName
+      newSpecialty.specialty = specialtyName
     }
     this.HealthPairService.createSpecialty(newSpecialty)
     .subscribe(mySpecialty => {
       this.mySpecialties.push(mySpecialty)
     });
-    
+
     this.createdMessage = "Your specialty has been created!"
   }
 
   delete(specialty: Specialty) {
     this.mySpecialties = this.mySpecialties.filter(r => r !== specialty);
-    this.HealthPairService.deleteFacility(specialty.SpecialtyId).subscribe();
+    this.HealthPairService.deleteFacility(specialty.specialtyId).subscribe();
   }
   getHighestSpecialtyId()
   {
     this.HealthPairService.getSpecialtyAll()
       .subscribe(specialties => {
         this.mySpecialties = specialties,
-        this.highest = this.mySpecialties[this.mySpecialties.length-1].SpecialtyId;
+        this.highest = this.mySpecialties[this.mySpecialties.length-1].specialtyId;
       });
   }
 }

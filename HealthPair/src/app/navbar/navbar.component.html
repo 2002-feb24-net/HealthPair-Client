@@ -29,10 +29,10 @@
         <a class="nav-link" routerLink="/edit-profile">Edit Profile</a>
       </li>
       <li *ngIf="currentPatient" class="nav-item">
-        <a class="nav-link" routerLink="/register">My Appointments</a>
+        <a class="nav-link" routerLink="appointment">My Appointments</a>
       </li>
       <li *ngIf="currentPatient" class="nav-item">
-        <a class="nav-link text-white btn btn-primary" (click)="logout()" style="cursor:pointer;">LOGOUT</a>
+        <a class="nav-link text-white btn btn-primary" routerLink="/logout" (click)="logout()" style="cursor:pointer;">LOGOUT</a>
       </li>
       <li *ngIf="currentPatient == undefined" class="nav-item">
         <a class="nav-link" routerLink="/register">Register</a>
