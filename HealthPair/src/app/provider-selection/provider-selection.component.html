@@ -27,7 +27,12 @@
               <span *ngIf="prov.distance != 0"> {{prov.distance}} kilmeters away </span>
             </mdb-card-text>
             <div>
-              <button mdbBtn color="primary" routerLink="/appointment-details/{{prov.providerId}}">SELECT</button>
+              <div *ngIf="currentPatient == undefined">
+                You need to log in to make an appointment!
+                <button routerLink="/login">Log In</button>
+                <button routerLink="/register">Register</button>
+              </div>
+              <button *ngIf="currentPatient != undefined" mdbBtn color="primary" routerLink="/appointment-details/{{prov.providerId}}">SELECT</button>
             </div>
           </div>
         </mdb-card-body>

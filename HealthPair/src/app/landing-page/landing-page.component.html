@@ -10,8 +10,12 @@
     <div class="form-inline">
       <div class="md-form">
         Accepts&nbsp;
-        <select class="form-control" formControlName="insurance" *ngIf="insurances" [ngClass]="{ 'is-invalid': submitted && f.insurance.errors }">
+        <select class="form-control" formControlName="insurance" *ngIf="insurances && currentPatient == undefined" [ngClass]="{ 'is-invalid': submitted && f.insurance.errors }">
           <option value="" selected hidden> Select Insurance</option>
+          <option *ngFor="let insurance of insurances">{{insurance.insuranceName}}</option>
+        </select>
+        <select class="form-control" formControlName="insurance" *ngIf="insurances && currentPatient != undefined" [ngClass]="{ 'is-invalid': submitted && f.insurance.errors }">
+          <option selected> {{currentPatient.insuranceName}}</option>
           <option *ngFor="let insurance of insurances">{{insurance.insuranceName}}</option>
         </select>
         &nbsp;and Practices&nbsp;

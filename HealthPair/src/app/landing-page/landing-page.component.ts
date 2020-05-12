@@ -29,10 +29,19 @@ export class LandingPageComponent implements OnInit {
     insurance: ['', Validators.required],
     specialty: ['', Validators.required]
   })
-  constructor(private SearchService: SearchService, private router: Router, private builder: FormBuilder, private HealthPairService: HealthPairService,private authenticationService: AuthenticationService) { }
+  constructor
+  (
+    private SearchService: SearchService,
+    private router: Router,
+    private builder: FormBuilder,
+    private HealthPairService: HealthPairService,
+    private authenticationService: AuthenticationService
+  )
+  {
+    this.currentPatient = this.authenticationService.CurrentPatientValue;
+  }
 
   ngOnInit(): void {
-    this.currentPatient = this.authenticationService.CurrentPatientValue;
     this.getAll();
   }
 
@@ -57,7 +66,17 @@ export class LandingPageComponent implements OnInit {
     this.HealthPairService.getInsuranceAll()
       .subscribe(insurances =>
       {
-        this.insurances = insurances
+        this.insurances = insurances;
+        if(this.currentPatient != null)
+        {
+          console.log('boop');
+          this.insurances.filter(p =>
+          {
+            console.log(p.insuranceName + ' vs ' + this.currentPatient.insuranceName);
+            p.insuranceName != this.currentPatient.insuranceName;
+          });
+          console.log(insurances);
+        }
         this.insurances = this.insurances.sort((a, b) => (a.insuranceName > b.insuranceName) ? 1 : -1);
       });
       this.HealthPairService.getSpecialtyAll()

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
-import { HealthPairService,AuthenticationService} from '../_services';
+import { HealthPairService,AuthenticationService } from '../_services';
 import { Patient,Provider,Appointment } from '../models';
 
 import { Router,ActivatedRoute } from '@angular/router';
@@ -14,8 +14,8 @@ import { Location } from '@angular/common';
 })
 export class AppointmentDetailsComponent implements OnInit
 {
-  currentProvider : any;
-  currentPatient : any;
+  currentProvider : Provider;
+  currentPatient : Patient;
   appointmentForm: FormGroup;
   loading = false;
   submitted = false;
@@ -30,8 +30,15 @@ export class AppointmentDetailsComponent implements OnInit
     this.meridian = !this.meridian;
   }
 
-  constructor(private HealthPairService: HealthPairService,private authenticationService: AuthenticationService, private formBuilder: FormBuilder,
-    private router: Router, private route: ActivatedRoute, private location: Location)
+  constructor
+  (
+    private HealthPairService: HealthPairService,
+    private authenticationService: AuthenticationService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private location: Location
+  )
   {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
   }
@@ -41,7 +48,13 @@ export class AppointmentDetailsComponent implements OnInit
     const id = +this.route.snapshot.paramMap.get('id');
 
   this.HealthPairService.getProviderById(id)
-    .subscribe(prov => this.currentProvider = prov);
+    .subscribe(prov => {
+      this.currentProvider = prov;
+      if(this.currentProvider = undefined)
+      {
+        this.router.navigateByUrl('');
+      }
+    });
 
   }
 
@@ -67,7 +80,10 @@ export class AppointmentDetailsComponent implements OnInit
       this.HealthPairService.createAppointment(myAppointment)
         .subscribe();
       console.log(myAppointment);
-      this.responseText = "Appointment Successfully Created!";
+      this.responseText = "Appointment Successfully Created! Redirecting...";
+      setTimeout(() => {
+        this.router.navigateByUrl('/appointment')
+      }, 1000)
     }
 
     goBack(): void
