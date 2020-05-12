@@ -42,9 +42,6 @@
         <input type="date" name="PatientBirthDay" [ngModel]="currentPatient.patientBirthDay | date:'yyyy-MM-dd'" (ngModelChange)="currentPatient.patientBirthDay = onSubmit(form)" type="date">
     </label>
     <br />
-    <label hidden>Token
-        <input type="text" name="Token" [(ngModel)]="currentPatient.token">
-    </label>
     <label> Insurance Id:
         <input type="text" name="InsuranceId" [(ngModel)]="currentPatient.insuranceId">
     </label>

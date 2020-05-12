@@ -68,21 +68,20 @@ export class EditProfileComponent implements OnInit {
   UpdateRecord(form: any) {
     var newPatient : Patient = new Patient 
     {
-      newPatient.PatientId = form[0].viewModel,
-      newPatient.PatientFirstName = form[1].viewModel,
-      newPatient.PatientLastName = form[2].viewModel,
-      newPatient.PatientEmail = form[3].viewModel,
-      newPatient.PatientPassword = form[4].viewModel,
-      newPatient.PatientAddress1 = form[5].viewModel,
-      newPatient.PatientCity  = form[6].viewModel,
-      newPatient.PatientState = form[7].viewModel,
-      newPatient.PatientZipcode = form[8].viewModel,
-      newPatient.PatientPhoneNumber = form[9].viewModel,
-      newPatient.PatientBirthDay = form[10].viewModel,
-      newPatient.Token = form[11].viewModel
-      newPatient.InsuranceId = form[12].viewModel,
-      newPatient.InsuranceName = form[13].viewModel
-      newPatient.IsAdmin = form[14].viewModel
+      newPatient.patientId = form[0].viewModel,
+      newPatient.patientFirstName = form[1].viewModel,
+      newPatient.patientLastName = form[2].viewModel,
+      newPatient.patientEmail = form[3].viewModel,
+      newPatient.patientPassword = form[4].viewModel,
+      newPatient.patientAddress1 = form[5].viewModel,
+      newPatient.patientCity  = form[6].viewModel,
+      newPatient.patientState = form[7].viewModel,
+      newPatient.patientZipcode = form[8].viewModel,
+      newPatient.patientPhoneNumber = form[9].viewModel,
+      newPatient.patientBirthDay = form[10].viewModel,
+      newPatient.insuranceId = form[11].viewModel,
+      newPatient.insuranceName = form[12].viewModel
+      newPatient.isAdmin = form[13].viewModel
       
     };
     console.log(newPatient);
