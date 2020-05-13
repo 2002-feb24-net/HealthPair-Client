@@ -32,6 +32,7 @@ import { google } from '@agm/core/services/google-maps-types';
 import { JwtInterceptor, ErrorInterceptor } from './authentification';
 import { SpecialtyComponent } from './specialty/specialty.component';
 import { LogoutComponent } from './logout/logout.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { LogoutComponent } from './logout/logout.component';
     InsuranceDetailsComponent,
     AlertComponent,
     SpecialtyComponent,
-    LogoutComponent
+    LogoutComponent,
+    ConfirmDialogComponent
 
   ],
   imports: [
@@ -72,6 +74,7 @@ import { LogoutComponent } from './logout/logout.component';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmDialogComponent]
 })
 export class AppModule { }

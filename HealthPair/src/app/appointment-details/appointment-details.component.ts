@@ -6,6 +6,8 @@ import { Patient,Provider,Appointment } from '../models';
 
 import { Router,ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import {DialogService} from '../_services/dialog.service';
 
 @Component({
   selector: 'app-appointment-details',
@@ -37,7 +39,9 @@ export class AppointmentDetailsComponent implements OnInit
     private formBuilder: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private dialog: MatDialog,
+    private dialogService: DialogService
   )
   {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
@@ -60,30 +64,34 @@ export class AppointmentDetailsComponent implements OnInit
 
     onSubmit(date:Date,time:any)
     {
-      var craftedDate = new Date;
-      craftedDate.setFullYear(date.getFullYear());
-      craftedDate.setMonth(date.getMonth());
-      craftedDate.setDate(date.getDate());
-      craftedDate.setHours(time.hour);
-      craftedDate.setMinutes(time.minute);
-      craftedDate.setSeconds(time.second);
+      this.dialogService.openConfirmDialog('Are you sure you want to schedule this appointment?').afterClosed().subscribe(res => {if(res) {
+        var craftedDate = new Date;
+        craftedDate.setFullYear(date.getFullYear());
+        craftedDate.setMonth(date.getMonth());
+        craftedDate.setDate(date.getDate());
+        craftedDate.setHours(time.hour);
+        craftedDate.setMinutes(time.minute);
+        craftedDate.setSeconds(time.second);
 
 
 
-      var myAppointment = new Appointment
-      {
-        myAppointment.appointmentId = 0;
-        myAppointment.appointmentDate = craftedDate;
-        myAppointment.patientId = this.currentPatient.patientId;
-        myAppointment.providerId = this.currentProvider.providerId;
-      }
-      this.HealthPairService.createAppointment(myAppointment)
-        .subscribe();
-      console.log(myAppointment);
-      this.responseText = "Appointment Successfully Created! Redirecting...";
-      setTimeout(() => {
-        this.router.navigateByUrl('/appointment')
-      }, 1000)
+        var myAppointment = new Appointment
+        {
+          myAppointment.appointmentId = 0;
+          myAppointment.appointmentDate = craftedDate;
+          myAppointment.patientId = this.currentPatient.patientId;
+          myAppointment.providerId = this.currentProvider.providerId;
+        }
+        this.HealthPairService.createAppointment(myAppointment)
+          .subscribe();
+        console.log(myAppointment);
+        this.responseText = "Appointment Successfully Created! Redirecting...";
+        setTimeout(() => {
+          this.router.navigateByUrl('/appointment')
+        }, 1000)
+
+      }})
+
     }
 
     goBack(): void
