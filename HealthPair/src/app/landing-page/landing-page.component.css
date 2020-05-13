@@ -14,5 +14,7 @@ form {
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
-  text-align: left;
+  background-color: white;
+  text-align-last: center;
+  text-align: center;
 }

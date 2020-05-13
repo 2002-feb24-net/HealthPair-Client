@@ -1,7 +1,6 @@
-<ul class="pl-5">
-  <li>Here are docs that accept {{SearchService.sharedIns}} and practice {{SearchService.sharedSpec}}</li>
-</ul>
-
+<div class="container rounded h2container mt-2">
+  <h2>Here are docs that accept {{SearchService.sharedIns}} and practice {{SearchService.sharedSpec}}</h2>
+</div>
 <div class="container">
   <div class="row">
     <div class="col-md-12 mx-auto my-5" *ngFor="let prov of finalProviders">
@@ -28,11 +27,12 @@
             </mdb-card-text>
             <div>
               <div *ngIf="currentPatient == undefined">
-                You need to log in to make an appointment!
-                <button routerLink="/login">Log In</button>
+                <span class="small">Account is required to continue.</span>
+                <br />
                 <button routerLink="/register">Register</button>
+                <button routerLink="/login" style="margin-right:5px">Log In</button>
               </div>
-              <button *ngIf="currentPatient != undefined" mdbBtn color="primary" routerLink="/appointment-details/{{prov.providerId}}">SELECT</button>
+              <button *ngIf="currentPatient != undefined" mdbBtn class="nextButton" routerLink="/appointment-details/{{prov.providerId}}"><span>Select </span></button>
             </div>
           </div>
         </mdb-card-body>
@@ -40,4 +40,6 @@
     </div>
   </div>
 </div>
-<button (click)="goBack()">Go Back</button>
+<button class="mb-2 mt-1 newButton" (click)="goBack()">Go Back</button>
+<br />
+<br />
