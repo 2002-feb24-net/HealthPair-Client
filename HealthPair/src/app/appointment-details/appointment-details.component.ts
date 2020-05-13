@@ -50,7 +50,7 @@ export class AppointmentDetailsComponent implements OnInit
   this.HealthPairService.getProviderById(id)
     .subscribe(prov => {
       this.currentProvider = prov;
-      if(this.currentProvider = undefined)
+      if(this.currentProvider == undefined)
       {
         this.router.navigateByUrl('');
       }
