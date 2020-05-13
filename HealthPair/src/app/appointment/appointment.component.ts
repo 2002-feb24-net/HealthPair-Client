@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Patient, Appointment} from '../models';
 import {AuthenticationService, HealthPairService} from "../_services"
 import { NgModel } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogService } from '../_services/dialog.service';
 
 @Component({
   selector: 'app-appointment',
@@ -14,7 +16,11 @@ export class AppointmentComponent implements OnInit {
   appointment: Appointment;
 
 
-  constructor(public service: HealthPairService, private authenticationService: AuthenticationService)
+  constructor(
+    public service: HealthPairService,
+    private authenticationService: AuthenticationService,
+    private dialog: MatDialog,
+    private dialogService: DialogService)
   {
     this.authenticationService.CurrentPatient.subscribe(x => this.currentPatient = x);
   }
@@ -39,7 +45,9 @@ export class AppointmentComponent implements OnInit {
 
     CancelAppointment(appointment : Appointment)
     {
+      this.dialogService.openConfirmDialog('Are you sure you want to cancel this appointment?').afterClosed().subscribe(res => {if(res){
       this.appointments = this.appointments.filter(r => r !== appointment);
       return this.service.deleteAppointment(appointment.appointmentId).subscribe()
+      }})
     }
 }
