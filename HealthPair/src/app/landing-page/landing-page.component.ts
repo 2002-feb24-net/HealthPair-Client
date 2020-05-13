@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { HealthPairService,AuthenticationService } from '../_services';
+import { HealthPairService,AuthenticationService, SearchService } from '../_services';
 import { Insurance, Patient, Specialty } from '../models';
-import { SearchService } from '../_services/search.service';
 import { Router } from '@angular/router';
 
 
