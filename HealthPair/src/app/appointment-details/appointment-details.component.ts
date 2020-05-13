@@ -70,7 +70,7 @@ export class AppointmentDetailsComponent implements OnInit
         craftedDate.setFullYear(date.getFullYear());
         craftedDate.setMonth(date.getMonth());
         craftedDate.setDate(date.getDate());
-        craftedDate.setHours(time.hour);
+        craftedDate.setHours(time.hour-5);
         craftedDate.setMinutes(time.minute);
         craftedDate.setSeconds(time.second);
 
