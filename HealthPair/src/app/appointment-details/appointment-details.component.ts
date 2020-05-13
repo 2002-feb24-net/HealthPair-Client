@@ -64,7 +64,8 @@ export class AppointmentDetailsComponent implements OnInit
 
     onSubmit(date:Date,time:any)
     {
-      this.dialogService.openConfirmDialog('Are you sure you want to schedule this appointment?').afterClosed().subscribe(res => {if(res) {
+      this.dialogService.openConfirmDialog('Are you sure you want to schedule this appointment?').afterClosed().subscribe(res => {if(res)
+      {
         var craftedDate = new Date;
         craftedDate.setFullYear(date.getFullYear());
         craftedDate.setMonth(date.getMonth());
@@ -83,13 +84,14 @@ export class AppointmentDetailsComponent implements OnInit
           myAppointment.providerId = this.currentProvider.providerId;
         }
         this.HealthPairService.createAppointment(myAppointment)
-          .subscribe();
-        console.log(myAppointment);
-        this.responseText = "Appointment Successfully Created! Redirecting...";
-        setTimeout(() => {
-          this.router.navigateByUrl('/appointment')
-        }, 1000)
-
+          .subscribe(variable =>
+          {
+            console.log(variable);
+            this.responseText = "Appointment Successfully Created! Redirecting...";
+            setTimeout(() => {
+              this.router.navigateByUrl('/appointment')
+            }, 1000)
+          });
       }})
 
     }
