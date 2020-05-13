@@ -43,6 +43,10 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    if(this.currentPatient)
+    {
+      this.landingPageForm.setValue({insurance : this.currentPatient.insuranceName, specialty: ''});
+    }
   }
 
   get f() { return this.landingPageForm.controls; }
