@@ -19,6 +19,7 @@
   border-color: red !important;
   box-shadow: none !important;
   background-color: white !important;
+  color: red !important;
 }
 
 :host /deep/ ngb-timepicker .btn-outline-primary:hover {

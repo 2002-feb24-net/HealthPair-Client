@@ -75,7 +75,6 @@
   </div>
 </div>
 <br>
-<br>
     <div class="form-group">
         <label for="PatientEmail">Email</label>
         <input type="email" formControlName="PatientEmail" class="textBoxStyling form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientEmail.errors }" placeholder="email@email.com"/>
@@ -83,7 +82,7 @@
             <div *ngIf="f.PatientEmail.errors.required">Email is required</div>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-4">
         <label for="PatientPassword">Password</label>
         <input type="password" formControlName="PatientPassword" class="textBoxStyling form-control" [ngClass]="{ 'is-invalid': submitted && f.PatientPassword.errors }" placeholder="Password"/>
         <div *ngIf="submitted && f.PatientPassword.errors" class="invalid-feedback">
@@ -91,7 +90,7 @@
         </div>
     </div>
     <div class="form-group">
-      <button type="submit" [disabled]="loading" class="newButton" >
+      <button type="submit" [disabled]="loading" class="newButton my-2" >
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Register
       </button>

@@ -15,6 +15,6 @@
     </div>
   </div>
 </div>
-<div *ngIf="appointments.length == 0">
+<div *ngIf="appointments.length == 0" class="shadow-lg rounded py-4 bg-white container" style="max-width:60%;">
   No Appointments found for {{this.currentPatient.patientFirstName}} {{this.currentPatient.patientLastName}}!
 </div>
