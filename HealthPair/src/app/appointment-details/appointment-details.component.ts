@@ -1,13 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
-import { HealthPairService,AuthenticationService } from '../_services';
+import { HealthPairService,AuthenticationService,DialogService,AlertService } from '../_services';
 import { Patient,Provider,Appointment } from '../models';
 
 import { Router,ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import {DialogService} from '../_services/dialog.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-appointment-details',
@@ -41,7 +40,8 @@ export class AppointmentDetailsComponent implements OnInit
     private route: ActivatedRoute,
     private location: Location,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private alertService: AlertService
   )
   {
     this.currentPatient = this.authenticationService.CurrentPatientValue;
@@ -66,6 +66,23 @@ export class AppointmentDetailsComponent implements OnInit
     {
       this.dialogService.openConfirmDialog('Are you sure you want to schedule this appointment?').afterClosed().subscribe(res => {if(res)
       {
+        console.log(time.hour);
+        if(time.hour > 17 || time.hour < 7)
+        {
+          this.alertService.error("The office is only open between 7am and 6pm!");
+          return;
+        }
+        if(date < new Date)
+        {
+          this.alertService.error("That date is in the past!");
+          return;
+        }
+        if(!this.checkDate(date))
+        {
+          this.alertService.error("That date is too far in the future!");
+          return;
+        }
+
         var craftedDate = new Date;
         craftedDate.setFullYear(date.getFullYear());
         craftedDate.setMonth(date.getMonth());
@@ -100,4 +117,30 @@ export class AppointmentDetailsComponent implements OnInit
     {
       this.location.back();
     }
+
+    checkDate(myDate : Date) : boolean
+    {
+      var checker = new Date;
+      if(checker < this.sixMonthsPrior(myDate))
+      {
+        return false;
+      }
+      return true;
+    }
+
+    sixMonthsPrior(date)
+    {
+      var d = new Date(date);
+      var m = d.getMonth();
+      d.setMonth(d.getMonth() - 6);
+
+      var diff = (m + 12 - d.getMonth()) % 12;
+      if (diff < 6)
+      {
+        d.setDate(0)
+      }
+
+      return d;
+    }
+
 }
